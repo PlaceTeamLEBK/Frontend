@@ -1,3 +1,4 @@
+window.addEventListener("load", (event) => {
 var arr = new Array(200), i, l;
 for(i = 0, l = 200; i < l; i++) {
     arr[i] = new Array(200);
@@ -8,3 +9,4 @@ arr.forEach((lines,y) => {
     });
 });
 placeteam.init(arr);
+});
