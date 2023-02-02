@@ -11,7 +11,7 @@ window.addEventListener("load", (event) => {
 
     };
     placeteam.setPixel = (x,y,color) => {    
-        ctx.fillStyle = color;
-        ctx.fillRect(x, y, 1, 1);
+        placeteam.ctx.fillStyle = color;
+        placeteam.ctx.fillRect(x, y, 1, 1);
     };
 });
