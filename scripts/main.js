@@ -54,4 +54,8 @@ window.addEventListener("load", (event) => {
     canvas.addEventListener('mousedown', function(e) {
         getCursorPosition(canvas, e);
     });
+
+    canvas.addEventListener('wheel', function(event) {
+        console.log(event.deltaY);
+    })
 });
