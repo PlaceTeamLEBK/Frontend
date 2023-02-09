@@ -7,7 +7,7 @@ window.addEventListener("load", (event) => {
 
         
     };
-    placeteamm.update((updatedata) => {
+    placeteam.update((updatedata) => {
         updatedata.data.pixels.forEach((pixels) => {
             placeteam.setPixel(pixel.position.x,pixel.position.y,pixel.color)
         });
