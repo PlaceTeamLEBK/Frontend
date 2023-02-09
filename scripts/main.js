@@ -2,6 +2,7 @@ window.addEventListener("load", (event) => {
     placeteam = {};
 
     placeteam.ctx = document.getElementById("pixelcanvas").getContext("2d");
+    placeteam.ctx.imageSmoothingEnabled = false;
     placeteam.init = (pixelmap) => {
 
 
