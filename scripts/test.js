@@ -1,12 +1,19 @@
 window.addEventListener("load", (event) => {
-    var arr = new Array(200), i, l;
-    for(i = 0, l = 200; i < l; i++) {
-        arr[i] = new Array(200);
+    var test = {
+        "command": "update",
+        "timeStamp": 1675328548,
+        "data": {"pixels":[]}
+    };
+    for(x = 0; x < 200; x++) {
+        for(y = 0; y < 200; y++) {
+            test.data.pixels.push({
+                "color": '#'+Math.floor(Math.random()*16777215).toString(16),
+                "position": {
+                  "x": x,
+                  "y": y
+                }
+            });
+        }
     }
-    arr.forEach((lines,y) => {
-        lines.forEach((pixelcolor,x) => {
-            pixelcolor = '#'+Math.floor(Math.random()*16777215).toString(16);
-        });
-    });
-    placeteam.init(arr);
+    placeteam.update(test);
 });

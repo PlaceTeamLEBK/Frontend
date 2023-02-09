@@ -5,14 +5,10 @@ window.addEventListener("load", (event) => {
     placeteam.init = (pixelmap) => {
 
 
-        // pixelmap.forEach((lines,y) => {
-        //     lines.forEach((pixelcolor,x) => {
-        //         placeteam.setPixel(x,y,pixelcolor);
-        //     });
-        // });
+        
     };
     placeteamm.update((updatedata) => {
-        updatedata.pixels.forEach((pixels) => {
+        updatedata.data.pixels.forEach((pixels) => {
             placeteam.setPixel(pixel.position.x,pixel.position.y,pixel.color)
         });
     });
