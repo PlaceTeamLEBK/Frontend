@@ -39,12 +39,12 @@ window.addEventListener("load", (event) => {
     // Get coordinates of clicked position on canvas
     function getCursorPosition(canvas, event) {
       const rect = canvas.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
+      const x = (event.clientX - rect.left) / (canvas.width * canvas.clientWidth);
+      const y = event.clientY - rect.top  / (canvas.height * canvas.clientHeight);
       console.log("x: " + x + " y: " + y);
     }
   
-    const canvas = document.querySelector('canvas')
+    const canvas = document.querySelector('.mapcontainer canvas')
     canvas.addEventListener('mousedown', function(e) {
         getCursorPosition(canvas, e);
     });
