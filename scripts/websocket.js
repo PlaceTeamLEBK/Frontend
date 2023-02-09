@@ -1,5 +1,5 @@
 window.addEventListener("load", (event) => {
-    placeteam.websocket = WebSocket('ws://'+window.location.host+'/websocket, protocols)');
+    placeteam.websocket = new WebSocket('ws://'+window.location.host+'/websocket, protocols)');
 
     //open websocket and receive Data
     placeteam.websocket.onopen = function(e) {
