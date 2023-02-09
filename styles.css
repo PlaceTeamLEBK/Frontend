@@ -27,8 +27,8 @@ h1 {
     image-rendering: pixelated;
 }
 
-.button {
-
+.uicontainer {
+    margin-top: 1rem;
 }
 
 .mapcontainer--100 {
