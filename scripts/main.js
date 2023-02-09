@@ -56,10 +56,7 @@ window.addEventListener("load", (event) => {
     });
 
     canvas.addEventListener('wheel', function(event) {
-        console.log(canvas.style.width);
-
         currentCanvasWidth = parseInt(canvas.style.width.match(/\d/g));
-        canvas.style.cssText= 'width: ' + (currentCanvasWidth + Math.sign(event.event.deltaY)) + '%;'
-        console.log(event.deltaY);
+        canvas.style.cssText= 'width: ' + (currentCanvasWidth + Math.sign(event.event.deltaY)) + '%;';
     })
 });
