@@ -45,7 +45,7 @@ window.addEventListener("load", (event) => {
       const x = ((event.clientX - rect.left) / canvas.clientWidth) * canvas.width;
       const y = ((event.clientY - rect.top)  / canvas.clientWidth) * canvas.height;
 
-      placeteam.setPixel(x, y, '#'+Math.floor(Math.random()*16777215).toString(16));
+      //placeteam.setPixel(x, y, '#'+Math.floor(Math.random()*16777215).toString(16));
       console.log("x: " + x + " y: " + y);
     }
   
