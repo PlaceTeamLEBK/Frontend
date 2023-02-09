@@ -42,8 +42,8 @@ window.addEventListener("load", (event) => {
 
       // Gets the coordinates of the clicked position on the canvas, converts them to the pixel coordinates of the canvas,
       // and rounds them up. The min is necessary, as the coordinates apparently go from -0.5 to canvas.width+0.5
-      const x = Math.ceil(Math.min(((event.clientX - rect.left) / canvas.clientWidth) * canvas.width, canvas.width - 1));
-      const y = Math.ceil(Math.min(((event.clientY - rect.top)  / canvas.clientWidth) * canvas.height, canvas.height - 1));
+      const x = ((event.clientX - rect.left) / canvas.clientWidth) * canvas.width;
+      const y = ((event.clientY - rect.top)  / canvas.clientWidth) * canvas.height;
 
       placeteam.setPixel(x, y, '#'+Math.floor(Math.random()*16777215).toString(16));
       console.log("x: " + x + " y: " + y);
