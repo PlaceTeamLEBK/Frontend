@@ -1,0 +1,12 @@
+html {
+    font-size: 10px;
+}
+
+.mapcontainer {
+    max-width: 100rem;
+    margin: auto;
+}
+
+.mapcontainer > canvas {
+    width: 100%;
+}
