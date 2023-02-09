@@ -57,6 +57,6 @@ window.addEventListener("load", (event) => {
 
     canvas.addEventListener('wheel', function(event) {
         currentCanvasWidth = parseInt(canvas.style.width.match(/\d/g));
-        canvas.style.cssText = 'width: ' + (currentCanvasWidth + Math.sign(event.event.deltaY)) + '%;';
+        canvas.style.cssText = 'width: ' + (currentCanvasWidth + Math.sign(event.deltaY)) + '%;';
     })
 });
