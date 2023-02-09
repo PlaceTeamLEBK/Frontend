@@ -28,5 +28,21 @@ h1 {
 }
 
 .button {
-    
+
+}
+
+.mapcontainer--100 {
+    overflow: default;
+}
+
+.mapcontainer--100 canvas {
+    width: 100%;
+}
+
+.mapcontainer--200 canvas {
+    width: 200%;
+}
+
+.mapcontainer--400 canvas {
+    width: 400%;
 }
