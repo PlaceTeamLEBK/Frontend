@@ -9,4 +9,5 @@ html {
 
 .mapcontainer > canvas {
     width: 100%;
+    image-rendering: pixelated;
 }
