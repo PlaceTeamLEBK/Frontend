@@ -3,13 +3,12 @@ html {
 }
 
 body {
-    margin: 5rem 0;
     background-color: #ddd;
 }
 
-.mapcontainer {
+main {
     max-width: 100rem;
-    margin: auto;
+    margin: 5rem auto;
 }
 
 .mapcontainer > canvas {
