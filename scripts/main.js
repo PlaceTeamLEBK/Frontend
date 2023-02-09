@@ -39,8 +39,11 @@ window.addEventListener("load", (event) => {
     // Get coordinates of clicked position on canvas
     function getCursorPosition(canvas, event) {
       const rect = canvas.getBoundingClientRect();
-      const x = ((event.clientX - rect.left) / canvas.clientWidth) * canvas.width;
-      const y = ((event.clientY - rect.top)  / canvas.clientWidth) * canvas.height;
+
+      // Gets the coordinates of the clicked position on the canvas, converts them to the pixel coordinates of the canvas,
+      // and rounds them up. The max is necessary, as the coordinates apparently go from -0.5 to canvas.width+0.5
+      const x = Math.ceil(Math.max(((event.clientX - rect.left) / canvas.clientWidth) * canvas.width, canvas.width - 1));
+      const y = Math.ceil(Math.max(((event.clientY - rect.top)  / canvas.clientWidth) * canvas.height, canvas.height - 1));
       console.log("x: " + x + " y: " + y);
     }
   
