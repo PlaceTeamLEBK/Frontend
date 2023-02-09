@@ -23,26 +23,9 @@ h1 {
 }
 
 .mapcontainer > canvas {
-    width: 200%;
     image-rendering: pixelated;
 }
 
 .uicontainer {
     margin-top: 1rem;
-}
-
-.mapcontainer--100 {
-    overflow: default;
-}
-
-.mapcontainer--100 canvas {
-    width: 100%;
-}
-
-.mapcontainer--200 canvas {
-    width: 200%;
-}
-
-.mapcontainer--400 canvas {
-    width: 400%;
 }
