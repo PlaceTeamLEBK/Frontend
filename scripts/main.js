@@ -2,8 +2,10 @@ window.addEventListener("load", (event) => {
     placeteam = {};
 
     const zoomSpeed = 2;
+    const maximumClickDownTimeToPlacePixel = 125;
 
     mouseIsDown = false;
+    lastMouseDown = 0;
 
     placeteam.mapcontainer = document.querySelector('.mapcontainer');
     placeteam.canvas = document.getElementById("pixelcanvas");
@@ -35,13 +37,13 @@ window.addEventListener("load", (event) => {
             "key": "5251d829377e9590737d859d04bf3e0e17091e5cd62626c92e7af82d9efc602f",
             "timeStamp": Date.now(),
             "data": {
-              "pixel": {
+                "pixel": {
                 "color": color,
                 "position": {
-                  "x": x,
-                  "y": y
+                    "x": x,
+                    "y": y
                 }
-              }
+                }
             }
         });
     }
@@ -61,11 +63,14 @@ window.addEventListener("load", (event) => {
     }
 
     placeteam.canvas.addEventListener('mousedown', function(event) {
+        lastMouseDown = Date.now();
         mouseIsDown = true;
-        placePixelOnCanvas(placeteam.canvas, event);
     });
 
-    placeteam.canvas.addEventListener('mouseup', function() {
+    placeteam.canvas.addEventListener('mouseup', function(event) {
+        if (Date.now() - lastMouseDown < maximumClickDownTimeToPlacePixel) {
+            placePixelOnCanvas(placeteam.canvas, event);
+        }
         mouseIsDown = false;
     });
 
@@ -81,11 +86,15 @@ window.addEventListener("load", (event) => {
         placeteam.canvas.style.cssText = 'width: ' + currentCanvasWidth + '%;';
     });
 
+    placeteam.mapcontainer.addEventListener('wheel', function(event) {
+        event.preventDefault();
+    });
+
     // Pan with mouse
     placeteam.canvas.addEventListener("mousemove", function(event) {
         if (mouseIsDown) {
-            offsetX = event.offsetX;
-            offsetY = event.offsetY;
+            offsetX = event.movementX * -1;
+            offsetY = event.movementY * -1;
     
             placeteam.mapcontainer.scrollBy(offsetX, offsetY);
         }
