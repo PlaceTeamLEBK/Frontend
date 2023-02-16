@@ -60,29 +60,29 @@ window.addEventListener("load", (event) => {
       console.log("x: " + x + " y: " + y);
     }
 
-    canvas.addEventListener('mousedown', function(event) {
+    placeteamcanvas.addEventListener('mousedown', function(event) {
         mouseIsDown = true;
-        placePixelOnCanvas(canvas, event);
+        placePixelOnCanvas(placeteam.canvas, event);
     });
 
-    canvas.addEventListener('mouseup', function() {
+    placeteamcanvas.addEventListener('mouseup', function() {
         mouseIsDown = false;
     });
 
     // Zoom on scrolling
-    canvas.addEventListener('wheel', function(event) {
-        currentCanvasWidth = parseInt(canvas.style.width.match(/(\d+)/));
+    placeteam.canvas.addEventListener('wheel', function(event) {
+        currentCanvasWidth = parseInt(placeteam.canvas.style.width.match(/(\d+)/));
         currentCanvasWidth = Math.max(100, currentCanvasWidth + Math.sign(event.deltaY) * scrollspeed);
         if (currentCanvasWidth <= 100) {
-            mapcontainer.style.cssText = "";
+            placeteam.mapcontainer.style.cssText = "";
         } else {
-            mapcontainer.style.cssText = "overflow: scroll;";
+            placeteam.mapcontainer.style.cssText = "overflow: scroll;";
         }
-        canvas.style.cssText = 'width: ' + currentCanvasWidth + '%;';
+        placeteamcanvas.style.cssText = 'width: ' + currentCanvasWidth + '%;';
     });
 
     // Pan with mouse
-    canvas.addEventListener("mousemove", function(event) {
+    placeteam.canvas.addEventListener("mousemove", function(event) {
         if (mouseIsDown) {
             offsetX = event.offsetX;
             offsetY = event.offsetY;
