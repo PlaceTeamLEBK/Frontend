@@ -7,6 +7,8 @@ window.addEventListener("load", (event) => {
     mouseIsDown = false;
     lastMouseDown = 0;
 
+    mobileMediaQuery = window.matchMedia("(max-width: 756px)");
+
     placeteam.mapcontainer = document.querySelector('.mapcontainer');
     placeteam.canvas = document.getElementById("pixelcanvas");
     placeteam.ctx = document.getElementById("pixelcanvas").getContext("2d");
