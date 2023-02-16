@@ -1,7 +1,7 @@
 window.addEventListener("load", (event) => {
     placeteam = {};
 
-    const scrollspeed = 2;
+    const zoomSpeed = 2;
 
     mouseIsDown = false;
 
@@ -48,46 +48,46 @@ window.addEventListener("load", (event) => {
 
     // Place pixel on clicked part of canvas
     function placePixelOnCanvas(canvas, event) {
-      const rect = canvas.getBoundingClientRect();
+        const rect = canvas.getBoundingClientRect();
 
-      // Gets the coordinates of the clicked position on the canvas, converts them to the pixel coordinates of the canvas,
-      // and rounds them down. Oddly enough,  clicking on the very edge of the element can cause it to return numbers that are too
-      // high or too low, so we have to clamp it
-      const x = Math.floor(Math.max(Math.min(((event.clientX - rect.left) / canvas.clientWidth) * canvas.width, canvas.width - 1), 0));
-      const y = Math.floor(Math.max(Math.min(((event.clientY - rect.top)  / canvas.clientWidth) * canvas.height, canvas.height - 1), 0));
+        // Gets the coordinates of the clicked position on the canvas, converts them to the pixel coordinates of the canvas,
+        // and rounds them down. Oddly enough,  clicking on the very edge of the element can cause it to return numbers that are too
+        // high or too low, so we have to clamp it
+        const x = Math.floor(Math.max(Math.min(((event.clientX - rect.left) / canvas.clientWidth) * canvas.width, canvas.width - 1), 0));
+        const y = Math.floor(Math.max(Math.min(((event.clientY - rect.top)  / canvas.clientWidth) * canvas.height, canvas.height - 1), 0));
 
-      placeteam.setPixel(x, y, colorinput.value);
-      console.log("x: " + x + " y: " + y);
+        placeteam.setPixel(x, y, placeteam.colorinput.value);
+        console.log("x: " + x + " y: " + y);
     }
 
-    canvas.addEventListener('mousedown', function(event) {
+    placeteam.canvas.addEventListener('mousedown', function(event) {
         mouseIsDown = true;
-        placePixelOnCanvas(canvas, event);
+        placePixelOnCanvas(placeteam.canvas, event);
     });
 
-    canvas.addEventListener('mouseup', function() {
+    placeteam.canvas.addEventListener('mouseup', function() {
         mouseIsDown = false;
     });
 
     // Zoom on scrolling
-    canvas.addEventListener('wheel', function(event) {
-        currentCanvasWidth = parseInt(canvas.style.width.match(/(\d+)/));
-        currentCanvasWidth = Math.max(100, currentCanvasWidth + Math.sign(event.deltaY) * scrollspeed);
+    placeteam.canvas.addEventListener('wheel', function(event) {
+        currentCanvasWidth = parseInt(placeteam.canvas.style.width.match(/(\d+)/));
+        currentCanvasWidth = Math.max(100, currentCanvasWidth + Math.sign(event.deltaY) * zoomSpeed);
         if (currentCanvasWidth <= 100) {
-            mapcontainer.style.cssText = "";
+            placeteam.mapcontainer.style.cssText = "";
         } else {
-            mapcontainer.style.cssText = "overflow: scroll;";
+            placeteam.mapcontainer.style.cssText = "overflow: scroll;";
         }
-        canvas.style.cssText = 'width: ' + currentCanvasWidth + '%;';
+        placeteam.canvas.style.cssText = 'width: ' + currentCanvasWidth + '%;';
     });
 
     // Pan with mouse
-    canvas.addEventListener("mousemove", function(event) {
+    placeteam.canvas.addEventListener("mousemove", function(event) {
         if (mouseIsDown) {
             offsetX = event.offsetX;
             offsetY = event.offsetY;
     
-            mapcontainer.scrollBy(offsetX, offsetY);
+            placeteam.mapcontainer.scrollBy(offsetX, offsetY);
         }
     });
 });
