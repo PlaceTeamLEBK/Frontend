@@ -63,7 +63,7 @@ input[type="color"]{
     width:28px;
     height:28px;
 }
-.colorblock{
+#colorcontainer .show>div{
     width: 28px;
     height: 28px;
     background-color:black;
