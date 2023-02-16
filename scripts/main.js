@@ -81,7 +81,7 @@ window.addEventListener("load", (event) => {
         placeteam.canvas.style.cssText = 'width: ' + currentCanvasWidth + '%;';
     });
 
-    placeteam.canvas.addEventListener('wheel', function(event) {
+    placeteam.mapcontainer.addEventListener('wheel', function(event) {
         event.preventDefault();
     });
 
