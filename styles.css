@@ -56,3 +56,21 @@ main {
     position:fixed;
     margin-top:2rem;
 }
+input[type="color"]{
+    width:28px;
+    height:28px;
+}
+.colorblock{
+    width: 28px;
+    height: 28px;
+    background-color:black;
+}
+#colorcontainer .edit{
+    display:flex;
+}
+#colorcontainer .show{
+    display:flex;
+}
+.hidden{
+    display:none;
+}

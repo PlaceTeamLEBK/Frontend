@@ -11,6 +11,8 @@ window.addEventListener("load", (event) => {
     placeteam.colorcontainer = document.getElementById("colorcontainer");
     placeteam.colorinput = placeteam.colorcontainer.querySelector('input');
     placeteam.status = document.getElementById("statuscontainer");
+    placeteam.editcolorbutton = document.getElementById("editcolorbutton");
+    placeteam.colors = [];
 
     placeteam.ctx.imageSmoothingEnabled = false;
     placeteam.init = (pixelmap) => {
@@ -44,7 +46,13 @@ window.addEventListener("load", (event) => {
               }
             }
         });
+
     }
+
+    placeteam.editcolorbutton.addEventListener('click', function(event){
+        placeteam.colorcontainer.querySelector('div.edit').classList.toggle('hidden');
+        placeteam.colorcontainer.querySelector('div.show').classList.toggle('hidden');
+    });
 
     // Place pixel on clicked part of canvas
     function placePixelOnCanvas(canvas, event) {
