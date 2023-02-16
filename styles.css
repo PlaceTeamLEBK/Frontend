@@ -43,6 +43,8 @@ h1 {
 }
 .uicontainer>div{
     position: relative;
+    width: 100%;
+    height: 100%;
 }
 .uicontainer>div>div{
     position: absolute;
