@@ -38,4 +38,27 @@ h1 {
     height:100%;
     padding: 5rem auto;
     border: 5px solid red;
+    top:0;
+    left:0;
+}
+.uicontainer>div{
+    position: relative;
+}
+.uicontainer>div>div{
+    position: absolute;
+}
+.zoomcontainer {
+    border: 5px solid green;
+    top:0;
+    right:0;
+}
+.colorcontainer {
+    border: 5px solid orange;
+    bottom:0;
+    left:50%;
+}
+.statuscontainer{
+    border: 5px solid purple;
+    top:0;
+    left:50%;
 }
