@@ -62,14 +62,16 @@ h1 {
     bottom:0;
     left:50%;
     width:500px;
-    margin-left:250px;
+    margin-left:-250px;
     position:fixed;
     margin-bottom: 2rem;
+    background-color:grey;
+    border-radius: 4px;
 }
 .statuscontainer{
     /* border: 5px solid purple; */
     width:500px;
-    margin-left:250px;
+    margin-left:-250px;
     top:0;
     left:50%;
     position:fixed;
