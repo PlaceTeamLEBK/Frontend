@@ -4,6 +4,8 @@ window.addEventListener("load", (event) => {
     const zoomSpeed = 2;
 
     mouseIsDown = false;
+    lastMouseDown = 0;
+    maximumClickDownTimeToPlacePixel = 0.125;
 
     placeteam.mapcontainer = document.querySelector('.mapcontainer');
     placeteam.canvas = document.getElementById("pixelcanvas");
@@ -61,11 +63,14 @@ window.addEventListener("load", (event) => {
     }
 
     placeteam.canvas.addEventListener('mousedown', function(event) {
+        lastMouseDown = Date.now();
         mouseIsDown = true;
-        placePixelOnCanvas(placeteam.canvas, event);
     });
 
     placeteam.canvas.addEventListener('mouseup', function() {
+        if (Date.now() - lastMouseDown > maximumClickDownTimeToPlacePixel) {
+            placePixelOnCanvas(placeteam.canvas, event);
+        }
         mouseIsDown = false;
     });
 
