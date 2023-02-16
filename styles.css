@@ -63,7 +63,7 @@ input[type="color"]{
     width:28px;
     height:28px;
 }
-#colorcontainer .show>div{
+#colorcontainer .select>div{
     width: 28px;
     height: 28px;
     background-color:black;
@@ -73,7 +73,7 @@ input[type="color"]{
     width: 450px;
     justify-content: space-between;
 }
-#colorcontainer .show{
+#colorcontainer .select{
     display:flex;
     width: 450px;
     justify-content: space-between;
