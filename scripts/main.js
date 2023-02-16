@@ -81,6 +81,10 @@ window.addEventListener("load", (event) => {
         placeteam.canvas.style.cssText = 'width: ' + currentCanvasWidth + '%;';
     });
 
+    placeteam.canvas.addEventListener('wheel', function(event) {
+        event.preventDefault();
+    });
+
     // Pan with mouse
     placeteam.canvas.addEventListener("mousemove", function(event) {
         if (mouseIsDown) {
