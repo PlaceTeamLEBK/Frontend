@@ -5,7 +5,7 @@ window.addEventListener("load", (event) => {
 
     mouseIsDown = false;
     lastMouseDown = 0;
-    maximumClickDownTimeToPlacePixel = 250;
+    maximumClickDownTimeToPlacePixel = 125;
 
     placeteam.mapcontainer = document.querySelector('.mapcontainer');
     placeteam.canvas = document.getElementById("pixelcanvas");
