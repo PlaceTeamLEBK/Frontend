@@ -56,7 +56,7 @@ window.addEventListener("load", (event) => {
       const x = Math.floor(Math.max(Math.min(((event.clientX - rect.left) / canvas.clientWidth) * canvas.width, canvas.width - 1), 0));
       const y = Math.floor(Math.max(Math.min(((event.clientY - rect.top)  / canvas.clientWidth) * canvas.height, canvas.height - 1), 0));
 
-      placeteam.setPixel(x, y, colorinput.value);
+      placeteam.setPixel(x, y, placeteam.colorinput.value);
       console.log("x: " + x + " y: " + y);
     }
 
