@@ -31,7 +31,7 @@ window.addEventListener("load", (event) => {
             placeteam.colors[element.dataset.colorid] = element.value;
         });
     });
-    placeteam.colorcontainer.querySelectorAll('.select>div').forEach((element, index) => {
+    placeteam.colorcontainer.querySelectorAll('.select>div').forEach((newselectelement) => {
         newselectelement.addEventListener('click',function(event){
             placeteam.colorcontainer.querySelectorAll('.select>div').forEach((element)=>{
                 element.classList.remove('selected')
