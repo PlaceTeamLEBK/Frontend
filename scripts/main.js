@@ -5,7 +5,7 @@ window.addEventListener("load", (event) => {
 
     mouseIsDown = false;
     lastMouseDown = 0;
-    maximumClickDownTimeToPlacePixel = 0.125;
+    maximumClickDownTimeToPlacePixel = 0.25;
 
     placeteam.mapcontainer = document.querySelector('.mapcontainer');
     placeteam.canvas = document.getElementById("pixelcanvas");
@@ -68,7 +68,7 @@ window.addEventListener("load", (event) => {
     });
 
     placeteam.canvas.addEventListener('mouseup', function(event) {
-        if (Date.now() - lastMouseDown > maximumClickDownTimeToPlacePixel) {
+        if (Date.now() - lastMouseDown < maximumClickDownTimeToPlacePixel) {
             placePixelOnCanvas(placeteam.canvas, event);
         }
         mouseIsDown = false;
