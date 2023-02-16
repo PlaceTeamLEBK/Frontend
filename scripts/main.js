@@ -1,11 +1,17 @@
 window.addEventListener("load", (event) => {
     placeteam = {};
 
-    placeteam.ctx = document.getElementById("pixelcanvas").getContext("2d");
+    const scrollspeed = 2;
+
+    mouseIsDown = false;
+
+    placeteam.mapcontainer = document.querySelector('.mapcontainer');
     placeteam.canvas = document.getElementById("pixelcanvas");
+    placeteam.ctx = document.getElementById("pixelcanvas").getContext("2d");
     placeteam.colorcontainer = document.getElementById("colorcontainer");
+    placeteam.colorinput = placeteam.colorcontainer.querySelector('input');
     placeteam.status = document.getElementById("statuscontainer");
-    placeteam.zoomcontainer = document.getElementById("zoomcontainer");
+
     placeteam.ctx.imageSmoothingEnabled = false;
     placeteam.init = (pixelmap) => {
 
@@ -40,8 +46,8 @@ window.addEventListener("load", (event) => {
         });
     }
 
-    // Get coordinates of clicked position on canvas
-    function getCursorPosition(canvas, event) {
+    // Place pixel on clicked part of canvas
+    function placePixelOnCanvas(canvas, event) {
       const rect = canvas.getBoundingClientRect();
 
       // Gets the coordinates of the clicked position on the canvas, converts them to the pixel coordinates of the canvas,
@@ -50,18 +56,38 @@ window.addEventListener("load", (event) => {
       const x = Math.floor(Math.max(Math.min(((event.clientX - rect.left) / canvas.clientWidth) * canvas.width, canvas.width - 1), 0));
       const y = Math.floor(Math.max(Math.min(((event.clientY - rect.top)  / canvas.clientWidth) * canvas.height, canvas.height - 1), 0));
 
-      placeteam.setPixel(x, y, '#'+Math.floor(Math.random()*16777215).toString(16));
+      placeteam.setPixel(x, y, colorinput.value);
       console.log("x: " + x + " y: " + y);
     }
-  
-    const canvas = document.querySelector('.mapcontainer canvas')
-    canvas.addEventListener('mousedown', function(e) {
-        getCursorPosition(canvas, e);
+
+    canvas.addEventListener('mousedown', function(event) {
+        mouseIsDown = true;
+        placePixelOnCanvas(canvas, event);
     });
 
+    canvas.addEventListener('mouseup', function() {
+        mouseIsDown = false;
+    });
+
+    // Zoom on scrolling
     canvas.addEventListener('wheel', function(event) {
         currentCanvasWidth = parseInt(canvas.style.width.match(/(\d+)/));
-        currentCanvasWidth = Math.max(100, currentCanvasWidth);
-        canvas.style.cssText = 'width: ' + (currentCanvasWidth + Math.sign(event.deltaY)) + '%;';
-    })
+        currentCanvasWidth = Math.max(100, currentCanvasWidth + Math.sign(event.deltaY) * scrollspeed);
+        if (currentCanvasWidth <= 100) {
+            mapcontainer.style.cssText = "";
+        } else {
+            mapcontainer.style.cssText = "overflow: scroll;";
+        }
+        canvas.style.cssText = 'width: ' + currentCanvasWidth + '%;';
+    });
+
+    // Pan with mouse
+    canvas.addEventListener("mousemove", function(event) {
+        if (mouseIsDown) {
+            offsetX = event.offsetX;
+            offsetY = event.offsetY;
+    
+            mapcontainer.scrollBy(offsetX, offsetY);
+        }
+    });
 });
