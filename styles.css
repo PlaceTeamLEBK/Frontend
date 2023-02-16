@@ -19,7 +19,6 @@ h1 {
 
 .mapcontainer {
     aspect-ratio: 1;
-    overflow: scroll;
 }
 
 .mapcontainer > canvas {

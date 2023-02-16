@@ -50,7 +50,8 @@ window.addEventListener("load", (event) => {
       console.log("x: " + x + " y: " + y);
     }
   
-    const canvas = document.querySelector('.mapcontainer canvas')
+    const mapcontainer = document.querySelector('.mapcontainer');
+    const canvas = mapcontainer.querySelector('canvas');
     canvas.addEventListener('mousedown', function(e) {
         getCursorPosition(canvas, e);
     });
@@ -58,6 +59,11 @@ window.addEventListener("load", (event) => {
     canvas.addEventListener('wheel', function(event) {
         currentCanvasWidth = parseInt(canvas.style.width.match(/(\d+)/));
         currentCanvasWidth = Math.max(100, currentCanvasWidth + Math.sign(event.deltaY));
+        if (currentCanvasWidth <= 100) {
+            mapcontainer.style.cssText = "";
+        } else {
+            mapcontainer.style.cssText = "overflow: scroll;";
+        }
         canvas.style.cssText = 'width: ' + currentCanvasWidth + '%;';
     })
 });
