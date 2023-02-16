@@ -84,8 +84,8 @@ window.addEventListener("load", (event) => {
     // Pan with mouse
     placeteam.canvas.addEventListener("mousemove", function(event) {
         if (mouseIsDown) {
-            offsetX = event.offsetX;
-            offsetY = event.offsetY;
+            offsetX = event.movementX;
+            offsetY = event.movementY;
     
             placeteam.mapcontainer.scrollBy(offsetX, offsetY);
         }
