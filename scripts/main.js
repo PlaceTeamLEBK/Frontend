@@ -22,6 +22,20 @@ window.addEventListener("load", (event) => {
 
         
     };
+    
+    //load color buttons and divs to array and add event
+    placeteam.colorcontainer.querySelectorAll('.edit input').forEach((element, index) => {
+        element.addEventListener('change', function(event){
+            let selectelement = placeteam.colorcontainer.querySelector('.select>div[data-colorid="'+element.data.colorid+'"]');
+            selectelement.style.backgroundColor = element.value;
+            placeteam.colors[element.data.colorid] = element.value;
+        });
+    });
+    placeteam.editcolorbutton.addEventListener('click', function(event){
+        placeteam.colorcontainer.querySelector('div.edit').classList.toggle('hidden');
+        placeteam.colorcontainer.querySelector('div.select').classList.toggle('hidden');
+    });
+
     placeteam.update = (updatedata) => {
         updatedata.data.pixels.forEach((pixel) => {
             placeteam.setPixel(pixel.position.x,pixel.position.y,pixel.color)
