@@ -49,7 +49,7 @@ main {
     border-radius: 4px;
     display:flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 #statuscontainer{
     width:500px;
@@ -70,9 +70,13 @@ input[type="color"]{
 }
 #colorcontainer .edit{
     display:flex;
+    width: 450px;
+    justify-content: space-between;
 }
 #colorcontainer .show{
     display:flex;
+    width: 450px;
+    justify-content: space-between;
 }
 .hidden{
     display:none;
