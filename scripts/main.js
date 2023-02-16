@@ -71,6 +71,7 @@ window.addEventListener("load", (event) => {
         if (Date.now() - lastMouseDown < maximumClickDownTimeToPlacePixel) {
             placePixelOnCanvas(placeteam.canvas, event);
         }
+        console.log(Date.now() - lastMouseDown);
         mouseIsDown = false;
     });
 
