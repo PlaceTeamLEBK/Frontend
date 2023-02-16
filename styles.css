@@ -79,7 +79,7 @@ input[type="color"]{
     justify-content: space-between;
 }
 .hidden{
-    display:none;
+    display:none!important;
 }
 #editcolorbutton{
     width: 28px;
