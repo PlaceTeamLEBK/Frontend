@@ -48,16 +48,16 @@ window.addEventListener("load", (event) => {
 
     // Place pixel on clicked part of canvas
     function placePixelOnCanvas(canvas, event) {
-      const rect = canvas.getBoundingClientRect();
+        const rect = canvas.getBoundingClientRect();
 
-      // Gets the coordinates of the clicked position on the canvas, converts them to the pixel coordinates of the canvas,
-      // and rounds them down. Oddly enough,  clicking on the very edge of the element can cause it to return numbers that are too
-      // high or too low, so we have to clamp it
-      const x = Math.floor(Math.max(Math.min(((event.clientX - rect.left) / canvas.clientWidth) * canvas.width, canvas.width - 1), 0));
-      const y = Math.floor(Math.max(Math.min(((event.clientY - rect.top)  / canvas.clientWidth) * canvas.height, canvas.height - 1), 0));
+        // Gets the coordinates of the clicked position on the canvas, converts them to the pixel coordinates of the canvas,
+        // and rounds them down. Oddly enough,  clicking on the very edge of the element can cause it to return numbers that are too
+        // high or too low, so we have to clamp it
+        const x = Math.floor(Math.max(Math.min(((event.clientX - rect.left) / canvas.clientWidth) * canvas.width, canvas.width - 1), 0));
+        const y = Math.floor(Math.max(Math.min(((event.clientY - rect.top)  / canvas.clientWidth) * canvas.height, canvas.height - 1), 0));
 
-      placeteam.setPixel(x, y, placeteam.colorinput.value);
-      console.log("x: " + x + " y: " + y);
+        placeteam.setPixel(x, y, placeteam.colorinput.value);
+        console.log("x: " + x + " y: " + y);
     }
 
     placeteam.canvas.addEventListener('mousedown', function(event) {
