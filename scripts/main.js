@@ -64,14 +64,6 @@ window.addEventListener("load", (event) => {
         });
 
     }
-    // placeteam.colorcontainer.querySelectorAll('input').forEach((element) => {
-    //     placeteam.colorbuttons.add({select:'',pick:element});
-    // });
-    placeteam.editcolorbutton.addEventListener('click', function(event){
-        placeteam.colorcontainer.querySelector('div.edit').classList.toggle('hidden');
-        placeteam.colorcontainer.querySelector('div.select').classList.toggle('hidden');
-    });
-
     // Place pixel on clicked part of canvas
     function placePixelOnCanvas(canvas, event) {
         const rect = canvas.getBoundingClientRect();
