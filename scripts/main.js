@@ -1,7 +1,12 @@
 window.addEventListener("load", (event) => {
     placeteam = {};
 
-    placeteam.ctx = document.getElementById("pixelcanvas").getContext("2d");
+    const mapcontainer = document.querySelector('.mapcontainer');
+    const canvas = mapcontainer.querySelector('canvas');
+    const uicontainer = document.querySelector('.uicontainer');
+    const colorinput = uicontainer.querySelector('input');
+
+    placeteam.ctx = canvas.getContext("2d");
     placeteam.ctx.imageSmoothingEnabled = false;
     placeteam.init = (pixelmap) => {
 
@@ -46,12 +51,10 @@ window.addEventListener("load", (event) => {
       const x = Math.floor(Math.max(Math.min(((event.clientX - rect.left) / canvas.clientWidth) * canvas.width, canvas.width - 1), 0));
       const y = Math.floor(Math.max(Math.min(((event.clientY - rect.top)  / canvas.clientWidth) * canvas.height, canvas.height - 1), 0));
 
-      placeteam.setPixel(x, y, '#'+Math.floor(Math.random()*16777215).toString(16));
+      placeteam.setPixel(x, y, colorinput.value);
       console.log("x: " + x + " y: " + y);
     }
-  
-    const mapcontainer = document.querySelector('.mapcontainer');
-    const canvas = mapcontainer.querySelector('canvas');
+
     canvas.addEventListener('mousedown', function(e) {
         getCursorPosition(canvas, e);
     });
