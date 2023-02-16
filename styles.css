@@ -26,4 +26,8 @@ main {
 }
 
 .uicontainer {
+    position: fixed;
+    right: auto;
+    bottom: 0;
+    left: auto;
 }
