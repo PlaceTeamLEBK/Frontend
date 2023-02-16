@@ -15,6 +15,10 @@ main {
     aspect-ratio: 1;
 }
 
+.mapcontainer::-webkit-scrollbar {
+    display: none;
+}
+
 .mapcontainer > canvas {
     image-rendering: pixelated;
 }
