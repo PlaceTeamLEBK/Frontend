@@ -1,6 +1,8 @@
 window.addEventListener("load", (event) => {
     placeteam = {};
 
+    const scrollspeed = 2;
+
     const mapcontainer = document.querySelector('.mapcontainer');
     const canvas = mapcontainer.querySelector('canvas');
     const uicontainer = document.querySelector('.uicontainer');
@@ -61,7 +63,7 @@ window.addEventListener("load", (event) => {
 
     canvas.addEventListener('wheel', function(event) {
         currentCanvasWidth = parseInt(canvas.style.width.match(/(\d+)/));
-        currentCanvasWidth = Math.max(100, currentCanvasWidth + Math.sign(event.deltaY));
+        currentCanvasWidth = Math.max(100, currentCanvasWidth + Math.sign(event.deltaY) * scrollspeed);
         if (currentCanvasWidth <= 100) {
             mapcontainer.style.cssText = "";
         } else {
