@@ -67,6 +67,10 @@ input[type="color"]{
     width: 28px;
     height: 28px;
     background-color:black;
+    border: 2px solid #efefef;
+}
+#colorcontainer .select>div.selected{
+    border-color:#257AFD;
 }
 #colorcontainer .edit{
     display:flex;
