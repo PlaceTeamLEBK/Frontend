@@ -33,7 +33,7 @@ h1 {
     image-rendering: pixelated;
 }
 
-.uicontainer {
+/* .uicontainer {
     position:fixed;
     padding:2rem;
     width:100%;
@@ -48,11 +48,14 @@ h1 {
 }
 .uicontainer>div>div{
     position: absolute;
-}
+} */
 .zoomcontainer {
     /* border: 5px solid green; */
     top:0;
     right:0;
+    position:fixed;
+    margin-top:2rem;
+    margin-right:2rem;
 }
 .colorcontainer {
     /* border: 5px solid orange; */
@@ -60,6 +63,8 @@ h1 {
     left:50%;
     width:500px;
     margin-left:250px;
+    position:fixed;
+    margin-bottom: 2rem;
 }
 .statuscontainer{
     /* border: 5px solid purple; */
@@ -67,4 +72,6 @@ h1 {
     margin-left:250px;
     top:0;
     left:50%;
+    position:fixed;
+    margin-top:2rem;
 }
