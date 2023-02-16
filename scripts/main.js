@@ -14,14 +14,45 @@ window.addEventListener("load", (event) => {
     placeteam.colorinput = placeteam.colorcontainer.querySelector('input');
     placeteam.status = document.getElementById("statuscontainer");
     placeteam.editcolorbutton = document.getElementById("editcolorbutton");
-    placeteam.colors = ['#000000','#ffffff','#fff100','#ff8c00','#e81123','#009e49','#00188f','#68217a','#00bcf2','#bad80a'];//save to session late?
-    placeteam.colorbuttons = [];
+    placeteam.colors = ['#000000','#ffffff','#fff100','#ff8c00','#e81123','#009e49','#00188f','#68217a','#00bcf2','#bad80a'];
     placeteam.ctx.imageSmoothingEnabled = false;
     placeteam.init = (pixelmap) => {
 
 
         
     };
+    //load colors
+    placeteam.loadcolors = () => {
+        //load from sessionstorage eventually;
+        placeteam.colors.forEach((color,index)=>{
+            placeteam.colorcontainer.querySelector('input[data-colorid="'+index+'"]').value=color;
+            placeteam.colorcontainer.querySelector('div[data-colorid="'+index+'"]').style.backgroundColor=color;
+        });
+    };
+    placeteam.loadcolors();
+    //add events for colorinput change
+    placeteam.colorcontainer.querySelectorAll('.edit input').forEach((element, index) => {
+        element.addEventListener('change', function(event){
+            let selectelement = placeteam.colorcontainer.querySelector('.select>div[data-colorid="'+element.dataset.colorid+'"]');
+            selectelement.style.backgroundColor = element.value;
+            placeteam.colors[element.dataset.colorid] = element.value;
+        });
+    });
+    //add events for colorselect
+    placeteam.colorcontainer.querySelectorAll('.select>div').forEach((newselectelement) => {
+        newselectelement.addEventListener('click',function(event){
+            placeteam.colorcontainer.querySelectorAll('.select>div').forEach((element)=>{
+                element.classList.remove('selected')
+            })
+            newselectelement.classList.add('selected');
+        });
+    });
+    //add event for toggle editmode
+    placeteam.editcolorbutton.addEventListener('click', function(event){
+        placeteam.colorcontainer.querySelector('div.edit').classList.toggle('hidden');
+        placeteam.colorcontainer.querySelector('div.select').classList.toggle('hidden');
+    });
+
     placeteam.update = (updatedata) => {
         updatedata.data.pixels.forEach((pixel) => {
             placeteam.setPixel(pixel.position.x,pixel.position.y,pixel.color)
@@ -50,14 +81,6 @@ window.addEventListener("load", (event) => {
         });
 
     }
-    // placeteam.colorcontainer.querySelectorAll('input').forEach((element) => {
-    //     placeteam.colorbuttons.add({select:'',pick:element});
-    // });
-    placeteam.editcolorbutton.addEventListener('click', function(event){
-        placeteam.colorcontainer.querySelector('div.edit').classList.toggle('hidden');
-        placeteam.colorcontainer.querySelector('div.select').classList.toggle('hidden');
-    });
-
     // Place pixel on clicked part of canvas
     function placePixelOnCanvas(canvas, event) {
         const rect = canvas.getBoundingClientRect();

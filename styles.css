@@ -65,23 +65,27 @@ input[type="color"]{
     width:28px;
     height:28px;
 }
-.colorblock{
+#colorcontainer .select>div{
     width: 28px;
     height: 28px;
     background-color:black;
+    border: 2px solid #efefef;
+}
+#colorcontainer .select>div.selected{
+    border-color:#257AFD;
 }
 #colorcontainer .edit{
     display:flex;
     width: 450px;
     justify-content: space-between;
 }
-#colorcontainer .show{
+#colorcontainer .select{
     display:flex;
     width: 450px;
     justify-content: space-between;
 }
 .hidden{
-    display:none;
+    display:none!important;
 }
 #editcolorbutton{
     width: 28px;
