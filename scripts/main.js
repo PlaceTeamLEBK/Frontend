@@ -60,12 +60,12 @@ window.addEventListener("load", (event) => {
       console.log("x: " + x + " y: " + y);
     }
 
-    placeteamcanvas.addEventListener('mousedown', function(event) {
+    placeteam.canvas.addEventListener('mousedown', function(event) {
         mouseIsDown = true;
         placePixelOnCanvas(placeteam.canvas, event);
     });
 
-    placeteamcanvas.addEventListener('mouseup', function() {
+    placeteam.canvas.addEventListener('mouseup', function() {
         mouseIsDown = false;
     });
 
@@ -78,7 +78,7 @@ window.addEventListener("load", (event) => {
         } else {
             placeteam.mapcontainer.style.cssText = "overflow: scroll;";
         }
-        placeteamcanvas.style.cssText = 'width: ' + currentCanvasWidth + '%;';
+        placeteam.canvas.style.cssText = 'width: ' + currentCanvasWidth + '%;';
     });
 
     // Pan with mouse
