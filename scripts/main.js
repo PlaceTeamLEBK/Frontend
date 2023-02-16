@@ -88,13 +88,10 @@ window.addEventListener("load", (event) => {
     placeteam.canvas.addEventListener('wheel', function(event) {
         currentCanvasWidth = parseInt(placeteam.canvas.style.width.match(/(\d+)/));
         currentCanvasWidth = Math.max(100, currentCanvasWidth + Math.sign(event.deltaY) * zoomSpeed);
-        if (currentCanvasWidth <= 100) {
-            placeteam.mapcontainer.style.cssText = "";
-        } else {
-            placeteam.mapcontainer.style.cssText = "overflow: scroll;";
-        }
         initialWidth = placeteam.canvas.clientWidth;
+
         placeteam.canvas.style.cssText = 'width: ' + currentCanvasWidth + '%;';
+
         newWidth = placeteam.canvas.clientWidth;
         halfWidthDifference = (newWidth - initialWidth) / 2;
         placeteam.mapcontainer.scrollBy(halfWidthDifference, halfWidthDifference);
