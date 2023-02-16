@@ -29,6 +29,7 @@ window.addEventListener("load", (event) => {
             placeteam.colorcontainer.querySelector('div[data-colorid="'+index+'"]').style.backgroundColor=color;
         });
     };
+    placeteam.loadcolors();
     //add events for colorinput change
     placeteam.colorcontainer.querySelectorAll('.edit input').forEach((element, index) => {
         element.addEventListener('change', function(event){
