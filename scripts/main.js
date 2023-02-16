@@ -43,8 +43,8 @@ window.addEventListener("load", (event) => {
         });
     }
 
-    // Get coordinates of clicked position on canvas
-    function getCursorPosition(canvas, event) {
+    // Place pixel on clicked part of canvas
+    function placePixelOnCanvas(canvas, event) {
       const rect = canvas.getBoundingClientRect();
 
       // Gets the coordinates of the clicked position on the canvas, converts them to the pixel coordinates of the canvas,
@@ -58,7 +58,7 @@ window.addEventListener("load", (event) => {
     }
 
     canvas.addEventListener('mousedown', function(e) {
-        getCursorPosition(canvas, e);
+        placePixelOnCanvas(canvas, e);
     });
 
     canvas.addEventListener('wheel', function(event) {
