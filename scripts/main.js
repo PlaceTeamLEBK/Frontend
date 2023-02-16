@@ -61,6 +61,7 @@ window.addEventListener("load", (event) => {
         placePixelOnCanvas(canvas, e);
     });
 
+    // Zoom on scrolling
     canvas.addEventListener('wheel', function(event) {
         currentCanvasWidth = parseInt(canvas.style.width.match(/(\d+)/));
         currentCanvasWidth = Math.max(100, currentCanvasWidth + Math.sign(event.deltaY) * scrollspeed);
