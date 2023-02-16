@@ -3,15 +3,13 @@
 }
 html {
     font-family: sans-serif;
-    font-size: 10px;
+    font-size: 0.625em;
 }
 
 body {
     overflow: hidden;
     margin: 0;
     background-color: #000;
-    margin:0;
-    overflow:hidden;
 }
 
 main {
