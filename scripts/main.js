@@ -1,7 +1,7 @@
 window.addEventListener("load", (event) => {
     placeteam = {};
 
-    const scrollspeed = 2;
+    const zoomSpeed = 2;
 
     mouseIsDown = false;
 
@@ -72,7 +72,7 @@ window.addEventListener("load", (event) => {
     // Zoom on scrolling
     placeteam.canvas.addEventListener('wheel', function(event) {
         currentCanvasWidth = parseInt(placeteam.canvas.style.width.match(/(\d+)/));
-        currentCanvasWidth = Math.max(100, currentCanvasWidth + Math.sign(event.deltaY) * scrollspeed);
+        currentCanvasWidth = Math.max(100, currentCanvasWidth + Math.sign(event.deltaY) * zoomSpeed);
         if (currentCanvasWidth <= 100) {
             placeteam.mapcontainer.style.cssText = "";
         } else {
