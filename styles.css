@@ -47,6 +47,9 @@ main {
     background-color:grey;
     padding:5px;
     border-radius: 4px;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 #statuscontainer{
     width:500px;
@@ -73,4 +76,9 @@ input[type="color"]{
 }
 .hidden{
     display:none;
+}
+#editcolorbutton{
+    width: 28px;
+    height: 28px;
+    cursor:pointer;
 }
