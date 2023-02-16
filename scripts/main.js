@@ -86,6 +86,7 @@ window.addEventListener("load", (event) => {
         if (mouseIsDown) {
             offsetX = event.movementX;
             offsetY = event.movementY;
+            console.log(offsetX);
     
             placeteam.mapcontainer.scrollBy(offsetX, offsetY);
         }
