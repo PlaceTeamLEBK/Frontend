@@ -8,6 +8,8 @@ window.addEventListener("load", (event) => {
     const uicontainer = document.querySelector('.uicontainer');
     const colorinput = uicontainer.querySelector('input');
 
+    mouseIsDown = false;
+
     placeteam.ctx = canvas.getContext("2d");
     placeteam.ctx.imageSmoothingEnabled = false;
     placeteam.init = (pixelmap) => {
@@ -57,8 +59,13 @@ window.addEventListener("load", (event) => {
       console.log("x: " + x + " y: " + y);
     }
 
-    canvas.addEventListener('mousedown', function(e) {
-        placePixelOnCanvas(canvas, e);
+    canvas.addEventListener('mousedown', function(event) {
+        mouseIsDown = true;
+        placePixelOnCanvas(canvas, event);
+    });
+
+    canvas.addEventListener('mouseup', function() {
+        mouseIsDown = false;
     });
 
     // Zoom on scrolling
@@ -71,5 +78,15 @@ window.addEventListener("load", (event) => {
             mapcontainer.style.cssText = "overflow: scroll;";
         }
         canvas.style.cssText = 'width: ' + currentCanvasWidth + '%;';
-    })
+    });
+
+    // Pan with mouse
+    canvas.addEventListener("mousemove", function(event) {
+        if (mouseIsDown) {
+            offsetX = event.offsetX;
+            offsetY = event.offsetY;
+    
+            mapcontainer.scrollBy(offsetX, offsetY);
+        }
+    });
 });
