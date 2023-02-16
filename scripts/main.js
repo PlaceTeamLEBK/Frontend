@@ -87,7 +87,7 @@ window.addEventListener("load", (event) => {
             offsetX = event.offsetX;
             offsetY = event.offsetY;
     
-            mapcontainer.scrollBy(offsetX, offsetY);
+            placeteam.mapcontainer.scrollBy(offsetX, offsetY);
         }
     });
 });
