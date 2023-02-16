@@ -3,14 +3,15 @@ window.addEventListener("load", (event) => {
 
     const scrollspeed = 2;
 
-    const mapcontainer = document.querySelector('.mapcontainer');
-    const canvas = mapcontainer.querySelector('canvas');
-    const uicontainer = document.querySelector('.uicontainer');
-    const colorinput = uicontainer.querySelector('input');
-
     mouseIsDown = false;
 
-    placeteam.ctx = canvas.getContext("2d");
+    placeteam.mapcontainer = document.querySelector('.mapcontainer');
+    placeteam.canvas = document.getElementById("pixelcanvas");
+    placeteam.ctx = document.getElementById("pixelcanvas").getContext("2d");
+    placeteam.colorcontainer = document.getElementById("colorcontainer");
+    placeteam.colorinput = placeteam.colorcontainer.querySelector('input');
+    placeteam.status = document.getElementById("statuscontainer");
+
     placeteam.ctx.imageSmoothingEnabled = false;
     placeteam.init = (pixelmap) => {
 
