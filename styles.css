@@ -26,7 +26,7 @@ h1 {
     /* aspect-ratio: 1; */
     width: 100%;
     height: 100%;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 .mapcontainer > canvas {
@@ -35,15 +35,14 @@ h1 {
 
 .uicontainer {
     position:fixed;
+    padding:2rem;
     width:100%;
     height:100%;
-    border: 5px solid red;
     top:0;
     left:0;
 }
 .uicontainer>div{
     position: relative;
-    padding: 5rem auto;
     width: 100%;
     height: 100%;
 }
@@ -51,18 +50,21 @@ h1 {
     position: absolute;
 }
 .zoomcontainer {
-    border: 5px solid green;
+    /* border: 5px solid green; */
     top:0;
     right:0;
 }
 .colorcontainer {
-    border: 5px solid orange;
+    /* border: 5px solid orange; */
     bottom:0;
     left:50%;
+    width:500px;
+    margin-left:250px;
 }
 .statuscontainer{
-    border: 5px solid purple;
-    width:200px;
+    /* border: 5px solid purple; */
+    width:500px;
+    margin-left:250px;
     top:0;
     left:50%;
 }
