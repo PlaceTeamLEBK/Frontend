@@ -27,7 +27,7 @@ main {
 }
 
 .mapcontainer > canvas {
-    min-width: 200%;
+    min-width: 270%;
     image-rendering: pixelated;
 }
 
