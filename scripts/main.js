@@ -25,8 +25,8 @@ window.addEventListener("load", (event) => {
     placeteam.loadcolors = () => {
         //load from sessionstorage eventually;
         placeteam.colors.forEach((color,index)=>{
-            placeteam.colorcontainer.querySelector('input[data-colorid="'+element.dataset.index+'"]').value=color;
-            placeteam.colorcontainer.querySelector('div[data-colorid="'+element.dataset.index+'"]').style.backgroundColor=color;
+            placeteam.colorcontainer.querySelector('input[data-colorid="'+index+'"]').value=color;
+            placeteam.colorcontainer.querySelector('div[data-colorid="'+index+'"]').style.backgroundColor=color;
         });
     };
     //add events for colorinput change
