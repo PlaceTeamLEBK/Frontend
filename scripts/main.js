@@ -87,7 +87,7 @@ window.addEventListener("load", (event) => {
         placeteam.canvas.style.cssText = 'width: ' + currentCanvasWidth + '%;';
         newWidth = placeteam.canvas.clientWidth;
         halfWidthDifference = (newWidth - initialWidth) / 2;
-        placeteam.mapcontainer.scrollBy(widthDifference, widthDifference);
+        placeteam.mapcontainer.scrollBy(halfWidthDifference, halfWidthDifference);
     });
 
     placeteam.mapcontainer.addEventListener('wheel', function(event) {
