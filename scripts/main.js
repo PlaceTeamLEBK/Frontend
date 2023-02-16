@@ -11,7 +11,6 @@ window.addEventListener("load", (event) => {
     placeteam.canvas = document.getElementById("pixelcanvas");
     placeteam.ctx = document.getElementById("pixelcanvas").getContext("2d");
     placeteam.colorcontainer = document.getElementById("colorcontainer");
-    placeteam.colorinput = placeteam.colorcontainer.querySelector('input');
     placeteam.status = document.getElementById("statuscontainer");
     placeteam.editcolorbutton = document.getElementById("editcolorbutton");
     placeteam.colors = ['#000000','#ffffff','#fff100','#ff8c00','#e81123','#009e49','#00188f','#68217a','#00bcf2','#bad80a'];
@@ -91,7 +90,8 @@ window.addEventListener("load", (event) => {
         const x = Math.floor(Math.max(Math.min(((event.clientX - rect.left) / canvas.clientWidth) * canvas.width, canvas.width - 1), 0));
         const y = Math.floor(Math.max(Math.min(((event.clientY - rect.top)  / canvas.clientWidth) * canvas.height, canvas.height - 1), 0));
 
-        placeteam.setPixel(x, y, placeteam.colorinput.value);
+        // placeteam.setPixel(x, y, placeteam.colorinput.value);
+        placeteam.setPixel(x, y, placeteam.colors[placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid]);
         console.log("x: " + x + " y: " + y);
     }
 
