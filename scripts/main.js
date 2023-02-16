@@ -94,10 +94,15 @@ window.addEventListener("load", (event) => {
             placeteam.mapcontainer.style.cssText = "overflow: scroll;";
         }
         initialWidth = placeteam.canvas.clientWidth;
+        initialHeight = placeteam.canvas.clientHeighth;
+
         placeteam.canvas.style.cssText = 'width: ' + currentCanvasWidth + '%;';
+
         newWidth = placeteam.canvas.clientWidth;
+        newHeight = placeteam.canvas.clientHeighth;
         halfWidthDifference = (newWidth - initialWidth) / 2;
-        placeteam.mapcontainer.scrollBy(halfWidthDifference, halfWidthDifference);
+        halfHeightDifference = (newHeight - initialHeight) / 2;
+        placeteam.mapcontainer.scrollBy(halfWidthDifference, halfHeightDifference);
     });
 
     placeteam.mapcontainer.addEventListener('wheel', function(event) {
