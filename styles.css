@@ -17,7 +17,15 @@ h1 {
     font-size: 5rem;
 }
 
+.mapcontainer {
+    aspect-ratio: 1;
+    overflow: scroll;
+}
+
 .mapcontainer > canvas {
-    width: 100%;
     image-rendering: pixelated;
+}
+
+.uicontainer {
+    margin-top: 1rem;
 }

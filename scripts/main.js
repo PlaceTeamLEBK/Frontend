@@ -54,4 +54,10 @@ window.addEventListener("load", (event) => {
     canvas.addEventListener('mousedown', function(e) {
         getCursorPosition(canvas, e);
     });
+
+    canvas.addEventListener('wheel', function(event) {
+        currentCanvasWidth = parseInt(canvas.style.width.match(/(\d+)/));
+        currentCanvasWidth = Math.max(100, currentCanvasWidth);
+        canvas.style.cssText = 'width: ' + (currentCanvasWidth + Math.sign(event.deltaY)) + '%;';
+    })
 });
