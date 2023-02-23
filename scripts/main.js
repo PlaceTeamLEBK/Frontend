@@ -21,6 +21,7 @@ window.addEventListener("load", (event) => {
     placeteam.editcolorbutton = document.getElementById("editcolorbutton");
     placeteam.colors = ['#000000','#ffffff','#fff100','#ff8c00','#e81123','#009e49','#00188f','#68217a','#00bcf2','#bad80a'];
     placeteam.ctx.imageSmoothingEnabled = false;
+    placeteam.fullscreen = false;
     placeteam.init = (pixelmap) => {
 
 
@@ -77,7 +78,12 @@ window.addEventListener("load", (event) => {
     });
     //add event for fullscreenbutton
     document.getElementById("btn_fullscreen").addEventListener('click', function(event){
-        //change zoom
+        if(!placeteam.fullscreen){
+            document.documentElement.requestFullscreen();
+        }
+        else{
+            document.exitFullscreen();
+        }
     });
     //process update from websocket
     placeteam.update = (updatedata) => {
@@ -236,4 +242,12 @@ window.addEventListener("load", (event) => {
     placeteam.changeCanvasCursor = (cursortype=null) => {
         placeteam.canvas.style.cursor = cursortype;
     };
+    document.addEventListener("fullscreenchange", () => {
+        if (document.fullscreenElement===null) {
+         placeteam.fullscreen=false;
+        } else {
+         placeteam.fullscreen=true;
+        }
+    });
+       
 });
