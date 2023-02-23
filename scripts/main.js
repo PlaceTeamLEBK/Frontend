@@ -59,7 +59,23 @@ window.addEventListener("load", (event) => {
         placeteam.colorcontainer.querySelector('div.edit').classList.toggle('hidden');
         placeteam.colorcontainer.querySelector('div.select').classList.toggle('hidden');
     });
-
+    //add event for zoomrange
+    document.getElementById("range_zoom").addEventListener('change', function(event){
+        //change zoom
+    });
+    //add event for zoombutton +
+    document.getElementById("btn_zoom_plus").addEventListener('click', function(event){
+        //change zoom
+    });
+    //add event for zoombutton -
+    document.getElementById("btn_zoom_minus").addEventListener('click', function(event){
+        //change zoom
+    });
+    //add event for fullscreenbutton
+    document.getElementById("btn_fullscreen").addEventListener('click', function(event){
+        //change zoom
+    });
+    //process update from websocket
     placeteam.update = (updatedata) => {
         updatedata.data.pixels.forEach((pixel) => {
             placeteam.setPixel(pixel.position.x,pixel.position.y,pixel.color)

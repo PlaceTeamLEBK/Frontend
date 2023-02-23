@@ -78,6 +78,13 @@ main {
     display: flex;
     flex-direction: column;
 }
+#controlcontainer button{
+    width:28px;
+    height: 28px;
+}
+#range_zoom{
+    width: 28px;
+}
 input[type="color"]{
     width:28px;
     height:28px;
