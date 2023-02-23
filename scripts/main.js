@@ -111,9 +111,11 @@ window.addEventListener("load", (event) => {
         return placeteam.canvas.clientWidth / placeteam.canvas.width;
     }
 
-    placeteam.offsetScrollToPixels = (x, y) => {
+    placeteam.offsetScrollToPixel = (x, y) => {
         pixelSize = placeteam.getPixelSize();
-        placeteam.mapcontainer.scrollTo(pixelSize * x, pixelSize * y);
+        // At certain zoom levels, scrollTo doesn't go quite far enough, leaving ugly 1 pixel bars at the top and
+        // left of the screen. That's why we add a tiny amount of distance. It's an ugly solution, but it works.
+        placeteam.mapcontainer.scrollTo(pixelSize * x + 0.125, pixelSize * y + 0.125);
     }
 
     placeteam.canvas.addEventListener('mousedown', function(event) {
