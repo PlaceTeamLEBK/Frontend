@@ -93,7 +93,6 @@ window.addEventListener("load", (event) => {
     //process update from websocket
     placeteam.update = (updatedata) => {
         updatedata.data.pixels.forEach((pixel) => {
-            if(!pixel.color==null)
                 placeteam.setPixel(pixel.position.x,pixel.position.y,pixel.color)
         });
     };
