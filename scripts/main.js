@@ -134,7 +134,6 @@ window.addEventListener("load", (event) => {
         return {x:x,y:y};
     };
     placeteam.canvas.addEventListener('mousedown', function(event) {
-        event.preventDefault();
         if(event.which == 1){//left click
             lastMouseDown = Date.now();
             mouseIsDown = true;
@@ -184,10 +183,13 @@ window.addEventListener("load", (event) => {
             placeteam.mapcontainer.scrollBy(offsetX, offsetY);
         }
     });
-
     placeteam.rgbToHex = (r, g, b) => {
         if (r > 255 || g > 255 || b > 255)
             throw "Invalid color component";
         return ((r << 16) | (g << 8) | b).toString(16);
     }
+    //disable context menu for right click;
+    placeteam.canvas.addEventListener('contextmenu', (ev)=>{
+        ev.preventDefault(); // this will prevent browser default behavior 
+      });
 });
