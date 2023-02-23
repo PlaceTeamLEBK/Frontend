@@ -107,14 +107,13 @@ window.addEventListener("load", (event) => {
         return parseInt(placeteam.canvas.style.width.match(/(\d+)/));
     }
 
-    placeteam.getScaledPixelSize = () => {
-        pixelSize = placeteam.canvas.clientWidth / placeteam.canvas.width;
-        return pixelSize * (placeteam.getCanvasWidthPercentageInt() / 100);
+    placeteam.getPixelSize = () => {
+        return placeteam.canvas.clientWidth / placeteam.canvas.width;
     }
 
     placeteam.offsetScrollToPixels = (x, y) => {
-        scaledPixelSize = placeteam.getScaledPixelSize();
-        placeteam.mapcontainer.scrollTo(scaledPixelSize * x, scaledPixelSize * y);
+        pixelSize = placeteam.getPixelSize();
+        placeteam.mapcontainer.scrollTo(pixelSize * x, pixelSize * y);
     }
 
     placeteam.canvas.addEventListener('mousedown', function(event) {
