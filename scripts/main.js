@@ -112,9 +112,9 @@ window.addEventListener("load", (event) => {
         return pixelSize * (placeteam.getCanvasWidthPercentageInt() / 100);
     }
 
-    placeteam.offsetScrollByPixels = (x, y) => {
+    placeteam.offsetScrollToPixels = (x, y) => {
         scaledPixelSize = placeteam.getScaledPixelSize();
-        placeteam.mapcontainer.scrollBy(scaledPixelSize * x, scaledPixelSize * y);
+        placeteam.mapcontainer.scrollTo(scaledPixelSize * x, scaledPixelSize * y);
     }
 
     placeteam.canvas.addEventListener('mousedown', function(event) {
