@@ -6,8 +6,10 @@ window.addEventListener("load", (event) => {
 
     mouseIsDown = false;
     lastMouseDown = 0;
+    minZoomPercentageMobile = 270;
+    minZoomPercentageDesktop = 100;
 
-    mobileMediaQuery = window.matchMedia("(max-width: 756px)");
+    desktopMediaQuery = window.matchMedia("(min-width: 756px)");
 
     placeteam.mapcontainer = document.querySelector('.mapcontainer');
     placeteam.canvas = document.getElementById("pixelcanvas");
@@ -115,8 +117,13 @@ window.addEventListener("load", (event) => {
 
     // Zoom on scrolling
     placeteam.canvas.addEventListener('wheel', function(event) {
+        minZoom = minZoomPercentageMobile;
+        if (desktopMediaQuery.matches) {
+            minZoom = minZoomPercentageDesktop;
+        }
+
         currentCanvasWidth = parseInt(placeteam.canvas.style.width.match(/(\d+)/));
-        currentCanvasWidth = Math.max(100, currentCanvasWidth + Math.sign(event.deltaY) * zoomSpeed);
+        currentCanvasWidth = Math.max(minZoom, currentCanvasWidth + Math.sign(event.deltaY) * zoomSpeed);
         initialWidth = placeteam.canvas.clientWidth;
 
         placeteam.canvas.style.cssText = 'width: ' + currentCanvasWidth + '%;';
