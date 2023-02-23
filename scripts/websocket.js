@@ -22,7 +22,7 @@ window.addEventListener("load", (event) => {
     };
 
     //send update to server
-    placeteam.websocket.send()
+    // placeteam.websocket.send()
     //closing connection
     placeteam.websocket.onclose = function(event) {
     if (event.wasClean) {
