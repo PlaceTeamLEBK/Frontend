@@ -142,4 +142,13 @@ window.addEventListener("load", (event) => {
             placeteam.mapcontainer.scrollBy(offsetX, offsetY);
         }
     });
+
+    placeteam.setInitialScrollPosition = () => {
+        console.log("clientWidth = " + placeteam.canvas.clientWidth);
+        console.log("width = " + placeteam.canvas.width);
+        pixelSize = placeteam.canvas.clientWidth / placeteam.canvas.width;
+        console.log("pixelSize = " + pixelSize);
+    }
+
+    placeteam.setInitialScrollPosition();
 });
