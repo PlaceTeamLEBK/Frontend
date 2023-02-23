@@ -5,6 +5,7 @@ window.addEventListener("load", (event) => {
     const maximumClickDownTimeToPlacePixel = 125;
 
     mouseIsDown = false;
+    rightclickIsDown = false;
     lastMouseDown = 0;
     minZoomPercentageMobile = 270;
     minZoomPercentageDesktop = 100;
@@ -134,16 +135,15 @@ window.addEventListener("load", (event) => {
         return {x:x,y:y};
     };
     placeteam.canvas.addEventListener('mousedown', function(event) {
+
         if(event.which == 1){//left click
-            lastMouseDown = Date.now();
+            lastMouseDown = Date.now();   
             mouseIsDown = true;
             placeteam.changeCanvasCursor('grab');
         }
-        else if (event.which == 3){//right click            
-            let mouseCoordinates =  placeteam.getCoordinateslAtMouse(event);
-            let rgbarray = placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
-            placeteam.changeColor("#"+placeteam.rgbToHex(rgbarray[0],rgbarray[1],rgbarray[2]),placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
-            placeteam.changeCanvasCursor('crosshair');
+        else if (event.which == 3){//right click   
+            rightclickIsDown = true;
+           placeteam.changeCanvasCursor('crosshair');
         }
     });
 
@@ -152,6 +152,7 @@ window.addEventListener("load", (event) => {
             placePixelOnCanvas(placeteam.canvas, event);
         }
         mouseIsDown = false;
+        rightclickIsDown = false;
         placeteam.changeCanvasCursor();
     });
     // Zoom on scrolling
@@ -183,6 +184,11 @@ window.addEventListener("load", (event) => {
             offsetY = event.movementY * -1;
     
             placeteam.mapcontainer.scrollBy(offsetX, offsetY);
+        }
+        if(rightclickIsDown){
+            let mouseCoordinates =  placeteam.getCoordinateslAtMouse(event);
+            let rgbarray = placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
+            placeteam.changeColor("#"+placeteam.rgbToHex(rgbarray[0],rgbarray[1],rgbarray[2]),placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
         }
     });
     placeteam.rgbToHex = (r, g, b) => {
