@@ -76,7 +76,8 @@ main {
     top:0;
     right:0;
     display: flex;
-    
+    flex-direction: column;
+}
 input[type="color"]{
     width:28px;
     height:28px;
