@@ -26,6 +26,9 @@ window.addEventListener("load", (event) => {
     };
     //load colors
     placeteam.loadcolors = () => {
+        let localcolors = localStorage.getItem("colors");
+        if(localcolors != null)
+            placeteam.colors=JSON.parse(localcolors);
         //load from sessionstorage eventually;
         placeteam.colors.forEach((color,index)=>{
             placeteam.colorcontainer.querySelector('input[data-colorid="'+index+'"]').value=color;
@@ -39,6 +42,7 @@ window.addEventListener("load", (event) => {
             let selectelement = placeteam.colorcontainer.querySelector('.select>div[data-colorid="'+element.dataset.colorid+'"]');
             selectelement.style.backgroundColor = element.value;
             placeteam.colors[element.dataset.colorid] = element.value;
+            localStorage.setItem("colors",JSON.stringify(placeteam.colors));
         });
     });
     //add events for colorselect
