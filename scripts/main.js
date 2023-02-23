@@ -106,19 +106,24 @@ window.addEventListener("load", (event) => {
     }
     // Place pixel on clicked part of canvas
     function placePixelOnCanvas(canvas, event) {
-        const rect = canvas.getBoundingClientRect();
+        // const rect = canvas.getBoundingClientRect();
 
         // Gets the coordinates of the clicked position on the canvas, converts them to the pixel coordinates of the canvas,
         // and rounds them down. Oddly enough,  clicking on the very edge of the element can cause it to return numbers that are too
         // high or too low, so we have to clamp it
-        const x = Math.floor(Math.max(Math.min(((event.clientX - rect.left) / canvas.clientWidth) * canvas.width, canvas.width - 1), 0));
-        const y = Math.floor(Math.max(Math.min(((event.clientY - rect.top)  / canvas.clientWidth) * canvas.height, canvas.height - 1), 0));
-
+        // const x = Math.floor(Math.max(Math.min(((event.clientX - rect.left) / canvas.clientWidth) * canvas.width, canvas.width - 1), 0));
+        // const y = Math.floor(Math.max(Math.min(((event.clientY - rect.top)  / canvas.clientWidth) * canvas.height, canvas.height - 1), 0));
+        let mouseCoordinates = placeteam.getCoordinateslAtMouse(event);
         // placeteam.setPixel(x, y, placeteam.colorinput.value);
-        placeteam.setPixel(x, y, placeteam.colors[placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid]);
+        placeteam.setPixel(mouseCoordinates.x, mouseCoordinates.y, placeteam.colors[placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid]);
         console.log("x: " + x + " y: " + y);
     }
-
+    placeteam.getCoordinateslAtMouse = (event)=>{
+        const rect = placeteam.canvas.getBoundingClientRect()
+        const x = Math.floor(Math.max(Math.min(((event.clientX - rect.left) /  placeteam.canvas.clientWidth) *  placeteam.canvas.width,  placeteam.canvas.width - 1), 0));
+        const y = Math.floor(Math.max(Math.min(((event.clientY - rect.top)  /  placeteam.canvas.clientWidth) *  placeteam.canvas.height,  placeteam.canvas.height - 1), 0));
+        return {x:x,y:y};
+    };
     placeteam.canvas.addEventListener('mousedown', function(event) {
         lastMouseDown = Date.now();
         mouseIsDown = true;
@@ -130,7 +135,10 @@ window.addEventListener("load", (event) => {
         }
         mouseIsDown = false;
     });
+    //rightclick to get color of a pixel
+    placeteam.canvas.addEventListener('contextmenu',function(event){
 
+    });
     // Zoom on scrolling
     placeteam.canvas.addEventListener('wheel', function(event) {
         minZoom = minZoomPercentageMobile;
