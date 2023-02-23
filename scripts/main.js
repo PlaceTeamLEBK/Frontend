@@ -181,7 +181,7 @@ window.addEventListener("load", (event) => {
 
         newCanvasWidth = Math.max(minZoom, placeteam.getCanvasWidthPercentageInt() + Math.sign(event.deltaY) * zoomSpeed);
 
-        placeteam.setZoom(currentCanvasWidth);
+        placeteam.setZoom(newCanvasWidth);
     });
 
     placeteam.setZoom = (newCanvasWidth) => {
