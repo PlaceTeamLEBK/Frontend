@@ -8,6 +8,7 @@ window.addEventListener("load", (event) => {
     lastMouseDown = 0;
     minZoomPercentageMobile = 270;
     minZoomPercentageDesktop = 100;
+    getParameterUpdateInterval = 1000;
 
     desktopMediaQuery = window.matchMedia("(min-width: 756px)");
 
@@ -158,6 +159,7 @@ window.addEventListener("load", (event) => {
         }
     });
 
+    // Update get parameters
     placeteam.setGetParameters = () => {
         url = new URL(window.location.href);
         currentCanvasWidth = placeteam.getCanvasWidthPercentageInt();
@@ -171,5 +173,5 @@ window.addEventListener("load", (event) => {
         url.searchParams.set('zoom', currentCanvasWidth);
         window.history.replaceState(null,"", url);
     }
-    placeteam.getParameterTimer = setInterval(placeteam.setGetParameters, 1000);
+    placeteam.getParameterTimer = setInterval(placeteam.setGetParameters, getParameterUpdateInterval);
 });
