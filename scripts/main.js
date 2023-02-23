@@ -125,12 +125,12 @@ window.addEventListener("load", (event) => {
         return {x:x,y:y};
     };
     placeteam.canvas.addEventListener('mousedown', function(event) {
+        event.preventDefault();
         if(event.which == 1){//left click
             lastMouseDown = Date.now();
             mouseIsDown = true;
         }
-        else if (event.which == 3){//right click
-            event.preventDefault();
+        else if (event.which == 3){//right click            
             let mouseCoordinates =  placeteam.getCoordinateslAtMouse(event);
             let rgbarray = placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
             console.log(placeteam.rgbToHex(rgbarray[0],rgbarray[1],rgbarray[2]))
