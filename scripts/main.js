@@ -185,13 +185,15 @@ window.addEventListener("load", (event) => {
     });
 
     placeteam.setZoom = (newCanvasWidth) => {
-        initialWidth = placeteam.canvas.clientWidth;
+        if (parseInt(newCanvasWidth)) {
+            initialWidth = placeteam.canvas.clientWidth;
 
-        placeteam.canvas.style.cssText = 'width: ' + newCanvasWidth + '%;';
+            placeteam.canvas.style.cssText = 'width: ' + newCanvasWidth + '%;';
 
-        newWidth = placeteam.canvas.clientWidth;
-        halfWidthDifference = (newWidth - initialWidth) / 2;
-        placeteam.mapcontainer.scrollBy(halfWidthDifference, halfWidthDifference);
+            newWidth = placeteam.canvas.clientWidth;
+            halfWidthDifference = (newWidth - initialWidth) / 2;
+            placeteam.mapcontainer.scrollBy(halfWidthDifference, halfWidthDifference);    
+        }
     }
 
     placeteam.mapcontainer.addEventListener('wheel', function(event) {
