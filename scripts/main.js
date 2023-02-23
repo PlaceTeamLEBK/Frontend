@@ -125,8 +125,15 @@ window.addEventListener("load", (event) => {
         return {x:x,y:y};
     };
     placeteam.canvas.addEventListener('mousedown', function(event) {
-        lastMouseDown = Date.now();
-        mouseIsDown = true;
+        if(event.which == 1){//left click
+            lastMouseDown = Date.now();
+            mouseIsDown = true;
+        }
+        else if (event.which == 3){//right click
+            let mouseCoordinates =  placeteam.getCoordinateslAtMouse(event);
+            let rgbarray = placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
+            console.log(placeteam.rgbToHex(rgbarray[0],rgbarray[1],rgbarray[2]))
+        }
     });
 
     placeteam.canvas.addEventListener('mouseup', function(event) {
@@ -134,12 +141,6 @@ window.addEventListener("load", (event) => {
             placePixelOnCanvas(placeteam.canvas, event);
         }
         mouseIsDown = false;
-    });
-    //rightclick to get color of a pixel
-    placeteam.canvas.addEventListener('contextmenu',function(event){
-        let mouseCoordinates =  placeteam.getCoordinateslAtMouse(event);
-        let rgbarray = placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
-        console.log(placeteam.rgbToHex(rgbarray[0],rgbarray[1],rgbarray[2]))
     });
     // Zoom on scrolling
     placeteam.canvas.addEventListener('wheel', function(event) {
