@@ -102,7 +102,6 @@ window.addEventListener("load", (event) => {
         placeteam.setPixel(x, y, placeteam.colors[placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid]);
         console.log("x: " + x + " y: " + y);
     }
-
     placeteam.getCanvasWidthPercentageInt = () => {
         return parseInt(placeteam.canvas.style.width.match(/(\d+)/));
     }
@@ -143,10 +142,6 @@ window.addEventListener("load", (event) => {
         newWidth = placeteam.canvas.clientWidth;
         halfWidthDifference = (newWidth - initialWidth) / 2;
         placeteam.mapcontainer.scrollBy(halfWidthDifference, halfWidthDifference);
-
-        url = new URL(window.location.href);
-        url.searchParams.set('zoom', currentCanvasWidth);
-        window.history.replaceState(null,"", url);
     });
 
     placeteam.mapcontainer.addEventListener('wheel', function(event) {
@@ -160,14 +155,21 @@ window.addEventListener("load", (event) => {
             offsetY = event.movementY * -1;
 
             placeteam.mapcontainer.scrollBy(offsetX, offsetY);
-
-            pixelSize = placeteam.getPixelSize();
-            pixelsToLeft = Math.floor(placeteam.mapcontainer.scrollLeft / pixelSize);
-            pixelsToTop = Math.floor(placeteam.mapcontainer.scrollTop / pixelSize);
-            url = new URL(window.location.href);
-            url.searchParams.set('x', pixelsToLeft);
-            url.searchParams.set('y', pixelsToTop);
-            window.history.replaceState(null,"", url);
         }
     });
+
+    placeteam.setGetParameters = () => {
+        url = new URL(window.location.href);
+        currentCanvasWidth = placeteam.getCanvasWidthPercentageInt();
+
+        pixelSize = placeteam.getPixelSize();
+        pixelsToLeft = Math.floor(placeteam.mapcontainer.scrollLeft / pixelSize);
+        pixelsToTop = Math.floor(placeteam.mapcontainer.scrollTop / pixelSize);
+
+        url.searchParams.set('x', pixelsToLeft);
+        url.searchParams.set('y', pixelsToTop);
+        url.searchParams.set('zoom', currentCanvasWidth);
+        window.history.replaceState(null,"", url);
+    }
+    placeteam.getParameterTimer = setInterval(placeteam.setGetParameters, 1000);
 });
