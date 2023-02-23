@@ -171,6 +171,7 @@ window.addEventListener("load", (event) => {
         rightclickIsDown = false;
         placeteam.changeCanvasCursor();
     });
+
     // Zoom on scrolling
     placeteam.canvas.addEventListener('wheel', function(event) {
         minZoom = minZoomPercentageMobile;
@@ -178,15 +179,22 @@ window.addEventListener("load", (event) => {
             minZoom = minZoomPercentageDesktop;
         }
 
-        currentCanvasWidth = Math.max(minZoom, placeteam.getCanvasWidthPercentageInt() + Math.sign(event.deltaY) * zoomSpeed);
-        initialWidth = placeteam.canvas.clientWidth;
+        newCanvasWidth = Math.max(minZoom, placeteam.getCanvasWidthPercentageInt() + Math.sign(event.deltaY) * zoomSpeed);
 
-        placeteam.canvas.style.cssText = 'width: ' + currentCanvasWidth + '%;';
-
-        newWidth = placeteam.canvas.clientWidth;
-        halfWidthDifference = (newWidth - initialWidth) / 2;
-        placeteam.mapcontainer.scrollBy(halfWidthDifference, halfWidthDifference);
+        placeteam.setZoom(newCanvasWidth);
     });
+
+    placeteam.setZoom = (newCanvasWidth) => {
+        if (parseInt(newCanvasWidth)) {
+            initialWidth = placeteam.canvas.clientWidth;
+
+            placeteam.canvas.style.cssText = 'width: ' + newCanvasWidth + '%;';
+
+            newWidth = placeteam.canvas.clientWidth;
+            halfWidthDifference = (newWidth - initialWidth) / 2;
+            placeteam.mapcontainer.scrollBy(halfWidthDifference, halfWidthDifference);    
+        }
+    }
 
     placeteam.mapcontainer.addEventListener('wheel', function(event) {
         event.preventDefault();
@@ -207,7 +215,16 @@ window.addEventListener("load", (event) => {
         }
     });
 
-    // Update get parameters
+    // Use GET parameters
+    placeteam.useGetParemeters = () => {
+        urlSearchParams = new URLSearchParams(window.location.search);
+
+        placeteam.setZoom(urlSearchParams.get("zoom"));
+        placeteam.offsetScrollToPixel(parseInt(urlSearchParams.get("x")), parseInt(urlSearchParams.get("y")));
+    }
+    placeteam.useGetParemeters();
+
+    // Update GET parameters
     placeteam.setGetParameters = () => {
         url = new URL(window.location.href);
         currentCanvasWidth = placeteam.getCanvasWidthPercentageInt();
