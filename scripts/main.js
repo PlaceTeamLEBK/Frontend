@@ -5,6 +5,7 @@ window.addEventListener("load", (event) => {
     const maximumClickDownTimeToPlacePixel = 125;
 
     mouseIsDown = false;
+    rightclickIsDown = false;
     lastMouseDown = 0;
     minZoomPercentageMobile = 270;
     minZoomPercentageDesktop = 100;
@@ -14,7 +15,7 @@ window.addEventListener("load", (event) => {
 
     placeteam.mapcontainer = document.querySelector('.mapcontainer');
     placeteam.canvas = document.getElementById("pixelcanvas");
-    placeteam.ctx = document.getElementById("pixelcanvas").getContext("2d");
+    placeteam.ctx = document.getElementById("pixelcanvas").getContext("2d",{ willReadFrequently: true });
     placeteam.colorcontainer = document.getElementById("colorcontainer");
     placeteam.status = document.getElementById("statuscontainer");
     placeteam.editcolorbutton = document.getElementById("editcolorbutton");
@@ -40,10 +41,12 @@ window.addEventListener("load", (event) => {
     //add events for colorinput change
     placeteam.colorcontainer.querySelectorAll('.edit input').forEach((element, index) => {
         element.addEventListener('change', function(event){
-            let selectelement = placeteam.colorcontainer.querySelector('.select>div[data-colorid="'+element.dataset.colorid+'"]');
-            selectelement.style.backgroundColor = element.value;
-            placeteam.colors[element.dataset.colorid] = element.value;
-            localStorage.setItem("colors",JSON.stringify(placeteam.colors));
+            placeteam.changeColor(element.value,element.dataset.colorid);
+
+            // let selectelement = placeteam.colorcontainer.querySelector('.select>div[data-colorid="'+element.dataset.colorid+'"]');
+            // selectelement.style.backgroundColor = element.value;
+            // placeteam.colors[element.dataset.colorid] = element.value;
+            // localStorage.setItem("colors",JSON.stringify(placeteam.colors));
         });
     });
     //add events for colorselect
@@ -60,7 +63,23 @@ window.addEventListener("load", (event) => {
         placeteam.colorcontainer.querySelector('div.edit').classList.toggle('hidden');
         placeteam.colorcontainer.querySelector('div.select').classList.toggle('hidden');
     });
-
+    //add event for zoomrange
+    document.getElementById("range_zoom").addEventListener('change', function(event){
+        //change zoom
+    });
+    //add event for zoombutton +
+    document.getElementById("btn_zoom_plus").addEventListener('click', function(event){
+        //change zoom
+    });
+    //add event for zoombutton -
+    document.getElementById("btn_zoom_minus").addEventListener('click', function(event){
+        //change zoom
+    });
+    //add event for fullscreenbutton
+    document.getElementById("btn_fullscreen").addEventListener('click', function(event){
+        //change zoom
+    });
+    //process update from websocket
     placeteam.update = (updatedata) => {
         updatedata.data.pixels.forEach((pixel) => {
             placeteam.setPixel(pixel.position.x,pixel.position.y,pixel.color)
@@ -70,6 +89,13 @@ window.addEventListener("load", (event) => {
     placeteam.setPixel = (x,y,color) => {    
         placeteam.ctx.fillStyle = color;
         placeteam.ctx.fillRect(x, y, 1, 1);
+    };
+    // changes color of id  to Hex value
+    placeteam.changeColor = (color, id) => {
+            let selectelement = placeteam.colorcontainer.querySelector('.select>div[data-colorid="'+id+'"]');
+            selectelement.style.backgroundColor = color;
+            placeteam.colors[id] = color;
+            localStorage.setItem("colors",JSON.stringify(placeteam.colors));
     };
     //change pixel on server
     placeteam.set = (x,y,color) => {
@@ -91,18 +117,19 @@ window.addEventListener("load", (event) => {
     }
     // Place pixel on clicked part of canvas
     function placePixelOnCanvas(canvas, event) {
-        const rect = canvas.getBoundingClientRect();
+        // const rect = canvas.getBoundingClientRect();
 
         // Gets the coordinates of the clicked position on the canvas, converts them to the pixel coordinates of the canvas,
         // and rounds them down. Oddly enough,  clicking on the very edge of the element can cause it to return numbers that are too
         // high or too low, so we have to clamp it
-        const x = Math.floor(Math.max(Math.min(((event.clientX - rect.left) / canvas.clientWidth) * canvas.width, canvas.width - 1), 0));
-        const y = Math.floor(Math.max(Math.min(((event.clientY - rect.top)  / canvas.clientWidth) * canvas.height, canvas.height - 1), 0));
-
+        // const x = Math.floor(Math.max(Math.min(((event.clientX - rect.left) / canvas.clientWidth) * canvas.width, canvas.width - 1), 0));
+        // const y = Math.floor(Math.max(Math.min(((event.clientY - rect.top)  / canvas.clientWidth) * canvas.height, canvas.height - 1), 0));
+        let mouseCoordinates = placeteam.getCoordinateslAtMouse(event);
         // placeteam.setPixel(x, y, placeteam.colorinput.value);
-        placeteam.setPixel(x, y, placeteam.colors[placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid]);
+        placeteam.setPixel(mouseCoordinates.x, mouseCoordinates.y, placeteam.colors[placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid]);
         console.log("x: " + x + " y: " + y);
     }
+
     placeteam.getCanvasWidthPercentageInt = () => {
         return parseInt(placeteam.canvas.style.width.match(/(\d+)/));
     }
@@ -116,9 +143,24 @@ window.addEventListener("load", (event) => {
         placeteam.mapcontainer.scrollTo(Math.ceil(pixelSize * x), Math.ceil(pixelSize * y));
     }
 
+    placeteam.getCoordinateslAtMouse = (event)=> {
+        const rect = placeteam.canvas.getBoundingClientRect()
+        const x = Math.floor(Math.max(Math.min(((event.clientX - rect.left) /  placeteam.canvas.clientWidth) *  placeteam.canvas.width,  placeteam.canvas.width - 1), 0));
+        const y = Math.floor(Math.max(Math.min(((event.clientY - rect.top)  /  placeteam.canvas.clientWidth) *  placeteam.canvas.height,  placeteam.canvas.height - 1), 0));
+        return {x:x,y:y};
+    };
+
     placeteam.canvas.addEventListener('mousedown', function(event) {
-        lastMouseDown = Date.now();
-        mouseIsDown = true;
+
+        if(event.which == 1){//left click
+            lastMouseDown = Date.now();   
+            mouseIsDown = true;
+            placeteam.changeCanvasCursor('grab');
+        }
+        else if (event.which == 3){//right click   
+            rightclickIsDown = true;
+           placeteam.changeCanvasCursor('crosshair');
+        }
     });
 
     placeteam.canvas.addEventListener('mouseup', function(event) {
@@ -126,8 +168,9 @@ window.addEventListener("load", (event) => {
             placePixelOnCanvas(placeteam.canvas, event);
         }
         mouseIsDown = false;
+        rightclickIsDown = false;
+        placeteam.changeCanvasCursor();
     });
-
     // Zoom on scrolling
     placeteam.canvas.addEventListener('wheel', function(event) {
         minZoom = minZoomPercentageMobile;
@@ -162,6 +205,11 @@ window.addEventListener("load", (event) => {
 
             placeteam.mapcontainer.scrollBy(offsetX, offsetY);
         }
+        if(rightclickIsDown){
+            let mouseCoordinates =  placeteam.getCoordinateslAtMouse(event);
+            let rgbarray = placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
+            placeteam.changeColor("#"+placeteam.rgbToHex(rgbarray[0],rgbarray[1],rgbarray[2]),placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
+        }
     });
 
     // Use GET parameters
@@ -189,4 +237,18 @@ window.addEventListener("load", (event) => {
         window.history.replaceState(null,"", url);
     }
     placeteam.getParameterTimer = setInterval(placeteam.setGetParameters, getParameterUpdateInterval);
+
+    placeteam.rgbToHex = (r, g, b) => {
+        if (r > 255 || g > 255 || b > 255)
+            throw "Invalid color component";
+        return ((r << 16) | (g << 8) | b).toString(16);
+    }
+    //disable context menu for right click;
+    placeteam.canvas.addEventListener('contextmenu', (ev)=>{
+        ev.preventDefault(); // this will prevent browser default behavior 
+      });
+    //change cursor for canvas events, no argument resets cursor 
+    placeteam.changeCanvasCursor = (cursortype=null) => {
+        placeteam.canvas.style.cursor = cursortype;
+    };
 });
