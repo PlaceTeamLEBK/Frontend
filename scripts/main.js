@@ -25,7 +25,7 @@ window.addEventListener("load", (event) => {
     //load colors
     placeteam.loadcolors = () => {
         let localcolors = localStorage.getItem("colors");
-        if(locaalcolors != null)
+        if(localcolors != null)
             placeteam.colors=JSON.parse(localcolors);
         //load from sessionstorage eventually;
         placeteam.colors.forEach((color,index)=>{
