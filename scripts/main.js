@@ -137,12 +137,13 @@ window.addEventListener("load", (event) => {
         if(event.which == 1){//left click
             lastMouseDown = Date.now();
             mouseIsDown = true;
+            placeteam.changeCanvasCursor('grab');
         }
         else if (event.which == 3){//right click            
             let mouseCoordinates =  placeteam.getCoordinateslAtMouse(event);
             let rgbarray = placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
             placeteam.changeColor("#"+placeteam.rgbToHex(rgbarray[0],rgbarray[1],rgbarray[2]),placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
-            console.log(placeteam.rgbToHex(rgbarray[0],rgbarray[1],rgbarray[2]))
+            placeteam.changeCanvasCursor('crosshair');
         }
     });
 
@@ -151,6 +152,7 @@ window.addEventListener("load", (event) => {
             placePixelOnCanvas(placeteam.canvas, event);
         }
         mouseIsDown = false;
+        placeteam.changeCanvasCursor();
     });
     // Zoom on scrolling
     placeteam.canvas.addEventListener('wheel', function(event) {
@@ -192,4 +194,8 @@ window.addEventListener("load", (event) => {
     placeteam.canvas.addEventListener('contextmenu', (ev)=>{
         ev.preventDefault(); // this will prevent browser default behavior 
       });
+    //change cursor for canvas events, no argument resets cursor 
+    placeteam.changeCanvasCursor = (cursortype=null) => {
+        placeteam.canvas.style.cursor = cursortype;
+    };
 });
