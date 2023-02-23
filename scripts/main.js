@@ -157,7 +157,7 @@ window.addEventListener("load", (event) => {
     
             placeteam.mapcontainer.scrollBy(offsetX, offsetY);
 
-            var url = new URL(window.location.href);
+            url = new URL(window.location.href);
             url.searchParams.set('x', 42);
             window.history.replaceState(null,"", url);
         }
