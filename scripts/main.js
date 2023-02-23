@@ -154,11 +154,15 @@ window.addEventListener("load", (event) => {
         if (mouseIsDown) {
             offsetX = event.movementX * -1;
             offsetY = event.movementY * -1;
-    
+
             placeteam.mapcontainer.scrollBy(offsetX, offsetY);
 
+            pixelSize = placeteam.getPixelSize();
+            pixelsToLeft = Math.floor(placeteam.mapcontainer.scrollLeft / pixelSize);
+            pixelsToTop = Math.floor(placeteam.mapcontainer.scrollTop / pixelSize);
             url = new URL(window.location.href);
-            url.searchParams.set('x', 42);
+            url.searchParams.set('x', pixelsToLeft);
+            url.searchParams.set('y', pixelsToTop);
             window.history.replaceState(null,"", url);
         }
     });
