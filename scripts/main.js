@@ -130,6 +130,7 @@ window.addEventListener("load", (event) => {
             mouseIsDown = true;
         }
         else if (event.which == 3){//right click
+            event.preventDefault();
             let mouseCoordinates =  placeteam.getCoordinateslAtMouse(event);
             let rgbarray = placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
             console.log(placeteam.rgbToHex(rgbarray[0],rgbarray[1],rgbarray[2]))
