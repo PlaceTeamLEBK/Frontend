@@ -135,15 +135,20 @@ window.addEventListener("load", (event) => {
             minZoom = minZoomPercentageDesktop;
         }
 
-        currentCanvasWidth = Math.max(minZoom, placeteam.getCanvasWidthPercentageInt() + Math.sign(event.deltaY) * zoomSpeed);
+        newCanvasWidth = Math.max(minZoom, placeteam.getCanvasWidthPercentageInt() + Math.sign(event.deltaY) * zoomSpeed);
+
+        placeteam.setZoom(currentCanvasWidth);
+    });
+
+    placeteam.setZoom = (newCanvasWidth) => {
         initialWidth = placeteam.canvas.clientWidth;
 
-        placeteam.canvas.style.cssText = 'width: ' + currentCanvasWidth + '%;';
+        placeteam.canvas.style.cssText = 'width: ' + newCanvasWidth + '%;';
 
         newWidth = placeteam.canvas.clientWidth;
         halfWidthDifference = (newWidth - initialWidth) / 2;
         placeteam.mapcontainer.scrollBy(halfWidthDifference, halfWidthDifference);
-    });
+    }
 
     placeteam.mapcontainer.addEventListener('wheel', function(event) {
         event.preventDefault();
@@ -159,7 +164,17 @@ window.addEventListener("load", (event) => {
         }
     });
 
-    // Update get parameters
+    // Use GET parameters
+    placeteam.useGetParemeters = () => {
+        urlSearchParams = new URLSearchParams(window.location.search);
+
+        placeTeam.setZoom(urlSearchParams.getItem("zoom"));
+        x = parseInt(urlSearchParams.getItem("x"));
+        y = parseInt(urlSearchParams.getItem("y"))
+    }
+    placeteam.useGetParemeters();
+
+    // Update GET parameters
     placeteam.setGetParameters = () => {
         url = new URL(window.location.href);
         currentCanvasWidth = placeteam.getCanvasWidthPercentageInt();
