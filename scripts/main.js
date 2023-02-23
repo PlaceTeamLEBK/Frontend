@@ -217,7 +217,7 @@ window.addEventListener("load", (event) => {
     placeteam.useGetParemeters = () => {
         urlSearchParams = new URLSearchParams(window.location.search);
 
-        placeTeam.setZoom(urlSearchParams.getItem("zoom"));
+        placeteam.setZoom(urlSearchParams.getItem("zoom"));
         placeteam.offsetScrollToPixel(parseInt(urlSearchParams.getItem("x")), parseInt(urlSearchParams.getItem("y")));
     }
     placeteam.useGetParemeters();
