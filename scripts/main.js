@@ -103,13 +103,18 @@ window.addEventListener("load", (event) => {
         console.log("x: " + x + " y: " + y);
     }
 
-    placeteam.setInitialScrollPosition = () => {
-        pixelSize = placeteam.canvas.clientWidth / placeteam.canvas.width;
-        scaledPixelSize = pixelSize * (placeteam.getCanvasWidthPercentageInt() / 100);
-    }
-
     placeteam.getCanvasWidthPercentageInt = () => {
         return parseInt(placeteam.canvas.style.width.match(/(\d+)/));
+    }
+
+    placeteam.getScaledPixelSize = () => {
+        pixelSize = placeteam.canvas.clientWidth / placeteam.canvas.width;
+        return pixelSize * (placeteam.getCanvasWidthPercentageInt() / 100);
+    }
+
+    placeteam.offsetScrollByPixels = (x, y) => {
+        scaledPixelSize = placeteam.getScaledPixelSize();
+        placeteam.mapcontainer.scrollBy(scaledPixelSize * x, scaledPixelSize * y);
     }
 
     placeteam.canvas.addEventListener('mousedown', function(event) {
@@ -154,6 +159,4 @@ window.addEventListener("load", (event) => {
             placeteam.mapcontainer.scrollBy(offsetX, offsetY);
         }
     });
-
-    placeteam.setInitialScrollPosition();
 });
