@@ -22,7 +22,7 @@ window.addEventListener("load", (event) => {
     placeteam.colors = ['#000000','#ffffff','#fff100','#ff8c00','#e81123','#009e49','#00188f','#68217a','#00bcf2','#bad80a'];
     placeteam.ctx.imageSmoothingEnabled = false;
     placeteam.fullscreen = false;
-    placeteam.rangzoom = document.getElementById("range_zoom");
+    placeteam.rangezoom = document.getElementById("range_zoom");
     placeteam.init = (data) => {
         // data.cooldown;
         data.pixels;
