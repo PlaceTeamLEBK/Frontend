@@ -66,6 +66,25 @@ main {
     position:fixed;
     margin-top:2rem;
 }
+#controlcontainer{
+    background-color:grey;
+    padding:5px;
+    border-radius: 4px;
+    position:fixed;
+    margin-right:2rem;
+    margin-top:2rem;
+    top:0;
+    right:0;
+    display: flex;
+    flex-direction: column;
+}
+#controlcontainer button{
+    width:28px;
+    height: 28px;
+}
+#range_zoom{
+    width: 28px;
+}
 input[type="color"]{
     width:28px;
     height:28px;
@@ -97,3 +116,8 @@ input[type="color"]{
     height: 28px;
     cursor:pointer;
 }
+/*Compatibility for vertical range input*/
+input[type="range"][orient="vertical"] {
+    writing-mode: bt-lr;
+    appearance: slider-vertical;
+  }
