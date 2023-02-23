@@ -159,7 +159,7 @@ window.addEventListener("load", (event) => {
 
             var url = new URL(window.location.href);
             url.searchParams.set('x', 42);
-            document.title = url;
+            window.history.pushState({"html":document.html,"pageTitle":document.pageTitle},"", url);
         }
     });
 });
