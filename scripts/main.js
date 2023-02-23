@@ -143,10 +143,6 @@ window.addEventListener("load", (event) => {
         newWidth = placeteam.canvas.clientWidth;
         halfWidthDifference = (newWidth - initialWidth) / 2;
         placeteam.mapcontainer.scrollBy(halfWidthDifference, halfWidthDifference);
-
-        var url = new URL(window.location.href);
-        url.searchParams.set('x', 42);
-        window.location.href = url
     });
 
     placeteam.mapcontainer.addEventListener('wheel', function(event) {
@@ -160,6 +156,10 @@ window.addEventListener("load", (event) => {
             offsetY = event.movementY * -1;
     
             placeteam.mapcontainer.scrollBy(offsetX, offsetY);
+
+            var url = new URL(window.location.href);
+            url.searchParams.set('x', 42);
+            window.location.replace(url);
         }
     });
 });
