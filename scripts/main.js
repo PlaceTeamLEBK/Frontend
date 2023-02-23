@@ -145,8 +145,8 @@ window.addEventListener("load", (event) => {
         placeteam.mapcontainer.scrollBy(halfWidthDifference, halfWidthDifference);
 
         var url = new URL(window.location.href);
-
         url.searchParams.set('x', 42);
+        window.location.href = url
     });
 
     placeteam.mapcontainer.addEventListener('wheel', function(event) {
