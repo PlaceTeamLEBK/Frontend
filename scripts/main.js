@@ -5,6 +5,7 @@ window.addEventListener("load", (event) => {
     const maximumClickDownTimeToPlacePixel = 125;
 
     mouseIsDown = false;
+    mouseKeyIdDown = 0;
     lastMouseDown = 0;
     minZoomPercentageMobile = 270;
     minZoomPercentageDesktop = 100;
@@ -134,22 +135,28 @@ window.addEventListener("load", (event) => {
         return {x:x,y:y};
     };
     placeteam.canvas.addEventListener('mousedown', function(event) {
-        if(event.which == 1){//left click
-            lastMouseDown = Date.now();
-            mouseIsDown = true;
+        lastMouseDown = Date.now();
+        mouseIsDown = true;
+        if(event.which == 1){//left click            
+            mouseKeyIdDown = 1;
             placeteam.changeCanvasCursor('grab');
         }
         else if (event.which == 3){//right click            
-            let mouseCoordinates =  placeteam.getCoordinateslAtMouse(event);
-            let rgbarray = placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
-            placeteam.changeColor("#"+placeteam.rgbToHex(rgbarray[0],rgbarray[1],rgbarray[2]),placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
+            mouseKeyIdDown = 3;
             placeteam.changeCanvasCursor('crosshair');
         }
     });
 
     placeteam.canvas.addEventListener('mouseup', function(event) {
         if (Date.now() - lastMouseDown < maximumClickDownTimeToPlacePixel) {
-            placePixelOnCanvas(placeteam.canvas, event);
+            if(mouseKeyIdDown==1){
+                placePixelOnCanvas(placeteam.canvas, event);
+            }
+            else if (mouseKeyIdDown == 3){
+                let mouseCoordinates =  placeteam.getCoordinateslAtMouse(event);
+                let rgbarray = placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
+                placeteam.changeColor("#"+placeteam.rgbToHex(rgbarray[0],rgbarray[1],rgbarray[2]),placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
+            }
         }
         mouseIsDown = false;
         placeteam.changeCanvasCursor();
