@@ -171,6 +171,7 @@ window.addEventListener("load", (event) => {
         rightclickIsDown = false;
         placeteam.changeCanvasCursor();
     });
+
     // Zoom on scrolling
     placeteam.canvas.addEventListener('wheel', function(event) {
         minZoom = minZoomPercentageMobile;
@@ -217,8 +218,7 @@ window.addEventListener("load", (event) => {
         urlSearchParams = new URLSearchParams(window.location.search);
 
         placeTeam.setZoom(urlSearchParams.getItem("zoom"));
-        x = parseInt(urlSearchParams.getItem("x"));
-        y = parseInt(urlSearchParams.getItem("y"))
+        placeteam.offsetScrollToPixel(parseInt(urlSearchParams.getItem("x")), parseInt(urlSearchParams.getItem("y")));
     }
     placeteam.useGetParemeters();
 
