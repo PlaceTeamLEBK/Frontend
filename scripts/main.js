@@ -22,10 +22,15 @@ window.addEventListener("load", (event) => {
     placeteam.colors = ['#000000','#ffffff','#fff100','#ff8c00','#e81123','#009e49','#00188f','#68217a','#00bcf2','#bad80a'];
     placeteam.ctx.imageSmoothingEnabled = false;
     placeteam.fullscreen = false;
-    placeteam.init = (pixelmap) => {
-
-
-        
+    placeteam.rangzoom = document.getElementById("range_zoom");
+    placeteam.init = (data) => {
+        // data.cooldown;
+        data.pixels;
+        data.pixels.forEach((line,y) => {
+            line.forEach((pixel,x)  =>{
+                placeteam.setPixel(x,y,pixel.color)
+            });
+        });        
     };
     //load colors
     placeteam.loadcolors = () => {
@@ -65,7 +70,7 @@ window.addEventListener("load", (event) => {
         placeteam.colorcontainer.querySelector('div.select').classList.toggle('hidden');
     });
     //add event for zoomrange
-    document.getElementById("range_zoom").addEventListener('change', function(event){
+    placeteam.rangezoom.addEventListener('change', function(event){
         //change zoom
     });
     //add event for zoombutton +
@@ -88,7 +93,8 @@ window.addEventListener("load", (event) => {
     //process update from websocket
     placeteam.update = (updatedata) => {
         updatedata.data.pixels.forEach((pixel) => {
-            placeteam.setPixel(pixel.position.x,pixel.position.y,pixel.color)
+            if(!pixel.color==null)
+                placeteam.setPixel(pixel.position.x,pixel.position.y,pixel.color)
         });
     };
     //change pixel locally
