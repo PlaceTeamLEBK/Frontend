@@ -5,7 +5,6 @@ window.addEventListener("load", (event) => {
     const maximumClickDownTimeToPlacePixel = 125;
 
     mouseIsDown = false;
-    mouseKeyIdDown = 0;
     lastMouseDown = 0;
     minZoomPercentageMobile = 270;
     minZoomPercentageDesktop = 100;
@@ -138,14 +137,12 @@ window.addEventListener("load", (event) => {
         if(event.which == 1){//left click
             lastMouseDown = Date.now();
             mouseIsDown = true;
-            mouseKeyIdDown = 1;
             placeteam.changeCanvasCursor('grab');
         }
         else if (event.which == 3){//right click            
             let mouseCoordinates =  placeteam.getCoordinateslAtMouse(event);
             let rgbarray = placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
             placeteam.changeColor("#"+placeteam.rgbToHex(rgbarray[0],rgbarray[1],rgbarray[2]),placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
-            mouseKeyIdDown = 3;
             placeteam.changeCanvasCursor('crosshair');
         }
     });
