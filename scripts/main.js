@@ -143,6 +143,10 @@ window.addEventListener("load", (event) => {
         newWidth = placeteam.canvas.clientWidth;
         halfWidthDifference = (newWidth - initialWidth) / 2;
         placeteam.mapcontainer.scrollBy(halfWidthDifference, halfWidthDifference);
+
+        var url = new URL(window.location.href);
+
+        url.searchParams.set('x', 42);
     });
 
     placeteam.mapcontainer.addEventListener('wheel', function(event) {
