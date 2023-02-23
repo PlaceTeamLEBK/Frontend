@@ -113,7 +113,7 @@ window.addEventListener("load", (event) => {
 
     placeteam.offsetScrollToPixel = (x, y) => {
         pixelSize = placeteam.getPixelSize();
-        placeteam.mapcontainer.scrollTo(parseInt((pixelSize * x).toPrecision(1)), parseInt((pixelSize * y).toPrecision(1)));
+        placeteam.mapcontainer.scrollTo(Math.ceil(pixelSize * x), Math.ceil(pixelSize * y));
     }
 
     placeteam.canvas.addEventListener('mousedown', function(event) {
