@@ -9,6 +9,7 @@ window.addEventListener("load", (event) => {
     lastMouseDown = 0;
     minZoomPercentageMobile = 270;
     minZoomPercentageDesktop = 100;
+    getParameterUpdateInterval = 1000;
 
     desktopMediaQuery = window.matchMedia("(min-width: 756px)");
 
@@ -128,12 +129,27 @@ window.addEventListener("load", (event) => {
         placeteam.setPixel(mouseCoordinates.x, mouseCoordinates.y, placeteam.colors[placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid]);
         console.log("x: " + x + " y: " + y);
     }
-    placeteam.getCoordinateslAtMouse = (event)=>{
+
+    placeteam.getCanvasWidthPercentageInt = () => {
+        return parseInt(placeteam.canvas.style.width.match(/(\d+)/));
+    }
+
+    placeteam.getPixelSize = () => {
+        return placeteam.canvas.clientWidth / placeteam.canvas.width;
+    }
+
+    placeteam.offsetScrollToPixel = (x, y) => {
+        pixelSize = placeteam.getPixelSize();
+        placeteam.mapcontainer.scrollTo(Math.ceil(pixelSize * x), Math.ceil(pixelSize * y));
+    }
+
+    placeteam.getCoordinateslAtMouse = (event)=> {
         const rect = placeteam.canvas.getBoundingClientRect()
         const x = Math.floor(Math.max(Math.min(((event.clientX - rect.left) /  placeteam.canvas.clientWidth) *  placeteam.canvas.width,  placeteam.canvas.width - 1), 0));
         const y = Math.floor(Math.max(Math.min(((event.clientY - rect.top)  /  placeteam.canvas.clientWidth) *  placeteam.canvas.height,  placeteam.canvas.height - 1), 0));
         return {x:x,y:y};
     };
+
     placeteam.canvas.addEventListener('mousedown', function(event) {
 
         if(event.which == 1){//left click
@@ -162,8 +178,7 @@ window.addEventListener("load", (event) => {
             minZoom = minZoomPercentageDesktop;
         }
 
-        currentCanvasWidth = parseInt(placeteam.canvas.style.width.match(/(\d+)/));
-        currentCanvasWidth = Math.max(minZoom, currentCanvasWidth + Math.sign(event.deltaY) * zoomSpeed);
+        currentCanvasWidth = Math.max(minZoom, placeteam.getCanvasWidthPercentageInt() + Math.sign(event.deltaY) * zoomSpeed);
         initialWidth = placeteam.canvas.clientWidth;
 
         placeteam.canvas.style.cssText = 'width: ' + currentCanvasWidth + '%;';
@@ -182,7 +197,7 @@ window.addEventListener("load", (event) => {
         if (mouseIsDown) {
             offsetX = event.movementX * -1;
             offsetY = event.movementY * -1;
-    
+
             placeteam.mapcontainer.scrollBy(offsetX, offsetY);
         }
         if(rightclickIsDown){
@@ -191,6 +206,23 @@ window.addEventListener("load", (event) => {
             placeteam.changeColor("#"+placeteam.rgbToHex(rgbarray[0],rgbarray[1],rgbarray[2]),placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
         }
     });
+
+    // Update get parameters
+    placeteam.setGetParameters = () => {
+        url = new URL(window.location.href);
+        currentCanvasWidth = placeteam.getCanvasWidthPercentageInt();
+
+        pixelSize = placeteam.getPixelSize();
+        pixelsToLeft = Math.floor(placeteam.mapcontainer.scrollLeft / pixelSize);
+        pixelsToTop = Math.floor(placeteam.mapcontainer.scrollTop / pixelSize);
+
+        url.searchParams.set('x', pixelsToLeft);
+        url.searchParams.set('y', pixelsToTop);
+        url.searchParams.set('zoom', currentCanvasWidth);
+        window.history.replaceState(null,"", url);
+    }
+    placeteam.getParameterTimer = setInterval(placeteam.setGetParameters, getParameterUpdateInterval);
+
     placeteam.rgbToHex = (r, g, b) => {
         if (r > 255 || g > 255 || b > 255)
             throw "Invalid color component";
