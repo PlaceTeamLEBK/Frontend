@@ -103,6 +103,15 @@ window.addEventListener("load", (event) => {
         console.log("x: " + x + " y: " + y);
     }
 
+    placeteam.setInitialScrollPosition = () => {
+        pixelSize = placeteam.canvas.clientWidth / placeteam.canvas.width;
+        scaledPixelSize = pixelSize * (placeteam.getCanvasWidthPercentageInt() / 100);
+    }
+
+    placeteam.getCanvasWidthPercentageInt = () => {
+        return parseInt(placeteam.canvas.style.width.match(/(\d+)/));
+    }
+
     placeteam.canvas.addEventListener('mousedown', function(event) {
         lastMouseDown = Date.now();
         mouseIsDown = true;
@@ -122,8 +131,7 @@ window.addEventListener("load", (event) => {
             minZoom = minZoomPercentageDesktop;
         }
 
-        currentCanvasWidth = parseInt(placeteam.canvas.style.width.match(/(\d+)/));
-        currentCanvasWidth = Math.max(minZoom, currentCanvasWidth + Math.sign(event.deltaY) * zoomSpeed);
+        currentCanvasWidth = Math.max(minZoom, placeteam.getCanvasWidthPercentageInt() + Math.sign(event.deltaY) * zoomSpeed);
         initialWidth = placeteam.canvas.clientWidth;
 
         placeteam.canvas.style.cssText = 'width: ' + currentCanvasWidth + '%;';
@@ -146,13 +154,6 @@ window.addEventListener("load", (event) => {
             placeteam.mapcontainer.scrollBy(offsetX, offsetY);
         }
     });
-
-    placeteam.setInitialScrollPosition = () => {
-        console.log("clientWidth = " + placeteam.canvas.clientWidth);
-        console.log("width = " + placeteam.canvas.width);
-        pixelSize = placeteam.canvas.clientWidth / placeteam.canvas.width;
-        console.log("pixelSize = " + pixelSize);
-    }
 
     placeteam.setInitialScrollPosition();
 });
