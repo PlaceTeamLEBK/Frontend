@@ -39,10 +39,12 @@ window.addEventListener("load", (event) => {
     //add events for colorinput change
     placeteam.colorcontainer.querySelectorAll('.edit input').forEach((element, index) => {
         element.addEventListener('change', function(event){
-            let selectelement = placeteam.colorcontainer.querySelector('.select>div[data-colorid="'+element.dataset.colorid+'"]');
-            selectelement.style.backgroundColor = element.value;
-            placeteam.colors[element.dataset.colorid] = element.value;
-            localStorage.setItem("colors",JSON.stringify(placeteam.colors));
+            placeteam.changeColor(element.value,element.dataset.colorid);
+
+            // let selectelement = placeteam.colorcontainer.querySelector('.select>div[data-colorid="'+element.dataset.colorid+'"]');
+            // selectelement.style.backgroundColor = element.value;
+            // placeteam.colors[element.dataset.colorid] = element.value;
+            // localStorage.setItem("colors",JSON.stringify(placeteam.colors));
         });
     });
     //add events for colorselect
@@ -85,6 +87,13 @@ window.addEventListener("load", (event) => {
     placeteam.setPixel = (x,y,color) => {    
         placeteam.ctx.fillStyle = color;
         placeteam.ctx.fillRect(x, y, 1, 1);
+    };
+    // changes color of id  to Hex value
+    placeteam.changeColor = (color, id) => {
+            let selectelement = placeteam.colorcontainer.querySelector('.select>div[data-colorid="'+id+'"]');
+            selectelement.style.backgroundColor = color;
+            placeteam.colors[id] = color;
+            localStorage.setItem("colors",JSON.stringify(placeteam.colors));
     };
     //change pixel on server
     placeteam.set = (x,y,color) => {
