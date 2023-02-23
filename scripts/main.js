@@ -137,7 +137,9 @@ window.addEventListener("load", (event) => {
     });
     //rightclick to get color of a pixel
     placeteam.canvas.addEventListener('contextmenu',function(event){
-
+        let mouseCoordinates =  placeteam.getCoordinateslAtMouse(event);
+        let rgbarray = placeteam.ctx.getImageData(x, y, 1, 1).data; 
+        console.log(placeteam.rgbToHex(rgbarray[0],rgbarray[1],rgbarray[2]))
     });
     // Zoom on scrolling
     placeteam.canvas.addEventListener('wheel', function(event) {
@@ -170,4 +172,10 @@ window.addEventListener("load", (event) => {
             placeteam.mapcontainer.scrollBy(offsetX, offsetY);
         }
     });
+
+    placeteam.rgbToHex = (r, g, b) => {
+        if (r > 255 || g > 255 || b > 255)
+            throw "Invalid color component";
+        return ((r << 16) | (g << 8) | b).toString(16);
+    }
 });
