@@ -134,14 +134,17 @@ window.addEventListener("load", (event) => {
         const y = Math.floor(Math.max(Math.min(((event.clientY - rect.top)  /  placeteam.canvas.clientWidth) *  placeteam.canvas.height,  placeteam.canvas.height - 1), 0));
         return {x:x,y:y};
     };
-    placeteam.canvas.addEventListener('mousedown', function(event) {        
-        if(event.which == 1){//left click        
+    placeteam.canvas.addEventListener('mousedown', function(event) {
+        if(event.which == 1){//left click
             lastMouseDown = Date.now();
-            mouseIsDown = true;    
+            mouseIsDown = true;
             mouseKeyIdDown = 1;
             placeteam.changeCanvasCursor('grab');
         }
         else if (event.which == 3){//right click            
+            let mouseCoordinates =  placeteam.getCoordinateslAtMouse(event);
+            let rgbarray = placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
+            placeteam.changeColor("#"+placeteam.rgbToHex(rgbarray[0],rgbarray[1],rgbarray[2]),placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
             mouseKeyIdDown = 3;
             placeteam.changeCanvasCursor('crosshair');
         }
@@ -149,18 +152,9 @@ window.addEventListener("load", (event) => {
 
     placeteam.canvas.addEventListener('mouseup', function(event) {
         if (Date.now() - lastMouseDown < maximumClickDownTimeToPlacePixel) {
-            if(mouseKeyIdDown==1){
-                mouseIsDown = false;
-                placePixelOnCanvas(placeteam.canvas, event);
-            }
+            placePixelOnCanvas(placeteam.canvas, event);
         }
-        if (mouseKeyIdDown == 3){
-            let mouseCoordinates =  placeteam.getCoordinateslAtMouse(event);
-            let rgbarray = placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
-            placeteam.changeColor("#"+placeteam.rgbToHex(rgbarray[0],rgbarray[1],rgbarray[2]),placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
-        }
-
-       
+        mouseIsDown = false;
         placeteam.changeCanvasCursor();
     });
     // Zoom on scrolling
