@@ -33,7 +33,7 @@ main {
 
 @media (min-width: 756px) {
     .mapcontainer > canvas {
-        min-width: none;
+        min-width: 0;
     }
 }
 
