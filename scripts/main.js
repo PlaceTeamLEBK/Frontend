@@ -13,7 +13,7 @@ window.addEventListener("load", (event) => {
 
     placeteam.mapcontainer = document.querySelector('.mapcontainer');
     placeteam.canvas = document.getElementById("pixelcanvas");
-    placeteam.ctx = document.getElementById("pixelcanvas").getContext("2d");
+    placeteam.ctx = document.getElementById("pixelcanvas").getContext("2d",{ willReadFrequently: true });
     placeteam.colorcontainer = document.getElementById("colorcontainer");
     placeteam.status = document.getElementById("statuscontainer");
     placeteam.editcolorbutton = document.getElementById("editcolorbutton");
