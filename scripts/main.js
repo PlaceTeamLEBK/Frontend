@@ -142,7 +142,7 @@ window.addEventListener("load", (event) => {
         else if (event.which == 3){//right click            
             let mouseCoordinates =  placeteam.getCoordinateslAtMouse(event);
             let rgbarray = placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
-            placeteam.changeColor(placeteam.rgbToHex(rgbarray[0],rgbarray[1],rgbarray[2]),placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
+            placeteam.changeColor("#"+placeteam.rgbToHex(rgbarray[0],rgbarray[1],rgbarray[2]),placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
             console.log(placeteam.rgbToHex(rgbarray[0],rgbarray[1],rgbarray[2]))
         }
     });
