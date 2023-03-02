@@ -23,9 +23,42 @@ window.addEventListener("load", (event) => {
     placeteam.ctx.imageSmoothingEnabled = false;
     placeteam.fullscreen = false;
     placeteam.rangezoom = document.getElementById("range_zoom");
-    placeteam.init = (data) => {
+
+    //register at Socket
+    placeteam.init() = () => {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        if(urlParams.get('testing'))//testing
+        {
+            var test = {
+                "command": "update",
+                "timeStamp": 1675328548,
+                "data": {"pixels":[]}
+            };
+            for(x = 0; x < 200; x++) {
+                for(y = 0; y < 200; y++) {
+                    test.data.pixels.push({
+                        "color": '#'+Math.floor(Math.random()*16777215).toString(16),
+                        "position": {
+                          "x": x,
+                          "y": y
+                        }
+                    });
+                }
+            }
+            placeteam.update(test);
+        }
+        else{
+            placeteam.websocket.send({
+                "command": "init",
+                "key": "5251d829377e9590737d859d04bf3e0e17091e5cd62626c92e7af82d9efc602f",//replace w cookie
+                "timeStamp": Date.now()
+              });
+        }
+    }
+    //called from socket once the pixels are recieved
+    placeteam.buildFromArray = (data) => {
         // data.cooldown;
-        data.pixels;
         data.pixels.forEach((line,y) => {
             line.forEach((pixel,x)  =>{
                 placeteam.setPixel(x,y,pixel.color)
