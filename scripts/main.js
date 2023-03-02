@@ -291,7 +291,7 @@ window.addEventListener("load", (event) => {
         window.history.replaceState(null,"", url);
     }
 
-    placeteam.setGetParametersWhenNotClicking = () => {
+    placeteam.setGetParametersIfNotClicking = () => {
         if (!mouseIsDown && !rightclickIsDown) {
             placeteam.setGetParameters();
         }
