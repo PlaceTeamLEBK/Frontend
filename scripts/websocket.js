@@ -10,7 +10,10 @@ window.addEventListener("load", (event) => {
 
     //on update from server
     placeteam.websocket.onmessage = function(event) {
-        if(event.data.command == 'update'){
+        if(event.data.command == 'paint'){
+            placeteam.buildFromArray(event.data);
+        }
+        else if(event.data.command == 'update'){
             placeteam.update(event.data);
         }
         else if(event.data.command == 'cooldown'){

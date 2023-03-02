@@ -21,10 +21,49 @@ window.addEventListener("load", (event) => {
     placeteam.editcolorbutton = document.getElementById("editcolorbutton");
     placeteam.colors = ['#000000','#ffffff','#fff100','#ff8c00','#e81123','#009e49','#00188f','#68217a','#00bcf2','#bad80a'];
     placeteam.ctx.imageSmoothingEnabled = false;
-    placeteam.init = (pixelmap) => {
+    placeteam.fullscreen = false;
+    placeteam.rangezoom = document.getElementById("range_zoom");
 
-
-        
+    //register at Socket
+    placeteam.init() = () => {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        if(urlParams.get('testing'))//testing
+        {
+            var test = {
+                "command": "update",
+                "timeStamp": 1675328548,
+                "data": {"pixels":[]}
+            };
+            for(x = 0; x < 200; x++) {
+                for(y = 0; y < 200; y++) {
+                    test.data.pixels.push({
+                        "color": '#'+Math.floor(Math.random()*16777215).toString(16),
+                        "position": {
+                          "x": x,
+                          "y": y
+                        }
+                    });
+                }
+            }
+            placeteam.update(test);
+        }
+        else{
+            placeteam.websocket.send({
+                "command": "init",
+                "key": "5251d829377e9590737d859d04bf3e0e17091e5cd62626c92e7af82d9efc602f",//replace w cookie
+                "timeStamp": Date.now()
+              });
+        }
+    }
+    //called from socket once the pixels are recieved
+    placeteam.buildFromArray = (data) => {
+        // data.cooldown;
+        data.pixels.forEach((line,y) => {
+            line.forEach((pixel,x)  =>{
+                placeteam.setPixel(x,y,pixel.color)
+            });
+        });        
     };
     //load colors
     placeteam.loadcolors = () => {
@@ -64,7 +103,7 @@ window.addEventListener("load", (event) => {
         placeteam.colorcontainer.querySelector('div.select').classList.toggle('hidden');
     });
     //add event for zoomrange
-    document.getElementById("range_zoom").addEventListener('change', function(event){
+    placeteam.rangezoom.addEventListener('change', function(event){
         //change zoom
     });
     //add event for zoombutton +
@@ -77,12 +116,17 @@ window.addEventListener("load", (event) => {
     });
     //add event for fullscreenbutton
     document.getElementById("btn_fullscreen").addEventListener('click', function(event){
-        //change zoom
+        if(!placeteam.fullscreen){
+            document.documentElement.requestFullscreen();
+        }
+        else{
+            document.exitFullscreen();
+        }
     });
     //process update from websocket
     placeteam.update = (updatedata) => {
         updatedata.data.pixels.forEach((pixel) => {
-            placeteam.setPixel(pixel.position.x,pixel.position.y,pixel.color)
+                placeteam.setPixel(pixel.position.x,pixel.position.y,pixel.color)
         });
     };
     //change pixel locally
@@ -253,4 +297,12 @@ window.addEventListener("load", (event) => {
     placeteam.changeCanvasCursor = (cursortype=null) => {
         placeteam.canvas.style.cursor = cursortype;
     };
+    document.addEventListener("fullscreenchange", () => {
+        if (document.fullscreenElement===null) {
+         placeteam.fullscreen=false;
+        } else {
+         placeteam.fullscreen=true;
+        }
+    });
+       
 });
