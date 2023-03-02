@@ -8,11 +8,13 @@ window.addEventListener("load", (event) => {
     rightclickIsDown = false;
     lastMouseDown = 0;
     minZoomPercentageMobile = 270;
+    minZoomPercentageTablet = 150;
     minZoomPercentageDesktop = 100;
     maxZoom = 400;
     getParameterUpdateInterval = 1000;
 
-    desktopMediaQuery = window.matchMedia("(min-width: 756px)");
+    tabletMediaQuery = window.matchMedia("(min-width: 756px)");
+    desktopMediaQuery = window.matchMedia("(min-width: 992px)");
 
     placeteam.mapcontainer = document.querySelector('.mapcontainer');
     placeteam.canvas = document.getElementById("pixelcanvas");
@@ -217,6 +219,8 @@ window.addEventListener("load", (event) => {
         minZoom = minZoomPercentageMobile;
         if (desktopMediaQuery.matches) {
             minZoom = minZoomPercentageDesktop;
+        } else if (tabletMediaQuery.matches) {
+            minZoom = minZoomPercentageTablet;
         }
 
         if (Math.sign(event.deltaY) < 0) {
