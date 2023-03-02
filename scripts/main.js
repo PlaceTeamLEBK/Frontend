@@ -28,8 +28,7 @@ window.addEventListener("load", (event) => {
     placeteam.init = () => {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
-        if(urlParams.get('testing'))//testing
-        {
+        if(urlParams.get('testing')){//testing
             var test = {
                 "command": "update",
                 "timeStamp": 1675328548,
@@ -49,12 +48,8 @@ window.addEventListener("load", (event) => {
             placeteam.update(test);
         }
         else{
-            placeteam.websocket = new WebSocket('ws://'+window.location.host+'/websocket, protocols)');
-            placeteam.websocket.send({
-                "command": "init",
-                "key": "5251d829377e9590737d859d04bf3e0e17091e5cd62626c92e7af82d9efc602f",//replace w cookie
-                "timeStamp": Date.now()
-              });
+            placeteam.loadWebsocket();
+  
         }
     }
     //called from socket once the pixels are recieved
