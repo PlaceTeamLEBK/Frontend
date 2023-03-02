@@ -305,5 +305,5 @@ window.addEventListener("load", (event) => {
          placeteam.fullscreen=true;
         }
     });
-       
+    placeteam.init();
 });
