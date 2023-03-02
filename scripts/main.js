@@ -141,21 +141,22 @@ window.addEventListener("load", (event) => {
     };
     //change pixel on server
     placeteam.set = (x,y,color) => {
-        placeteam.websocket.send({
-            "command": "set",
-            "key": "5251d829377e9590737d859d04bf3e0e17091e5cd62626c92e7af82d9efc602f",
-            "timeStamp": Date.now(),
-            "data": {
-                "pixel": {
-                "color": color,
-                "position": {
-                    "x": x,
-                    "y": y
+        if(placeteam.cooldown<1){
+            placeteam.websocket.send({
+                "command": "set",
+                "key": "5251d829377e9590737d859d04bf3e0e17091e5cd62626c92e7af82d9efc602f",
+                "timeStamp": Date.now(),
+                "data": {
+                    "pixel": {
+                    "color": color,
+                    "position": {
+                        "x": x,
+                        "y": y
+                    }
+                    }
                 }
-                }
-            }
-        });
-
+            });
+        }
     }
     // Place pixel on clicked part of canvas
     function placePixelOnCanvas(canvas, event) {
