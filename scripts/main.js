@@ -106,7 +106,7 @@ window.addEventListener("load", (event) => {
     //change Max of zoom range
         placeteam.rangezoom.setAttribute("max",400);
     //add event for zoomrange
-    placeteam.rangezoom.addEventListener('change', function(event){
+    placeteam.rangezoom.addEventListener('input', function(event){
         console.log(event);
         placeteam.setZoom(placeteam.rangezoom.value);
     });
