@@ -298,7 +298,7 @@ window.addEventListener("load", (event) => {
             placeteam.setGetParameters();
         }
     }
-    placeteam.getParameterTimer = setInterval(placeteam.setGetParametersWhenNotClicking, getParameterUpdateInterval);
+    placeteam.getParameterTimer = setInterval(placeteam.setGetParametersIfNotClicking, getParameterUpdateInterval);
 
     placeteam.rgbToHex = (r, g, b) => {
         if (r > 255 || g > 255 || b > 255)
