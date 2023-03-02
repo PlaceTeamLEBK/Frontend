@@ -103,9 +103,16 @@ window.addEventListener("load", (event) => {
         placeteam.colorcontainer.querySelector('div.edit').classList.toggle('hidden');
         placeteam.colorcontainer.querySelector('div.select').classList.toggle('hidden');
     });
+    //change Max of zoom range
+    if (desktopMediaQuery.matches) {
+        placeteam.rangezoom.setAttribute("max",minZoomPercentageDesktop);
+    }else{
+        placeteam.rangezoom.setAttribute("max",minZoomPercentageTablet);
+    }
     //add event for zoomrange
     placeteam.rangezoom.addEventListener('change', function(event){
-        //change zoom
+        console.log(event);
+        placeteam.setZoom(placeteam.rangezoom.value);
     });
     //add event for zoombutton +
     document.getElementById("btn_zoom_plus").addEventListener('click', function(event){
@@ -115,12 +122,7 @@ window.addEventListener("load", (event) => {
         } else if (tabletMediaQuery.matches) {
             minZoom = minZoomPercentageTablet;
         }
-
-        // if (Math.sign(event.deltaY) < 0) {
-            newCanvasWidth = placeteam.getCanvasWidthPercentageInt() * zoomSpeed;
-        // } else {
-        //     newCanvasWidth = placeteam.getCanvasWidthPercentageInt() / zoomSpeed;
-        // }
+        newCanvasWidth = placeteam.getCanvasWidthPercentageInt() * zoomSpeed;
         normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
         normalizedCanvasWidth = Math.min(maxZoom, normalizedCanvasWidth);
         placeteam.setZoom(normalizedCanvasWidth);
@@ -133,12 +135,7 @@ window.addEventListener("load", (event) => {
         } else if (tabletMediaQuery.matches) {
             minZoom = minZoomPercentageTablet;
         }
-
-        // if (Math.sign(event.deltaY) < 0) {
-            newCanvasWidth = placeteam.getCanvasWidthPercentageInt() / zoomSpeed;
-        // } else {
-        //     newCanvasWidth = placeteam.getCanvasWidthPercentageInt() / zoomSpeed;
-        // }
+        newCanvasWidth = placeteam.getCanvasWidthPercentageInt() / zoomSpeed;
         normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
         normalizedCanvasWidth = Math.min(maxZoom, normalizedCanvasWidth);
         placeteam.setZoom(normalizedCanvasWidth);
