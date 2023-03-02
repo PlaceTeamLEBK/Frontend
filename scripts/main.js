@@ -270,13 +270,26 @@ window.addEventListener("load", (event) => {
     });
 
     // Use GET parameters
-    placeteam.useGetParemeters = () => {
+    placeteam.loadPositionStorage = () => {
         urlSearchParams = new URLSearchParams(window.location.search);
 
-        placeteam.setZoom(urlSearchParams.get("zoom"));
-        placeteam.offsetScrollToPixel(parseInt(urlSearchParams.get("x")), parseInt(urlSearchParams.get("y")));
+        urlZoom = urlSearchParams.get("zoom");
+        urlX = parseInt(urlSearchParams.get("x"));
+        urlY = parseInt(urlSearchParams.get("y"));
+
+        if (urlZoom || urlX || urlY) {
+            placeteam.setZoom(urlZoom);
+            placeteam.offsetScrollToPixel(urlX, urlY);
+        } else {
+            localZoom = localStorage.getItem("zoom");
+            localX = localStorage.getItem("x");
+            localY = localStorage.getItem("y");
+
+            placeteam.setZoom(localZoom);
+            placeteam.offsetScrollToPixel(localX, localY);
+        }
     }
-    placeteam.useGetParemeters();
+    placeteam.loadPositionStorage();
 
     // Update GET parameters
     placeteam.setGetParameters = () => {
@@ -290,15 +303,30 @@ window.addEventListener("load", (event) => {
         url.searchParams.set('x', pixelsToLeft);
         url.searchParams.set('y', pixelsToTop);
         url.searchParams.set('zoom', currentCanvasWidth);
+
         window.history.replaceState(null,"", url);
     }
 
-    placeteam.setGetParametersIfNotClicking = () => {
+    // Set local storage for position values
+    placeteam.setPositionStorage = () => {
+        currentCanvasWidth = placeteam.getCanvasWidthPercentageInt();
+
+        pixelSize = placeteam.getPixelSize();
+        pixelsToLeft = Math.floor(placeteam.mapcontainer.scrollLeft / pixelSize);
+        pixelsToTop = Math.floor(placeteam.mapcontainer.scrollTop / pixelSize);
+        
+        localStorage.setItem("x", pixelsToLeft);
+        localStorage.setItem("y", pixelsToTop);
+        localStorage.setItem("zoom", currentCanvasWidth);
+    }
+
+    placeteam.positionStorageUpdate = () => {
         if (!mouseIsDown && !rightclickIsDown) {
             placeteam.setGetParameters();
         }
+        placeteam.setPositionStorage();
     }
-    placeteam.getParameterTimer = setInterval(placeteam.setGetParametersIfNotClicking, getParameterUpdateInterval);
+    placeteam.getParameterTimer = setInterval(placeteam.positionStorageUpdate, getParameterUpdateInterval);
 
     placeteam.rgbToHex = (r, g, b) => {
         if (r > 255 || g > 255 || b > 255)
