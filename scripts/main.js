@@ -269,7 +269,7 @@ window.addEventListener("load", (event) => {
         }
     });
 
-    // Use GET parameters
+    // Use GET parameters, or if there aren't any, load local storage
     placeteam.loadPositionStorage = () => {
         urlSearchParams = new URLSearchParams(window.location.search);
 
@@ -307,8 +307,8 @@ window.addEventListener("load", (event) => {
         window.history.replaceState(null,"", url);
     }
 
-    // Set local storage for position values
-    placeteam.setPositionStorage = () => {
+    // Update local storage position values
+    placeteam.setPositionLocalStorage = () => {
         currentCanvasWidth = placeteam.getCanvasWidthPercentageInt();
 
         pixelSize = placeteam.getPixelSize();
@@ -320,11 +320,12 @@ window.addEventListener("load", (event) => {
         localStorage.setItem("zoom", currentCanvasWidth);
     }
 
+    // Update GET position parameters if not clicking and local storage position values
     placeteam.positionStorageUpdate = () => {
         if (!mouseIsDown && !rightclickIsDown) {
             placeteam.setGetParameters();
         }
-        placeteam.setPositionStorage();
+        placeteam.setPositionLocalStorage();
     }
     placeteam.getParameterTimer = setInterval(placeteam.positionStorageUpdate, getParameterUpdateInterval);
 
