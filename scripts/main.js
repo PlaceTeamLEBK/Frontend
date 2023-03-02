@@ -220,9 +220,9 @@ window.addEventListener("load", (event) => {
         }
 
         if (Math.sign(event.deltaY) < 0) {
-            newCanvasWidth = placeteam.getCanvasWidthPercentageInt()  * zoomSpeed;
+            newCanvasWidth = placeteam.getCanvasWidthPercentageInt() * zoomSpeed;
         } else {
-            newCanvasWidth = placeteam.getCanvasWidthPercentageInt()  / zoomSpeed;
+            newCanvasWidth = placeteam.getCanvasWidthPercentageInt() / zoomSpeed;
         }
         normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
         normalizedCanvasWidth = Math.min(maxZoom, newCanvasWidth);
