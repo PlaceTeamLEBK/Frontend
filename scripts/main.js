@@ -225,7 +225,7 @@ window.addEventListener("load", (event) => {
             newCanvasWidth = placeteam.getCanvasWidthPercentageInt() / zoomSpeed;
         }
         normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
-        normalizedCanvasWidth = Math.min(maxZoom, newCanvasWidth);
+        normalizedCanvasWidth = Math.min(maxZoom, normalizedCanvasWidth);
 
         placeteam.setZoom(normalizedCanvasWidth);
     });
