@@ -49,7 +49,6 @@ window.addEventListener("load", (event) => {
         }
         else{
             placeteam.loadWebsocket();
-  
         }
     }
     //called from socket once the pixels are recieved

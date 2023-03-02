@@ -1,40 +1,48 @@
-placeteam.loadWebsocket = () =>{
-    placeteam.websocket = new WebSocket('ws://'+window.location.host+'/websocket, protocols)');
+window.addEventListener("load", (event) => {
+    placeteam.loadWebsocket = () =>{
+        placeteam.websocket = new WebSocket('ws://'+window.location.host+'/websocket, protocols)');
 
-    //open websocket and receive Data
-    placeteam.websocket.onopen = function(e) {
-        console.log("[open] Connection established");
-        console.log("Sending to server");
-        // socket.send("My name is John");
-    };
+        //open websocket and receive Data
+        placeteam.websocket.onopen = function(e) {
+            console.log("[open] Connection established");
+            console.log("Sending to server");
+            // socket.send("My name is John");
+        };
 
-    //on update from server
-    placeteam.websocket.onmessage = function(event) {
-        if(event.data.command == 'paint'){
-            placeteam.buildFromArray(event.data);
-        }
-        else if(event.data.command == 'update'){
-            placeteam.update(event.data);
-        }
-        else if(event.data.command == 'cooldown'){
-            //show visuals with cooldown
-        }
-    };
+        //on update from server
+        placeteam.websocket.onmessage = function(event) {
+            if(event.data.command == 'paint'){
+                placeteam.buildFromArray(event.data);
+            }
+            else if(event.data.command == 'update'){
+                placeteam.update(event.data);
+            }
+            else if(event.data.command == 'cooldown'){
+                //show visuals with cooldown
+            }
+        };
 
-    //send update to server
-    // placeteam.websocket.send()
-    //closing connection
-    placeteam.websocket.onclose = function(event) {
-    if (event.wasClean) {
-        console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
-    } else {
-        // e.g. server process killed or network down
-        // event.code is usually 1006 in this case
-        console.log('[close] Connection died');
-    }
+        //send update to server
+        // placeteam.websocket.send()
+        //closing connection
+        placeteam.websocket.onclose = function(event) {
+        if (event.wasClean) {
+            console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+        } else {
+            // e.g. server process killed or network down
+            // event.code is usually 1006 in this case
+            console.log('[close] Connection died');
+        }
+        };
+        //
+        placeteam.websocket.onerror = function(error) {
+            console.log(`[error]`,error);
+        };
+        //register at websocket
+        placeteam.websocket.send({
+            "command": "init",
+            "key": "5251d829377e9590737d859d04bf3e0e17091e5cd62626c92e7af82d9efc602f",//replace w cookie
+            "timeStamp": Date.now()
+        });
     };
-    //
-    placeteam.websocket.onerror = function(error) {
-        console.log(`[error]`,error);
-    };
-};
+});
