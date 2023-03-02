@@ -219,7 +219,7 @@ window.addEventListener("load", (event) => {
             minZoom = minZoomPercentageDesktop;
         }
 
-        if (Math.sign(event.deltaY) > 0) {
+        if (Math.sign(event.deltaY) < 0) {
             newCanvasWidth = placeteam.getCanvasWidthPercentageInt()  * zoomSpeed;
         } else {
             newCanvasWidth = placeteam.getCanvasWidthPercentageInt()  / zoomSpeed;
