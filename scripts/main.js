@@ -104,11 +104,7 @@ window.addEventListener("load", (event) => {
         placeteam.colorcontainer.querySelector('div.select').classList.toggle('hidden');
     });
     //change Max of zoom range
-    if (desktopMediaQuery.matches) {
-        placeteam.rangezoom.setAttribute("max",minZoomPercentageDesktop);
-    }else{
-        placeteam.rangezoom.setAttribute("max",minZoomPercentageTablet);
-    }
+        placeteam.rangezoom.setAttribute("max",400);
     //add event for zoomrange
     placeteam.rangezoom.addEventListener('change', function(event){
         console.log(event);
