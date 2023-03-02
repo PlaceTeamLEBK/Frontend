@@ -299,6 +299,4 @@ window.addEventListener("load", (event) => {
          placeteam.fullscreen=true;
         }
     });
-    //start app
-    placeteam.init();
 });
