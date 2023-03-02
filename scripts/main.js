@@ -25,7 +25,7 @@ window.addEventListener("load", (event) => {
     placeteam.rangezoom = document.getElementById("range_zoom");
 
     //register at Socket
-    placeteam.init() = () => {
+    placeteam.init = () => {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         if(urlParams.get('testing'))//testing
