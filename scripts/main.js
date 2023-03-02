@@ -231,8 +231,8 @@ window.addEventListener("load", (event) => {
     
             newWidth = placeteam.canvas.clientWidth;
             halfWidthDifference = newWidth - initialWidth;
-            widthPositionFraction = (placeteam.mapcontainer.scrollLeft + window.innerWidth) / placeteam.canvas.clientWidth;
-            heightPositionFraction =  (placeteam.mapcontainer.scrollTop + window.innerHeight) / placeteam.canvas.clientHeight;
+            widthPositionFraction = (placeteam.mapcontainer.scrollLeft + window.innerWidth / 2) / placeteam.canvas.clientWidth;
+            heightPositionFraction =  (placeteam.mapcontainer.scrollTop + window.innerHeight / 2) / placeteam.canvas.clientHeight;
             placeteam.mapcontainer.scrollBy(halfWidthDifference * widthPositionFraction, halfWidthDifference * heightPositionFraction);    
         }
     }
