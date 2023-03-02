@@ -303,9 +303,7 @@ window.addEventListener("load", (event) => {
         }
     });
     placeteam.setTimer = (timer) => {
-        if(timer>0){
-            placeteam.status.classList.remove('hidden');
-        }
+  
         var seconds = timer;
         var timer = setInterval(Cooldownminus, 1000);
         function Cooldownminus() {
@@ -317,6 +315,9 @@ window.addEventListener("load", (event) => {
                 placeteam.status.classList.add('hidden');
             }
         }   
+        if(timer>0){
+            placeteam.status.classList.remove('hidden');
+        }
     }
     placeteam.loadWebsocket = () =>{
         placeteam.websocket = new WebSocket('ws://'+window.location.host+'/websocket, protocols)');

@@ -15,7 +15,7 @@
             <div class="mapcontainer">
                 <canvas id="pixelcanvas" width="200" height="200" style="width: 100%;"></canvas>
             </div>
-            <div id="colorcontainer">
+            <div id="colorcontainer" class="overlaybox">
                 <div class="edit hidden">                        
                     <input data-colorid="0" type="color">
                     <input data-colorid="1" type="color">
@@ -28,7 +28,7 @@
                     <input data-colorid="8" type="color">
                     <input data-colorid="9" type="color">
                 </div>
-                <div class="select">
+                <div class="select" class="overlaybox">
                     <div class="selected" data-colorid="0"></div>
                     <div data-colorid="1"></div>
                     <div data-colorid="2"></div>
@@ -45,7 +45,7 @@
             <div id="statuscontainer"><!--for cooldown and toast-->
                 <h1 class="cooldown">Statusmessage</h1>
             </div>
-            <div id="controlcontainer">
+            <div id="controlcontainer" class="overlaybox">
                 <button id="btn_zoom_minus">-</button>
                 <input id="range_zoom" name="range_zoom" type="range" orient="vertical"min="0" max="20" value="0" step="1">
                 <button id="btn_zoom_plus">+</button>
