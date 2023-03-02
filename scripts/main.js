@@ -301,21 +301,20 @@ window.addEventListener("load", (event) => {
          placeteam.fullscreen=true;
         }
     });
-    placeteam.setTimer = (cooldown) => {
-  
+    placeteam.setTimer = (cooldown) => {  
         var seconds = cooldown;
-        clearInterval(timer);
-        var timer = setInterval(Cooldownminus, 1000);
+        clearInterval(placeteam.timerinterval);
+        placeteam.timerinterval = setInterval(Cooldownminus, 1000);
         function Cooldownminus() {
             --seconds;
             placeteam.cooldownelement.innerHTML = seconds;
             placeteam.cooldown = seconds;
-            if(seconds == 0){
-                clearInterval(timer);
+            if(seconds < 1){
+                clearInterval(placeteam.timerinterval);
                 placeteam.status.classList.add('hidden');
             }
         }   
-        if(timer>0){
+        if(seconds>0){
             placeteam.status.classList.remove('hidden');
         }
     }
