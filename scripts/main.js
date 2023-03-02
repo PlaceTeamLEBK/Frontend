@@ -1,7 +1,7 @@
 window.addEventListener("load", (event) => {
     placeteam = {};
 
-    const zoomSpeed = 1.01;
+    const zoomSpeed = 1.02;
     const maximumClickDownTimeToPlacePixel = 125;
 
     mouseIsDown = false;
