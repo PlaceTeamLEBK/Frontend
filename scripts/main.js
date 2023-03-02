@@ -147,12 +147,10 @@ window.addEventListener("load", (event) => {
                 "key": "5251d829377e9590737d859d04bf3e0e17091e5cd62626c92e7af82d9efc602f",
                 "timeStamp": Date.now(),
                 "data": {
-                    "pixel": {
                     "color": color,
                     "position": {
                         "x": x,
                         "y": y
-                    }
                     }
                 }
             });
