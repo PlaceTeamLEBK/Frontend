@@ -22,6 +22,8 @@ window.addEventListener("load", (event) => {
     placeteam.colorcontainer = document.getElementById("colorcontainer");
     placeteam.status = document.getElementById("statuscontainer");
     placeteam.editcolorbutton = document.getElementById("editcolorbutton");
+    placeteam.cooldownelement = placeteam.status.querySelector('.cooldown');
+    placeteam.cooldown = null; //in seconds
     placeteam.colors = ['#000000','#ffffff','#fff100','#ff8c00','#e81123','#009e49','#00188f','#68217a','#00bcf2','#bad80a'];
     placeteam.ctx.imageSmoothingEnabled = false;
     placeteam.fullscreen = false;
@@ -53,6 +55,7 @@ window.addEventListener("load", (event) => {
         else{
             placeteam.loadWebsocket();
         }
+        placeteam.setTimer(30);
     }
     //called from socket once the pixels are recieved
     placeteam.buildFromArray = (data) => {
@@ -141,21 +144,20 @@ window.addEventListener("load", (event) => {
     };
     //change pixel on server
     placeteam.set = (x,y,color) => {
-        placeteam.websocket.send({
-            "command": "set",
-            "key": "5251d829377e9590737d859d04bf3e0e17091e5cd62626c92e7af82d9efc602f",
-            "timeStamp": Date.now(),
-            "data": {
-                "pixel": {
-                "color": color,
-                "position": {
-                    "x": x,
-                    "y": y
+        if(placeteam.cooldown<1){
+            placeteam.websocket.send({
+                "command": "set",
+                "key": "5251d829377e9590737d859d04bf3e0e17091e5cd62626c92e7af82d9efc602f",
+                "timeStamp": Date.now(),
+                "data": {
+                    "color": color,
+                    "position": {
+                        "x": x,
+                        "y": y
+                    }
                 }
-                }
-            }
-        });
-
+            });
+        }
     }
     // Place pixel on clicked part of canvas
     function placePixelOnCanvas(canvas, event) {
@@ -312,6 +314,23 @@ window.addEventListener("load", (event) => {
          placeteam.fullscreen=true;
         }
     });
+    placeteam.setTimer = (cooldown) => {  
+        var seconds = cooldown;
+        clearInterval(placeteam.timerinterval);
+        placeteam.timerinterval = setInterval(Cooldownminus, 1000);
+        function Cooldownminus() {
+            --seconds;
+            placeteam.cooldownelement.innerHTML = seconds;
+            placeteam.cooldown = seconds;
+            if(seconds < 1){
+                clearInterval(placeteam.timerinterval);
+                placeteam.status.classList.add('hidden');
+            }
+        }   
+        if(seconds>0){
+            placeteam.status.classList.remove('hidden');
+        }
+    }
     placeteam.loadWebsocket = () =>{
         placeteam.websocket = new WebSocket('ws://'+window.location.host+'/websocket, protocols)');
     
@@ -331,7 +350,7 @@ window.addEventListener("load", (event) => {
                 placeteam.update(event.data);
             }
             else if(event.data.command == 'cooldown'){
-                //show visuals with cooldown
+                placeteam.setTimer(event.data.seconds);
             }
         };
     
