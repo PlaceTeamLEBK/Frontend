@@ -337,7 +337,7 @@ window.addEventListener("load", (event) => {
                 placeteam.update(event.data);
             }
             else if(event.data.command == 'cooldown'){
-                //show visuals with cooldown
+                placeteam.setTimer(event.data.seconds);
             }
         };
     
