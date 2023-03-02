@@ -293,7 +293,7 @@ window.addEventListener("load", (event) => {
 
     placeteam.setGetParametersWhenNotClicking = () => {
         if (!mouseIsDown && !rightclickIsDown) {
-            setGetParameters();
+            placeteam.setGetParameters();
         }
     }
     placeteam.getParameterTimer = setInterval(placeteam.setGetParametersWhenNotClicking, getParameterUpdateInterval);
