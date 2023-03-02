@@ -109,11 +109,39 @@ window.addEventListener("load", (event) => {
     });
     //add event for zoombutton +
     document.getElementById("btn_zoom_plus").addEventListener('click', function(event){
-        //change zoom
+        minZoom = minZoomPercentageMobile;
+        if (desktopMediaQuery.matches) {
+            minZoom = minZoomPercentageDesktop;
+        } else if (tabletMediaQuery.matches) {
+            minZoom = minZoomPercentageTablet;
+        }
+
+        // if (Math.sign(event.deltaY) < 0) {
+            newCanvasWidth = placeteam.getCanvasWidthPercentageInt() * zoomSpeed;
+        // } else {
+        //     newCanvasWidth = placeteam.getCanvasWidthPercentageInt() / zoomSpeed;
+        // }
+        normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
+        normalizedCanvasWidth = Math.min(maxZoom, normalizedCanvasWidth);
+        placeteam.setZoom(normalizedCanvasWidth);
     });
     //add event for zoombutton -
     document.getElementById("btn_zoom_minus").addEventListener('click', function(event){
-        //change zoom
+        minZoom = minZoomPercentageMobile;
+        if (desktopMediaQuery.matches) {
+            minZoom = minZoomPercentageDesktop;
+        } else if (tabletMediaQuery.matches) {
+            minZoom = minZoomPercentageTablet;
+        }
+
+        // if (Math.sign(event.deltaY) < 0) {
+            newCanvasWidth = placeteam.getCanvasWidthPercentageInt() / zoomSpeed;
+        // } else {
+        //     newCanvasWidth = placeteam.getCanvasWidthPercentageInt() / zoomSpeed;
+        // }
+        normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
+        normalizedCanvasWidth = Math.min(maxZoom, normalizedCanvasWidth);
+        placeteam.setZoom(normalizedCanvasWidth);
     });
     //add event for fullscreenbutton
     document.getElementById("btn_fullscreen").addEventListener('click', function(event){
@@ -298,7 +326,7 @@ window.addEventListener("load", (event) => {
             placeteam.setGetParameters();
         }
     }
-    placeteam.getParameterTimer = setInterval(placeteam.setGetParametersWhenNotClicking, getParameterUpdateInterval);
+    placeteam.getParameterTimer = setInterval(placeteam.setGetParametersIfNotClicking, getParameterUpdateInterval);
 
     placeteam.rgbToHex = (r, g, b) => {
         if (r > 255 || g > 255 || b > 255)
