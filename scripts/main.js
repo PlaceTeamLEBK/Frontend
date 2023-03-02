@@ -304,7 +304,7 @@ window.addEventListener("load", (event) => {
     });
     placeteam.setTimer = (timer) => {
         if(timer>0){
-            placeteam.statuscontainer.classList.remove('hidden');
+            placeteam.status.classList.remove('hidden');
         }
         var seconds = timer;
         var timer = setInterval(Cooldownminus, 1000);
@@ -313,7 +313,7 @@ window.addEventListener("load", (event) => {
             placeteam.cooldownelement.innerHTML = seconds;
             if(seconds == 0){
                 clearInterval(timer);
-                placeteam.statuscontainer.classList.add('hidden');
+                placeteam.status.classList.add('hidden');
             }
         }   
     }
