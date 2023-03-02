@@ -118,14 +118,15 @@ input[type="range"][orient="vertical"] {
     border-radius: 4px;
     padding:5px;
     position: fixed;
-    backdrop-filter: blur(15px) brightness(166%);
+    background-color: rgba(255, 255, 255, .9);
+    /* backdrop-filter: blur(15px) brightness(166%); */
     border: 2px solid #d7d7d7;
 }
 @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
     .overlaybox {
-        background-color: rgba(255, 255, 255, .5);
-        -webkit-backdrop-filter: blur(2em);
-        backdrop-filter: blur(2em);
+        /* background-color: rgba(255, 255, 255, .5); */
+        -webkit-backdrop-filter: blur(15px) brightness(166%);
+        backdrop-filter: blur(15px) brightness(166%);
       }
 }
 .icon{
