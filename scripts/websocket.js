@@ -1,6 +1,4 @@
 window.addEventListener("load", (event) => {
-    placeteam.websocket = new WebSocket('ws://'+window.location.host+'/websocket, protocols)');
-
     //open websocket and receive Data
     placeteam.websocket.onopen = function(e) {
         console.log("[open] Connection established");
