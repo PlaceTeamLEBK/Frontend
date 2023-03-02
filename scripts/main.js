@@ -19,6 +19,8 @@ window.addEventListener("load", (event) => {
     placeteam.colorcontainer = document.getElementById("colorcontainer");
     placeteam.status = document.getElementById("statuscontainer");
     placeteam.editcolorbutton = document.getElementById("editcolorbutton");
+    placeteam.cooldownelement = placeteam.status.querySelector('.cooldown');
+    placeteam.cooldown = null;
     placeteam.colors = ['#000000','#ffffff','#fff100','#ff8c00','#e81123','#009e49','#00188f','#68217a','#00bcf2','#bad80a'];
     placeteam.ctx.imageSmoothingEnabled = false;
     placeteam.fullscreen = false;
@@ -50,6 +52,7 @@ window.addEventListener("load", (event) => {
         else{
             placeteam.loadWebsocket();
         }
+        placeteam.setTimer(30);
     }
     //called from socket once the pixels are recieved
     placeteam.buildFromArray = (data) => {
@@ -299,6 +302,21 @@ window.addEventListener("load", (event) => {
          placeteam.fullscreen=true;
         }
     });
+    placeteam.setTimer = (timer) => {
+        if(timer>0){
+            placeteam.statuscontainer.classList.remove('hidden');
+        }
+        var seconds = timer;
+        var timer = setInterval(Cooldownminus, 1000);
+        function Cooldownminus() {
+            --seconds;
+            placeteam.cooldownelement.innerHTML = seconds;
+            if(seconds == 0){
+                clearInterval(timer);
+                placeteam.statuscontainer.classList.add('hidden');
+            }
+        }   
+    }
     placeteam.loadWebsocket = () =>{
         placeteam.websocket = new WebSocket('ws://'+window.location.host+'/websocket, protocols)');
     
