@@ -259,6 +259,7 @@ window.addEventListener("load", (event) => {
 
     placeteam.setZoom = (newCanvasWidth) => {
         if (parseInt(newCanvasWidth)) {
+            placeteam.rangezoom.value = newCanvasWidth;
             initialWidth = placeteam.canvas.clientWidth;
     
             placeteam.canvas.style.cssText = 'width: ' + newCanvasWidth + '%;';
