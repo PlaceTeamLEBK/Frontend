@@ -1,7 +1,7 @@
 window.addEventListener("load", (event) => {
     placeteam = {};
 
-    const zoomSpeed = 2;
+    const zoomSpeed = 1.02;
     const maximumClickDownTimeToPlacePixel = 125;
 
     mouseIsDown = false;
@@ -9,6 +9,7 @@ window.addEventListener("load", (event) => {
     lastMouseDown = 0;
     minZoomPercentageMobile = 270;
     minZoomPercentageDesktop = 100;
+    maxZoom = 400;
     getParameterUpdateInterval = 1000;
 
     desktopMediaQuery = window.matchMedia("(min-width: 756px)");
@@ -218,9 +219,15 @@ window.addEventListener("load", (event) => {
             minZoom = minZoomPercentageDesktop;
         }
 
-        newCanvasWidth = Math.max(minZoom, placeteam.getCanvasWidthPercentageInt() + Math.sign(event.deltaY) * zoomSpeed);
+        if (Math.sign(event.deltaY) < 0) {
+            newCanvasWidth = placeteam.getCanvasWidthPercentageInt() * zoomSpeed;
+        } else {
+            newCanvasWidth = placeteam.getCanvasWidthPercentageInt() / zoomSpeed;
+        }
+        normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
+        normalizedCanvasWidth = Math.min(maxZoom, normalizedCanvasWidth);
 
-        placeteam.setZoom(newCanvasWidth);
+        placeteam.setZoom(normalizedCanvasWidth);
     });
 
     placeteam.setZoom = (newCanvasWidth) => {
