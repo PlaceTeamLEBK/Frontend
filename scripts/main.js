@@ -20,7 +20,7 @@ window.addEventListener("load", (event) => {
     placeteam.status = document.getElementById("statuscontainer");
     placeteam.editcolorbutton = document.getElementById("editcolorbutton");
     placeteam.cooldownelement = placeteam.status.querySelector('.cooldown');
-    placeteam.cooldown = null;
+    placeteam.cooldown = null; //in seconds
     placeteam.colors = ['#000000','#ffffff','#fff100','#ff8c00','#e81123','#009e49','#00188f','#68217a','#00bcf2','#bad80a'];
     placeteam.ctx.imageSmoothingEnabled = false;
     placeteam.fullscreen = false;
@@ -311,6 +311,7 @@ window.addEventListener("load", (event) => {
         function Cooldownminus() {
             --seconds;
             placeteam.cooldownelement.innerHTML = seconds;
+            placeteam.cooldown = seconds;
             if(seconds == 0){
                 clearInterval(timer);
                 placeteam.status.classList.add('hidden');
