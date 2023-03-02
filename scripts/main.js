@@ -290,7 +290,13 @@ window.addEventListener("load", (event) => {
         url.searchParams.set('zoom', currentCanvasWidth);
         window.history.replaceState(null,"", url);
     }
-    placeteam.getParameterTimer = setInterval(placeteam.setGetParameters, getParameterUpdateInterval);
+
+    placeteam.setGetParametersWhenNotClicking = () => {
+        if (!mouseIsDown && !rightclickIsDown) {
+            setGetParameters();
+        }
+    }
+    placeteam.getParameterTimer = setInterval(placeteam.setGetParametersWhenNotClicking, getParameterUpdateInterval);
 
     placeteam.rgbToHex = (r, g, b) => {
         if (r > 255 || g > 255 || b > 255)
