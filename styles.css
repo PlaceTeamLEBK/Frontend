@@ -118,3 +118,6 @@ input[type="range"][orient="vertical"] {
     width:28px;
     height:28px;
 }
+#statuscontainer .cooldown{
+    line-height: 1rem;
+}
