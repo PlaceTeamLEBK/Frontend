@@ -103,17 +103,38 @@ window.addEventListener("load", (event) => {
         placeteam.colorcontainer.querySelector('div.edit').classList.toggle('hidden');
         placeteam.colorcontainer.querySelector('div.select').classList.toggle('hidden');
     });
+    //change Max of zoom range
+        placeteam.rangezoom.setAttribute("max",400);
     //add event for zoomrange
-    placeteam.rangezoom.addEventListener('change', function(event){
-        //change zoom
+    placeteam.rangezoom.addEventListener('input', function(event){
+        console.log(event);
+        placeteam.setZoom(placeteam.rangezoom.value);
     });
     //add event for zoombutton +
     document.getElementById("btn_zoom_plus").addEventListener('click', function(event){
-        //change zoom
+        minZoom = minZoomPercentageMobile;
+        if (desktopMediaQuery.matches) {
+            minZoom = minZoomPercentageDesktop;
+        } else if (tabletMediaQuery.matches) {
+            minZoom = minZoomPercentageTablet;
+        }
+        newCanvasWidth = placeteam.getCanvasWidthPercentageInt() * zoomSpeed;
+        normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
+        normalizedCanvasWidth = Math.min(maxZoom, normalizedCanvasWidth);
+        placeteam.setZoom(normalizedCanvasWidth);
     });
     //add event for zoombutton -
     document.getElementById("btn_zoom_minus").addEventListener('click', function(event){
-        //change zoom
+        minZoom = minZoomPercentageMobile;
+        if (desktopMediaQuery.matches) {
+            minZoom = minZoomPercentageDesktop;
+        } else if (tabletMediaQuery.matches) {
+            minZoom = minZoomPercentageTablet;
+        }
+        newCanvasWidth = placeteam.getCanvasWidthPercentageInt() / zoomSpeed;
+        normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
+        normalizedCanvasWidth = Math.min(maxZoom, normalizedCanvasWidth);
+        placeteam.setZoom(normalizedCanvasWidth);
     });
     //add event for fullscreenbutton
     document.getElementById("btn_fullscreen").addEventListener('click', function(event){
@@ -238,6 +259,7 @@ window.addEventListener("load", (event) => {
 
     placeteam.setZoom = (newCanvasWidth) => {
         if (parseInt(newCanvasWidth)) {
+            placeteam.rangezoom.value = newCanvasWidth;
             initialWidth = placeteam.canvas.clientWidth;
     
             placeteam.canvas.style.cssText = 'width: ' + newCanvasWidth + '%;';
