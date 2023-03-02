@@ -301,9 +301,10 @@ window.addEventListener("load", (event) => {
          placeteam.fullscreen=true;
         }
     });
-    placeteam.setTimer = (timer) => {
+    placeteam.setTimer = (cooldown) => {
   
-        var seconds = timer;
+        var seconds = cooldown;
+        clearInterval(timer);
         var timer = setInterval(Cooldownminus, 1000);
         function Cooldownminus() {
             --seconds;

@@ -47,11 +47,13 @@ main {
     justify-content: space-between;
 }
 #statuscontainer{
-    width:500px;
-    margin-left:-250px;
+    width:100px;
+    margin-left:-50px;
     top:0;
     left:50%;
     margin-top:2rem;
+    display:flex;
+    justify-content: center;
 }
 #controlcontainer{
     margin-right:2rem;
@@ -106,7 +108,7 @@ input[type="range"][orient="vertical"] {
   }
 
 .overlaybox{
-    background-color: grey;
+    background-color: #d7d7d7;
     border-radius: 4px;
     padding:5px;
     position: fixed;
