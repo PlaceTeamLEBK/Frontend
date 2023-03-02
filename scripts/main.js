@@ -226,12 +226,14 @@ window.addEventListener("load", (event) => {
     placeteam.setZoom = (newCanvasWidth) => {
         if (parseInt(newCanvasWidth)) {
             initialWidth = placeteam.canvas.clientWidth;
-
+    
             placeteam.canvas.style.cssText = 'width: ' + newCanvasWidth + '%;';
-
+    
             newWidth = placeteam.canvas.clientWidth;
-            halfWidthDifference = (newWidth - initialWidth) / 2;
-            placeteam.mapcontainer.scrollBy(halfWidthDifference, halfWidthDifference);    
+            halfWidthDifference = newWidth - initialWidth;
+            widthPositionFraction = (placeteam.mapcontainer.scrollLeft + window.innerWidth / 2) / placeteam.canvas.clientWidth;
+            heightPositionFraction =  (placeteam.mapcontainer.scrollTop + window.innerHeight / 2) / placeteam.canvas.clientHeight;
+            placeteam.mapcontainer.scrollBy(halfWidthDifference * widthPositionFraction, halfWidthDifference * heightPositionFraction);    
         }
     }
 
