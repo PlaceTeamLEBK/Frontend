@@ -179,19 +179,6 @@ window.addEventListener("load", (event) => {
             });
         }
     }
-    // Place pixel on clicked part of canvas
-    function placePixelOnCanvas(canvas, event) {
-        // const rect = canvas.getBoundingClientRect();
-
-        // Gets the coordinates of the clicked position on the canvas, converts them to the pixel coordinates of the canvas,
-        // and rounds them down. Oddly enough,  clicking on the very edge of the element can cause it to return numbers that are too
-        // high or too low, so we have to clamp it
-        // const x = Math.floor(Math.max(Math.min(((event.clientX - rect.left) / canvas.clientWidth) * canvas.width, canvas.width - 1), 0));
-        // const y = Math.floor(Math.max(Math.min(((event.clientY - rect.top)  / canvas.clientWidth) * canvas.height, canvas.height - 1), 0));
-        let mouseCoordinates = placeteam.getCoordinateslAtMouse(event);
-        // placeteam.setPixel(x, y, placeteam.colorinput.value);
-        canvasManipulator.setPixel(mouseCoordinates.x, mouseCoordinates.y, placeteam.colors[placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid]);
-    }
 
     placeteam.getCanvasWidthPercentageInt = () => {
         return parseInt(placeteam.canvas.style.width.match(/(\d+)/));
@@ -228,7 +215,7 @@ window.addEventListener("load", (event) => {
 
     placeteam.canvas.addEventListener('mouseup', function(event) {
         if (Date.now() - mouseState.lastMouseDown < maximumClickDownTimeToPlacePixel) {
-            placePixelOnCanvas(placeteam.canvas, event);
+            canvasManipulator.placePixelOnCanvas(placeteam.canvas, event);
         }
         mouseState.mouseIsDown = false;
         mouseState.rightclickIsDown = false;
