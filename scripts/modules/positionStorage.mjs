@@ -10,24 +10,24 @@ export class PositionStorage {
     }
 
     SetPositionStorageUpdateTimer() {
-        this.placeteam.getParameterTimer = setInterval(PositionStorageUpdate, this.placeteam.GetParameterUpdateInterval);
+        this.placeteam.getParameterTimer = setInterval(function(){PositionStorageUpdate(this)}, this.placeteam.GetParameterUpdateInterval);
     }
 
     // Update GET position parameters if not clicking and local storage position values
-    PositionStorageUpdate() {
-        if (!this.mouseState.mouseIsDown && !this.mouseState.rightclickIsDown) {
-            this.SetGetParameters();
+    PositionStorageUpdate(_self) {
+        if (!_self.mouseState.mouseIsDown && !_self.mouseState.rightclickIsDown) {
+            _self.SetGetParameters();
         }
-        this.SetPositionLocalStorage();
+        _self.SetPositionLocalStorage();
     }
     
     SetGetParameters() {
         const url = new URL(window.location.href);
-        const currentCanvasWidth = this.placeteam.getCanvasWidthPercentageInt();
+        const currentCanvasWidth = _self.placeteam.getCanvasWidthPercentageInt();
 
-        const pixelSize = this.placeteam.getPixelSize();
-        const pixelsToLeft = Math.floor(this.placeteam.mapcontainer.scrollLeft / pixelSize);
-        const pixelsToTop = Math.floor(this.placeteam.mapcontainer.scrollTop / pixelSize);
+        const pixelSize = _self.placeteam.getPixelSize();
+        const pixelsToLeft = Math.floor(_self.placeteam.mapcontainer.scrollLeft / pixelSize);
+        const pixelsToTop = Math.floor(_self.placeteam.mapcontainer.scrollTop / pixelSize);
 
         url.searchParams.set('x', pixelsToLeft);
         url.searchParams.set('y', pixelsToTop);
@@ -37,11 +37,11 @@ export class PositionStorage {
     }
 
     SetPositionLocalStorage() {
-        const currentCanvasWidth = this.placeteam.getCanvasWidthPercentageInt();
+        const currentCanvasWidth = _self.placeteam.getCanvasWidthPercentageInt();
 
-        const pixelSize = this.placeteam.getPixelSize();
-        const pixelsToLeft = Math.floor(this.placeteam.mapcontainer.scrollLeft / pixelSize);
-        const pixelsToTop = Math.floor(this.placeteam.mapcontainer.scrollTop / pixelSize);
+        const pixelSize = _self.placeteam.getPixelSize();
+        const pixelsToLeft = Math.floor(_self.placeteam.mapcontainer.scrollLeft / pixelSize);
+        const pixelsToTop = Math.floor(_self.placeteam.mapcontainer.scrollTop / pixelSize);
         
         localStorage.setItem("x", pixelsToLeft);
         localStorage.setItem("y", pixelsToTop);
