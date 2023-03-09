@@ -68,7 +68,7 @@ window.addEventListener("load", (event) => {
         // data.cooldown;
         data.pixels.forEach((line,y) => {
             line.forEach((pixel,x)  =>{
-                canvasManipulator.setPixel(x,y,pixel.color)
+                canvasManipulator.SetPixel(x,y,pixel.color)
             });
         });        
     };
@@ -154,7 +154,7 @@ window.addEventListener("load", (event) => {
     //process update from websocket
     placeteam.update = (updatedata) => {
         updatedata.data.pixels.forEach((pixel) => {
-            canvasManipulator.setPixel(pixel.position.x,pixel.position.y,pixel.color)
+            canvasManipulator.SetPixel(pixel.position.x,pixel.position.y,pixel.color)
         });
     };
     // changes color of id  to Hex value
