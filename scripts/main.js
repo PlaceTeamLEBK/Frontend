@@ -15,8 +15,8 @@ window.addEventListener("load", (event) => {
     const maxZoom = 400;
     const getParameterUpdateInterval = 1000;
 
-    const constabletMediaQuery = window.matchMedia("(min-width: 756px)");
-    const desktopMediaQuery = window.matchMedia("(min-width: 992px)");
+    placeteam.tabletMediaQuery = window.matchMedia("(min-width: 756px)");
+    placeteam.desktopMediaQuery = window.matchMedia("(min-width: 992px)");
 
     placeteam.mapcontainer = document.querySelector('.mapcontainer');
     placeteam.canvas = document.getElementById("pixelcanvas");
