@@ -9,7 +9,7 @@ export class Navigation {
 
     SetEvents() {
         this.SetPanEvent();
-        this.SetZoomEvent();
+        this.SetMousewheelEvent();
     }
 
     SetPanEvent() {
@@ -29,7 +29,7 @@ export class Navigation {
         });
     }
 
-    SetZoomEvent() {
+    SetMousewheelEvent() {
         let _self = this;
         this.placeteam.canvas.addEventListener('wheel', function(event) {
             let minZoom = _self.placeteam.minZoomPercentageMobile;
@@ -48,11 +48,27 @@ export class Navigation {
             let normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
             normalizedCanvasWidth = Math.min(_self.placeteam.maxZoom, normalizedCanvasWidth);
     
-            _self.placeteam.setZoom(normalizedCanvasWidth);
+            _self.setZoom(normalizedCanvasWidth);
         });
 
         this.placeteam.mapcontainer.addEventListener('wheel', function(event) {
             event.preventDefault();
         });
+    }
+
+    SetZoom(newCanvasWidth) {
+        let _self = this;
+        if (parseInt(newCanvasWidth)) {
+            _self.placeteam.rangezoom.value = newCanvasWidth;
+            const initialWidth = _self.placeteam.canvas.clientWidth;
+    
+            _self.placeteam.canvas.style.cssText = 'width: ' + newCanvasWidth + '%;';
+    
+            const newWidth = _self.placeteam.canvas.clientWidth;
+            const halfWidthDifference = newWidth - initialWidth;
+            const widthPositionFraction = (_self.placeteam.mapcontainer.scrollLeft + window.innerWidth / 2) / _self.placeteam.canvas.clientWidth;
+            const heightPositionFraction =  (_self.placeteam.mapcontainer.scrollTop + window.innerHeight / 2) / _self.placeteam.canvas.clientHeight;
+            placeteam.mapcontainer.scrollBy(halfWidthDifference * widthPositionFraction, halfWidthDifference * heightPositionFraction);    
+        }
     }
 }

@@ -31,6 +31,9 @@ window.addEventListener("load", (event) => {
     placeteam.fullscreen = false;
     placeteam.rangezoom = document.getElementById("range_zoom");
 
+    const navigation = new Navigation(placeteam, mouseState);
+    navigation.SetEvents();
+
     //register at Socket
     placeteam.init = () => {
         const queryString = window.location.search;
@@ -110,7 +113,7 @@ window.addEventListener("load", (event) => {
     //add event for zoomrange
     placeteam.rangezoom.addEventListener('input', function(event){
         console.log(event);
-        placeteam.setZoom(placeteam.rangezoom.value);
+        navigation.SetZoom(placeteam.rangezoom.value);
     });
     //add event for zoombutton +
     document.getElementById("btn_zoom_plus").addEventListener('click', function(event){
@@ -123,7 +126,7 @@ window.addEventListener("load", (event) => {
         let newCanvasWidth = placeteam.getCanvasWidthPercentageInt() * placeteam.zoomSpeed;
         let normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
         normalizedCanvasWidth = Math.min(placeteam.maxZoom, normalizedCanvasWidth);
-        placeteam.setZoom(normalizedCanvasWidth);
+        navigation.SetZoom(normalizedCanvasWidth);
     });
     //add event for zoombutton -
     document.getElementById("btn_zoom_minus").addEventListener('click', function(event){
@@ -136,7 +139,7 @@ window.addEventListener("load", (event) => {
         let newCanvasWidth = placeteam.getCanvasWidthPercentageInt() / placeteam.zoomSpeed;
         let normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
         normalizedCanvasWidth = Math.min(placeteam.maxZoom, normalizedCanvasWidth);
-        placeteam.setZoom(normalizedCanvasWidth);
+        navigation.SetZoom(normalizedCanvasWidth);
     });
     //add event for fullscreenbutton
     document.getElementById("btn_fullscreen").addEventListener('click', function(event){
@@ -238,21 +241,6 @@ window.addEventListener("load", (event) => {
         placeteam.changeCanvasCursor();
     });
 
-    placeteam.setZoom = (newCanvasWidth) => {
-        if (parseInt(newCanvasWidth)) {
-            placeteam.rangezoom.value = newCanvasWidth;
-            const initialWidth = placeteam.canvas.clientWidth;
-    
-            placeteam.canvas.style.cssText = 'width: ' + newCanvasWidth + '%;';
-    
-            const newWidth = placeteam.canvas.clientWidth;
-            const halfWidthDifference = newWidth - initialWidth;
-            const widthPositionFraction = (placeteam.mapcontainer.scrollLeft + window.innerWidth / 2) / placeteam.canvas.clientWidth;
-            const heightPositionFraction =  (placeteam.mapcontainer.scrollTop + window.innerHeight / 2) / placeteam.canvas.clientHeight;
-            placeteam.mapcontainer.scrollBy(halfWidthDifference * widthPositionFraction, halfWidthDifference * heightPositionFraction);    
-        }
-    }
-
     // Use GET parameters, or if there aren't any, load local storage
     placeteam.loadPositionStorage = () => {
         const urlSearchParams = new URLSearchParams(window.location.search);
@@ -262,14 +250,14 @@ window.addEventListener("load", (event) => {
         const urlY = parseInt(urlSearchParams.get("y"));
 
         if (urlZoom || urlX || urlY) {
-            placeteam.setZoom(urlZoom);
+            navigation.SetZoom(urlZoom);
             placeteam.offsetScrollToPixel(urlX, urlY);
         } else {
             const localZoom = localStorage.getItem("zoom");
             const localX = localStorage.getItem("x");
             const localY = localStorage.getItem("y");
 
-            placeteam.setZoom(localZoom);
+            navigation.SetZoom(localZoom);
             placeteam.offsetScrollToPixel(localX, localY);
         }
     }
@@ -397,7 +385,4 @@ window.addEventListener("load", (event) => {
         });
     }
     placeteam.init();
-
-    const navigation = new Navigation(placeteam, mouseState);
-    navigation.SetEvents();
 });
