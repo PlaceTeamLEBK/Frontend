@@ -1,5 +1,3 @@
-import { MouseState } from "./mouseState.mjs";
-
 export class Navigation {
     placeteam = null;
     mouseState = null;
@@ -14,17 +12,18 @@ export class Navigation {
     }
 
     Pan() {
+        let navObject = this;
         this.placeteam.canvas.addEventListener("mousemove", function(event) {
-            if (this.mouseState.mouseIsDown) {
+            if (navObject.mouseState.mouseIsDown) {
                 const offsetX = event.movementX * -1;
                 const offsetY = event.movementY * -1;
     
-                this.placeteam.mapcontainer.scrollBy(offsetX, offsetY);
+                navObject.placeteam.mapcontainer.scrollBy(offsetX, offsetY);
             }
-            if(this.mouseState.rightclickIsDown){
-                const mouseCoordinates = this.placeteam.getCoordinateslAtMouse(event);
-                const rgbArray = this.placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
-                this.placeteam.changeColor("#"+this.placeteam.rgbToHex(rgbArray[0],rgbArray[1],rgbArray[2]),this.placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
+            if(navObject.mouseState.rightclickIsDown){
+                const mouseCoordinates = navObject.placeteam.getCoordinateslAtMouse(event);
+                const rgbArray = navObject.placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
+                navObject.placeteam.changeColor("#"+navObject.placeteam.rgbToHex(rgbArray[0],rgbArray[1],rgbArray[2]),navObject.placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
             }
         });
     }
