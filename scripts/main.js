@@ -206,7 +206,7 @@ window.addEventListener("load", (event) => {
     }
 
     placeteam.offsetScrollToPixel = (x, y) => {
-        pixelSize = placeteam.getPixelSize();
+        const pixelSize = placeteam.getPixelSize();
         placeteam.mapcontainer.scrollTo(Math.ceil(pixelSize * x), Math.ceil(pixelSize * y));
     }
 
