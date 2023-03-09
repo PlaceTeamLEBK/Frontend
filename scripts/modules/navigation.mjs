@@ -33,9 +33,9 @@ export class Navigation {
         let navObject = this;
         this.placeteam.canvas.addEventListener('wheel', function(event) {
             let minZoom = navObject.placeteam.minZoomPercentageMobile;
-            if (desktopMediaQuery.matches) {
+            if (navObject.placeteam.desktopMediaQuery.matches) {
                 minZoom = navObject.placeteam.minZoomPercentageDesktop;
-            } else if (tabletMediaQuery.matches) {
+            } else if (navObject.placeteam.tabletMediaQuery.matches) {
                 minZoom = navObject.placeteam.minZoomPercentageTablet;
             }
     
