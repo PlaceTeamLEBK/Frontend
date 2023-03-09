@@ -115,9 +115,9 @@ window.addEventListener("load", (event) => {
     //add event for zoombutton +
     document.getElementById("btn_zoom_plus").addEventListener('click', function(event){
         minZoom = minZoomPercentageMobile;
-        if (desktopMediaQuery.matches) {
+        if (placeteam.desktopMediaQuery.matches) {
             minZoom = minZoomPercentageDesktop;
-        } else if (tabletMediaQuery.matches) {
+        } else if (placeteam.tabletMediaQuery.matches) {
             minZoom = minZoomPercentageTablet;
         }
         newCanvasWidth = placeteam.getCanvasWidthPercentageInt() * zoomSpeed;
@@ -128,9 +128,9 @@ window.addEventListener("load", (event) => {
     //add event for zoombutton -
     document.getElementById("btn_zoom_minus").addEventListener('click', function(event){
         minZoom = minZoomPercentageMobile;
-        if (desktopMediaQuery.matches) {
+        if (placeteam.desktopMediaQuery.matches) {
             minZoom = minZoomPercentageDesktop;
-        } else if (tabletMediaQuery.matches) {
+        } else if (placeteam.tabletMediaQuery.matches) {
             minZoom = minZoomPercentageTablet;
         }
         newCanvasWidth = placeteam.getCanvasWidthPercentageInt() / zoomSpeed;
