@@ -48,7 +48,7 @@ export class Navigation {
             let normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
             normalizedCanvasWidth = Math.min(_self.placeteam.maxZoom, normalizedCanvasWidth);
     
-            _self.setZoom(normalizedCanvasWidth);
+            _self.SetZoom(normalizedCanvasWidth);
         });
 
         this.placeteam.mapcontainer.addEventListener('wheel', function(event) {
