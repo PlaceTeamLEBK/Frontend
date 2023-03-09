@@ -194,7 +194,6 @@ window.addEventListener("load", (event) => {
         let mouseCoordinates = placeteam.getCoordinateslAtMouse(event);
         // placeteam.setPixel(x, y, placeteam.colorinput.value);
         placeteam.setPixel(mouseCoordinates.x, mouseCoordinates.y, placeteam.colors[placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid]);
-        console.log("x: " + x + " y: " + y);
     }
 
     placeteam.getCanvasWidthPercentageInt = () => {
