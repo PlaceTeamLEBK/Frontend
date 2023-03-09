@@ -1,4 +1,5 @@
 import { Navigation } from "./modules/navigation.mjs";
+import { MouseMovement } from "./modules/mouseMovement.mjs";
 
 window.addEventListener("load", (event) => {
     const placeteam = {};
@@ -6,9 +7,8 @@ window.addEventListener("load", (event) => {
     const zoomSpeed = 1.02;
     const maximumClickDownTimeToPlacePixel = 125;
 
-    let mouseIsDown = false;
-    let rightclickIsDown = false;
-    let lastMouseDown = 0;
+    const mouseMovement = new MouseMovement();
+
     const minZoomPercentageMobile = 270;
     const minZoomPercentageTablet = 150;
     const minZoomPercentageDesktop = 100;
@@ -220,22 +220,22 @@ window.addEventListener("load", (event) => {
     placeteam.canvas.addEventListener('mousedown', function(event) {
 
         if(event.which == 1){//left click
-            lastMouseDown = Date.now();   
-            mouseIsDown = true;
+            mouseMovement.lastMouseDown = Date.now();   
+            mouseMovement.mouseIsDown = true;
             placeteam.changeCanvasCursor('grab');
         }
         else if (event.which == 3){//right click   
-            rightclickIsDown = true;
+            mouseMovement.rightclickIsDown = true;
            placeteam.changeCanvasCursor('crosshair');
         }
     });
 
     placeteam.canvas.addEventListener('mouseup', function(event) {
-        if (Date.now() - lastMouseDown < maximumClickDownTimeToPlacePixel) {
+        if (Date.now() - mouseMovement.lastMouseDown < maximumClickDownTimeToPlacePixel) {
             placePixelOnCanvas(placeteam.canvas, event);
         }
-        mouseIsDown = false;
-        rightclickIsDown = false;
+        mouseMovement.mouseIsDown = false;
+        mouseMovement.rightclickIsDown = false;
         placeteam.changeCanvasCursor();
     });
 
@@ -279,20 +279,7 @@ window.addEventListener("load", (event) => {
         event.preventDefault();
     });
 
-    // Pan with mouse
-    placeteam.canvas.addEventListener("mousemove", function(event) {
-        if (mouseIsDown) {
-            const offsetX = event.movementX * -1;
-            const offsetY = event.movementY * -1;
-
-            placeteam.mapcontainer.scrollBy(offsetX, offsetY);
-        }
-        if(rightclickIsDown){
-            const mouseCoordinates =  placeteam.getCoordinateslAtMouse(event);
-            const rgbArray = placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
-            placeteam.changeColor("#"+placeteam.rgbToHex(rgbArray[0],rgbArray[1],rgbArray[2]),placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
-        }
-    });
+    const navigation = new Navigation(placeteam.canvas, placeteam.mapcontainer, placeteam.ctx, placeteam);
 
     // Use GET parameters, or if there aren't any, load local storage
     placeteam.loadPositionStorage = () => {
@@ -347,7 +334,7 @@ window.addEventListener("load", (event) => {
 
     // Update GET position parameters if not clicking and local storage position values
     placeteam.positionStorageUpdate = () => {
-        if (!mouseIsDown && !rightclickIsDown) {
+        if (!mouseMovement.mouseIsDown && !mouseMovement.rightclickIsDown) {
             placeteam.setGetParameters();
         }
         placeteam.setPositionLocalStorage();
@@ -438,7 +425,4 @@ window.addEventListener("load", (event) => {
         });
     }
     placeteam.init();
-
-    let nav = new Navigation();
-    nav.Test();
 });
