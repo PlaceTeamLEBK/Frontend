@@ -1,5 +1,6 @@
 import { Navigation } from "./modules/navigation.mjs";
 import { MouseState } from "./modules/mouseState.mjs";
+import { PositionStorage } from "./modules/positionStorage.mjs";
 
 window.addEventListener("load", (event) => {
     const placeteam = {};
@@ -33,6 +34,10 @@ window.addEventListener("load", (event) => {
 
     const navigation = new Navigation(placeteam, mouseState);
     navigation.SetEvents();
+
+    const positionStorage = new PositionStorage(placeteam, mouseState, navigation);
+    positionStorage.LoadPositionStorage();
+    positionStorage.SetPositionStorageUpdateTimer();
 
     //register at Socket
     placeteam.init = () => {
@@ -240,66 +245,6 @@ window.addEventListener("load", (event) => {
         mouseState.rightclickIsDown = false;
         placeteam.changeCanvasCursor();
     });
-
-    // Use GET parameters, or if there aren't any, load local storage
-    placeteam.loadPositionStorage = () => {
-        const urlSearchParams = new URLSearchParams(window.location.search);
-
-        const urlZoom = urlSearchParams.get("zoom");
-        const urlX = parseInt(urlSearchParams.get("x"));
-        const urlY = parseInt(urlSearchParams.get("y"));
-
-        if (urlZoom || urlX || urlY) {
-            navigation.SetZoom(urlZoom);
-            placeteam.offsetScrollToPixel(urlX, urlY);
-        } else {
-            const localZoom = localStorage.getItem("zoom");
-            const localX = localStorage.getItem("x");
-            const localY = localStorage.getItem("y");
-
-            navigation.SetZoom(localZoom);
-            placeteam.offsetScrollToPixel(localX, localY);
-        }
-    }
-    placeteam.loadPositionStorage();
-
-    // Update GET parameters
-    placeteam.setGetParameters = () => {
-        const url = new URL(window.location.href);
-        const currentCanvasWidth = placeteam.getCanvasWidthPercentageInt();
-
-        const pixelSize = placeteam.getPixelSize();
-        const pixelsToLeft = Math.floor(placeteam.mapcontainer.scrollLeft / pixelSize);
-        const pixelsToTop = Math.floor(placeteam.mapcontainer.scrollTop / pixelSize);
-
-        url.searchParams.set('x', pixelsToLeft);
-        url.searchParams.set('y', pixelsToTop);
-        url.searchParams.set('zoom', currentCanvasWidth);
-
-        window.history.replaceState(null,"", url);
-    }
-
-    // Update local storage position values
-    placeteam.setPositionLocalStorage = () => {
-        const currentCanvasWidth = placeteam.getCanvasWidthPercentageInt();
-
-        const pixelSize = placeteam.getPixelSize();
-        const pixelsToLeft = Math.floor(placeteam.mapcontainer.scrollLeft / pixelSize);
-        const pixelsToTop = Math.floor(placeteam.mapcontainer.scrollTop / pixelSize);
-        
-        localStorage.setItem("x", pixelsToLeft);
-        localStorage.setItem("y", pixelsToTop);
-        localStorage.setItem("zoom", currentCanvasWidth);
-    }
-
-    // Update GET position parameters if not clicking and local storage position values
-    placeteam.positionStorageUpdate = () => {
-        if (!mouseState.mouseIsDown && !mouseState.rightclickIsDown) {
-            placeteam.setGetParameters();
-        }
-        placeteam.setPositionLocalStorage();
-    }
-    placeteam.getParameterTimer = setInterval(placeteam.positionStorageUpdate, placeteam.getParameterUpdateInterval);
 
     placeteam.rgbToHex = (r, g, b) => {
         if (r > 255 || g > 255 || b > 255)
