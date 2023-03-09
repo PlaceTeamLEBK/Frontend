@@ -13,40 +13,40 @@ export class Navigation {
     }
 
     SetPanEvent() {
-        let navObject = this;
+        let _self = this;
         this.placeteam.canvas.addEventListener("mousemove", function(event) {
-            if (navObject.mouseState.mouseIsDown) {
+            if (_self.mouseState.mouseIsDown) {
                 const offsetX = event.movementX * -1;
                 const offsetY = event.movementY * -1;
     
-                navObject.placeteam.mapcontainer.scrollBy(offsetX, offsetY);
+                _self.placeteam.mapcontainer.scrollBy(offsetX, offsetY);
             }
-            if(navObject.mouseState.rightclickIsDown){
-                const mouseCoordinates = navObject.placeteam.getCoordinateslAtMouse(event);
-                const rgbArray = navObject.placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
-                navObject.placeteam.changeColor("#"+navObject.placeteam.rgbToHex(rgbArray[0],rgbArray[1],rgbArray[2]),navObject.placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
+            if(_self.mouseState.rightclickIsDown){
+                const mouseCoordinates = _self.placeteam.getCoordinateslAtMouse(event);
+                const rgbArray = _self.placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
+                _self.placeteam.changeColor("#"+_self.placeteam.rgbToHex(rgbArray[0],rgbArray[1],rgbArray[2]),_self.placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
             }
         });
     }
 
     SetZoomEvent() {
-        let navObject = this;
+        let _self = this;
         this.placeteam.canvas.addEventListener('wheel', function(event) {
-            let minZoom = navObject.placeteam.minZoomPercentageMobile;
-            if (navObject.placeteam.desktopMediaQuery.matches) {
-                minZoom = navObject.placeteam.minZoomPercentageDesktop;
-            } else if (navObject.placeteam.tabletMediaQuery.matches) {
-                minZoom = navObject.placeteam.minZoomPercentageTablet;
+            let minZoom = _self.placeteam.minZoomPercentageMobile;
+            if (_self.placeteam.desktopMediaQuery.matches) {
+                minZoom = _self.placeteam.minZoomPercentageDesktop;
+            } else if (_self.placeteam.tabletMediaQuery.matches) {
+                minZoom = _self.placeteam.minZoomPercentageTablet;
             }
     
             let newCanvasWidth;
             if (Math.sign(event.deltaY) < 0) {
-                newCanvasWidth = navObject.placeteam.getCanvasWidthPercentageInt() * navObject.placeteam.zoomSpeed;
+                newCanvasWidth = _self.placeteam.getCanvasWidthPercentageInt() * _self.placeteam.zoomSpeed;
             } else {
-                newCanvasWidth = navObject.placeteam.getCanvasWidthPercentageInt() / navObject.placeteam.zoomSpeed;
+                newCanvasWidth = _self.placeteam.getCanvasWidthPercentageInt() / _self.placeteam.zoomSpeed;
             }
             let normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
-            normalizedCanvasWidth = Math.min(navObject.placeteam.maxZoom, normalizedCanvasWidth);
+            normalizedCanvasWidth = Math.min(_self.placeteam.maxZoom, normalizedCanvasWidth);
     
             placeteam.setZoom(normalizedCanvasWidth);
         });
