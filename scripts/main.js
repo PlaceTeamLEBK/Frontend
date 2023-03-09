@@ -439,5 +439,6 @@ window.addEventListener("load", (event) => {
     }
     placeteam.init();
 
-    Navigation.Test();
+    let nav = new Navigation();
+    nav.Test();
 });
