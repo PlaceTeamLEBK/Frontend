@@ -254,9 +254,6 @@ window.addEventListener("load", (event) => {
         }
     }
 
-    const navigation = new Navigation(placeteam, mouseState);
-    navigation.SetEvents();
-
     // Use GET parameters, or if there aren't any, load local storage
     placeteam.loadPositionStorage = () => {
         const urlSearchParams = new URLSearchParams(window.location.search);
@@ -401,4 +398,7 @@ window.addEventListener("load", (event) => {
         });
     }
     placeteam.init();
+
+    const navigation = new Navigation(placeteam, mouseState);
+    navigation.SetEvents();
 });
