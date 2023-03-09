@@ -279,7 +279,8 @@ window.addEventListener("load", (event) => {
         event.preventDefault();
     });
 
-    const navigation = new Navigation(placeteam.canvas, placeteam.mapcontainer, placeteam.ctx, placeteam);
+    const navigation = new Navigation(placeteam);
+    navigation.SetEvents();
 
     // Use GET parameters, or if there aren't any, load local storage
     placeteam.loadPositionStorage = () => {
