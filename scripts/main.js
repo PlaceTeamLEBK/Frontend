@@ -35,10 +35,6 @@ window.addEventListener("load", (event) => {
     const navigation = new Navigation(placeteam, mouseState);
     navigation.SetEvents();
 
-    const positionStorage = new PositionStorage(placeteam, mouseState, navigation);
-    positionStorage.LoadPositionStorage();
-    positionStorage.SetPositionStorageUpdateTimer();
-
     //register at Socket
     placeteam.init = () => {
         const queryString = window.location.search;
@@ -330,4 +326,8 @@ window.addEventListener("load", (event) => {
         });
     }
     placeteam.init();
+
+    const positionStorage = new PositionStorage(placeteam, mouseState, navigation);
+    positionStorage.LoadPositionStorage();
+    positionStorage.SetPositionStorageUpdateTimer();
 });
