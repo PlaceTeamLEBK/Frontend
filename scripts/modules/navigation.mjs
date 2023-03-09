@@ -11,7 +11,7 @@ export class Navigation {
     }
 
     Pan() {
-        canvas.addEventListener("mousemove", function(event) {
+        placeteam.canvas.addEventListener("mousemove", function(event) {
             if (mouseMovement.mouseIsDown) {
                 const offsetX = event.movementX * -1;
                 const offsetY = event.movementY * -1;
