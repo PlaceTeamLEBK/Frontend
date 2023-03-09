@@ -9,11 +9,11 @@ window.addEventListener("load", (event) => {
 
     const mouseState = new MouseState();
 
-    const minZoomPercentageMobile = 270;
-    const minZoomPercentageTablet = 150;
-    const minZoomPercentageDesktop = 100;
-    const maxZoom = 400;
-    const getParameterUpdateInterval = 1000;
+    placeteam.minZoomPercentageMobile = 270;
+    placeteam.minZoomPercentageTablet = 150;
+    placeteam.minZoomPercentageDesktop = 100;
+    placeteam.maxZoom = 400;
+    placeteam.getParameterUpdateInterval = 1000;
 
     placeteam.tabletMediaQuery = window.matchMedia("(min-width: 756px)");
     placeteam.desktopMediaQuery = window.matchMedia("(min-width: 992px)");
@@ -114,28 +114,28 @@ window.addEventListener("load", (event) => {
     });
     //add event for zoombutton +
     document.getElementById("btn_zoom_plus").addEventListener('click', function(event){
-        minZoom = minZoomPercentageMobile;
+        minZoom = placeteam.minZoomPercentageMobile;
         if (placeteam.desktopMediaQuery.matches) {
-            minZoom = minZoomPercentageDesktop;
+            minZoom = placeteam.minZoomPercentageDesktop;
         } else if (placeteam.tabletMediaQuery.matches) {
-            minZoom = minZoomPercentageTablet;
+            minZoom = placeteam.minZoomPercentageTablet;
         }
         newCanvasWidth = placeteam.getCanvasWidthPercentageInt() * zoomSpeed;
         normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
-        normalizedCanvasWidth = Math.min(maxZoom, normalizedCanvasWidth);
+        normalizedCanvasWidth = Math.min(placeteam.maxZoom, normalizedCanvasWidth);
         placeteam.setZoom(normalizedCanvasWidth);
     });
     //add event for zoombutton -
     document.getElementById("btn_zoom_minus").addEventListener('click', function(event){
-        minZoom = minZoomPercentageMobile;
+        minZoom = placeteam.minZoomPercentageMobile;
         if (placeteam.desktopMediaQuery.matches) {
-            minZoom = minZoomPercentageDesktop;
+            minZoom = placeteam.minZoomPercentageDesktop;
         } else if (placeteam.tabletMediaQuery.matches) {
-            minZoom = minZoomPercentageTablet;
+            minZoom = placeteam.minZoomPercentageTablet;
         }
         newCanvasWidth = placeteam.getCanvasWidthPercentageInt() / zoomSpeed;
         normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
-        normalizedCanvasWidth = Math.min(maxZoom, normalizedCanvasWidth);
+        normalizedCanvasWidth = Math.min(placeteam.maxZoom, normalizedCanvasWidth);
         placeteam.setZoom(normalizedCanvasWidth);
     });
     //add event for fullscreenbutton
@@ -311,7 +311,7 @@ window.addEventListener("load", (event) => {
         }
         placeteam.setPositionLocalStorage();
     }
-    placeteam.getParameterTimer = setInterval(placeteam.positionStorageUpdate, getParameterUpdateInterval);
+    placeteam.getParameterTimer = setInterval(placeteam.positionStorageUpdate, placeteam.getParameterUpdateInterval);
 
     placeteam.rgbToHex = (r, g, b) => {
         if (r > 255 || g > 255 || b > 255)
