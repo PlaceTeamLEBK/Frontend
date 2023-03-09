@@ -11,12 +11,11 @@ export class PositionStorage {
 
     SetPositionStorageUpdateTimer() {
         let _self = this;
-        this.placeteam.getParameterTimer = setInterval(function(){_self.PositionStorageUpdate(_self)}, this.placeteam.GetParameterUpdateInterval);
+        this.placeteam.getParameterTimer = setInterval(function(){_self.PositionStorageUpdate(_self)}, this.placeteam.getParameterUpdateInterval);
     }
 
     // Update GET position parameters if not clicking and local storage position values
     PositionStorageUpdate(_self) {
-        console.log("test");
         if (!_self.mouseState.mouseIsDown && !_self.mouseState.rightclickIsDown) {
             _self.SetGetParameters(_self);
         }
