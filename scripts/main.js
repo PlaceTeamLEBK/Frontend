@@ -4,7 +4,7 @@ import { MouseState } from "./modules/mouseState.mjs";
 window.addEventListener("load", (event) => {
     const placeteam = {};
 
-    const zoomSpeed = 1.02;
+    placeteam.zoomSpeed = 1.02;
     const maximumClickDownTimeToPlacePixel = 125;
 
     const mouseState = new MouseState();
@@ -120,7 +120,7 @@ window.addEventListener("load", (event) => {
         } else if (placeteam.tabletMediaQuery.matches) {
             minZoom = placeteam.minZoomPercentageTablet;
         }
-        newCanvasWidth = placeteam.getCanvasWidthPercentageInt() * zoomSpeed;
+        newCanvasWidth = placeteam.getCanvasWidthPercentageInt() * placeteam.zoomSpeed;
         normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
         normalizedCanvasWidth = Math.min(placeteam.maxZoom, normalizedCanvasWidth);
         placeteam.setZoom(normalizedCanvasWidth);
@@ -133,7 +133,7 @@ window.addEventListener("load", (event) => {
         } else if (placeteam.tabletMediaQuery.matches) {
             minZoom = placeteam.minZoomPercentageTablet;
         }
-        newCanvasWidth = placeteam.getCanvasWidthPercentageInt() / zoomSpeed;
+        newCanvasWidth = placeteam.getCanvasWidthPercentageInt() / placeteam.zoomSpeed;
         normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
         normalizedCanvasWidth = Math.min(placeteam.maxZoom, normalizedCanvasWidth);
         placeteam.setZoom(normalizedCanvasWidth);
