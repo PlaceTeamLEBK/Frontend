@@ -1,22 +1,22 @@
 import { Navigation } from "./modules/navigation.mjs";
 
 window.addEventListener("load", (event) => {
-    let placeteam = {};
+    const placeteam = {};
 
     const zoomSpeed = 1.02;
     const maximumClickDownTimeToPlacePixel = 125;
 
-    mouseIsDown = false;
-    rightclickIsDown = false;
-    lastMouseDown = 0;
-    minZoomPercentageMobile = 270;
-    minZoomPercentageTablet = 150;
-    minZoomPercentageDesktop = 100;
-    maxZoom = 400;
-    getParameterUpdateInterval = 1000;
+    let mouseIsDown = false;
+    let rightclickIsDown = false;
+    let lastMouseDown = 0;
+    const minZoomPercentageMobile = 270;
+    const minZoomPercentageTablet = 150;
+    const minZoomPercentageDesktop = 100;
+    const maxZoom = 400;
+    const getParameterUpdateInterval = 1000;
 
-    tabletMediaQuery = window.matchMedia("(min-width: 756px)");
-    desktopMediaQuery = window.matchMedia("(min-width: 992px)");
+    const constabletMediaQuery = window.matchMedia("(min-width: 756px)");
+    const desktopMediaQuery = window.matchMedia("(min-width: 992px)");
 
     placeteam.mapcontainer = document.querySelector('.mapcontainer');
     placeteam.canvas = document.getElementById("pixelcanvas");
