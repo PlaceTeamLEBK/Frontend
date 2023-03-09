@@ -1,3 +1,5 @@
+import { MouseState } from "./mouseState.mjs";
+
 export class Navigation {
     placeteam = null;
     mouseState = null;
