@@ -217,7 +217,7 @@ window.addEventListener("load", (event) => {
 
     placeteam.canvas.addEventListener('mouseup', function(event) {
         if (Date.now() - mouseState.lastMouseDown < maximumClickDownTimeToPlacePixel) {
-            canvasManipulator.PlacePixelOnCanvas(placeteam.canvas, event);
+            canvasManipulator.PlacePixelOnCanvas(event);
         }
         mouseState.mouseIsDown = false;
         mouseState.rightclickIsDown = false;
