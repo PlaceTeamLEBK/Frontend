@@ -32,6 +32,8 @@ window.addEventListener("load", (event) => {
     placeteam.ctx.imageSmoothingEnabled = false;
     placeteam.fullscreen = false;
     placeteam.rangezoom = document.getElementById("range_zoom");
+    
+    const canvasManipulator = new CanvasManipulator(placeteam, mouseState);
 
     //register at Socket
     placeteam.init = () => {
@@ -313,6 +315,4 @@ window.addEventListener("load", (event) => {
     const positionStorage = new PositionStorage(placeteam, mouseState, navigation);
     positionStorage.LoadPositionStorage();
     positionStorage.SetPositionStorageUpdateTimer();
-
-    const canvasManipulator = new CanvasManipulator(placeteam, mouseState, navigation);
 });
