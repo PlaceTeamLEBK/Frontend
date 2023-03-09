@@ -36,7 +36,7 @@ window.addEventListener("load", (event) => {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         if(urlParams.get('testing')){//testing
-            var test = {
+            let test = {
                 "command": "update",
                 "timeStamp": 1675328548,
                 "data": {"pixels":[]}
@@ -295,19 +295,19 @@ window.addEventListener("load", (event) => {
 
     // Use GET parameters, or if there aren't any, load local storage
     placeteam.loadPositionStorage = () => {
-        urlSearchParams = new URLSearchParams(window.location.search);
+        const urlSearchParams = new URLSearchParams(window.location.search);
 
-        urlZoom = urlSearchParams.get("zoom");
-        urlX = parseInt(urlSearchParams.get("x"));
-        urlY = parseInt(urlSearchParams.get("y"));
+        const urlZoom = urlSearchParams.get("zoom");
+        const urlX = parseInt(urlSearchParams.get("x"));
+        const urlY = parseInt(urlSearchParams.get("y"));
 
         if (urlZoom || urlX || urlY) {
             placeteam.setZoom(urlZoom);
             placeteam.offsetScrollToPixel(urlX, urlY);
         } else {
-            localZoom = localStorage.getItem("zoom");
-            localX = localStorage.getItem("x");
-            localY = localStorage.getItem("y");
+            const localZoom = localStorage.getItem("zoom");
+            const localX = localStorage.getItem("x");
+            const localY = localStorage.getItem("y");
 
             placeteam.setZoom(localZoom);
             placeteam.offsetScrollToPixel(localX, localY);
