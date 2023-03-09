@@ -1,7 +1,7 @@
 import { Navigation } from "./modules/navigation.mjs";
 
 window.addEventListener("load", (event) => {
-    placeteam = {};
+    let placeteam = {};
 
     const zoomSpeed = 1.02;
     const maximumClickDownTimeToPlacePixel = 125;
