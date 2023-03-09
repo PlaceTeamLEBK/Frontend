@@ -68,7 +68,7 @@ export class Navigation {
             const halfWidthDifference = newWidth - initialWidth;
             const widthPositionFraction = (_self.placeteam.mapcontainer.scrollLeft + window.innerWidth / 2) / _self.placeteam.canvas.clientWidth;
             const heightPositionFraction =  (_self.placeteam.mapcontainer.scrollTop + window.innerHeight / 2) / _self.placeteam.canvas.clientHeight;
-            placeteam.mapcontainer.scrollBy(halfWidthDifference * widthPositionFraction, halfWidthDifference * heightPositionFraction);    
+            _self.placeteam.mapcontainer.scrollBy(halfWidthDifference * widthPositionFraction, halfWidthDifference * heightPositionFraction);    
         }
     }
 }
