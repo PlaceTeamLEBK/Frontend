@@ -241,19 +241,20 @@ window.addEventListener("load", (event) => {
 
     // Zoom on scrolling
     placeteam.canvas.addEventListener('wheel', function(event) {
-        minZoom = minZoomPercentageMobile;
+        let minZoom = minZoomPercentageMobile;
         if (desktopMediaQuery.matches) {
             minZoom = minZoomPercentageDesktop;
         } else if (tabletMediaQuery.matches) {
             minZoom = minZoomPercentageTablet;
         }
 
+        let newCanvasWidth;
         if (Math.sign(event.deltaY) < 0) {
             newCanvasWidth = placeteam.getCanvasWidthPercentageInt() * zoomSpeed;
         } else {
             newCanvasWidth = placeteam.getCanvasWidthPercentageInt() / zoomSpeed;
         }
-        normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
+        let normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
         normalizedCanvasWidth = Math.min(maxZoom, normalizedCanvasWidth);
 
         placeteam.setZoom(normalizedCanvasWidth);
@@ -262,14 +263,14 @@ window.addEventListener("load", (event) => {
     placeteam.setZoom = (newCanvasWidth) => {
         if (parseInt(newCanvasWidth)) {
             placeteam.rangezoom.value = newCanvasWidth;
-            initialWidth = placeteam.canvas.clientWidth;
+            const initialWidth = placeteam.canvas.clientWidth;
     
             placeteam.canvas.style.cssText = 'width: ' + newCanvasWidth + '%;';
     
-            newWidth = placeteam.canvas.clientWidth;
-            halfWidthDifference = newWidth - initialWidth;
-            widthPositionFraction = (placeteam.mapcontainer.scrollLeft + window.innerWidth / 2) / placeteam.canvas.clientWidth;
-            heightPositionFraction =  (placeteam.mapcontainer.scrollTop + window.innerHeight / 2) / placeteam.canvas.clientHeight;
+            const newWidth = placeteam.canvas.clientWidth;
+            const halfWidthDifference = newWidth - initialWidth;
+            const widthPositionFraction = (placeteam.mapcontainer.scrollLeft + window.innerWidth / 2) / placeteam.canvas.clientWidth;
+            const heightPositionFraction =  (placeteam.mapcontainer.scrollTop + window.innerHeight / 2) / placeteam.canvas.clientHeight;
             placeteam.mapcontainer.scrollBy(halfWidthDifference * widthPositionFraction, halfWidthDifference * heightPositionFraction);    
         }
     }
@@ -281,15 +282,15 @@ window.addEventListener("load", (event) => {
     // Pan with mouse
     placeteam.canvas.addEventListener("mousemove", function(event) {
         if (mouseIsDown) {
-            offsetX = event.movementX * -1;
-            offsetY = event.movementY * -1;
+            const offsetX = event.movementX * -1;
+            const offsetY = event.movementY * -1;
 
             placeteam.mapcontainer.scrollBy(offsetX, offsetY);
         }
         if(rightclickIsDown){
-            let mouseCoordinates =  placeteam.getCoordinateslAtMouse(event);
-            let rgbarray = placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
-            placeteam.changeColor("#"+placeteam.rgbToHex(rgbarray[0],rgbarray[1],rgbarray[2]),placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
+            const mouseCoordinates =  placeteam.getCoordinateslAtMouse(event);
+            const rgbArray = placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
+            placeteam.changeColor("#"+placeteam.rgbToHex(rgbArray[0],rgbArray[1],rgbArray[2]),placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
         }
     });
 
@@ -317,12 +318,12 @@ window.addEventListener("load", (event) => {
 
     // Update GET parameters
     placeteam.setGetParameters = () => {
-        url = new URL(window.location.href);
-        currentCanvasWidth = placeteam.getCanvasWidthPercentageInt();
+        const url = new URL(window.location.href);
+        const currentCanvasWidth = placeteam.getCanvasWidthPercentageInt();
 
-        pixelSize = placeteam.getPixelSize();
-        pixelsToLeft = Math.floor(placeteam.mapcontainer.scrollLeft / pixelSize);
-        pixelsToTop = Math.floor(placeteam.mapcontainer.scrollTop / pixelSize);
+        const pixelSize = placeteam.getPixelSize();
+        const pixelsToLeft = Math.floor(placeteam.mapcontainer.scrollLeft / pixelSize);
+        const pixelsToTop = Math.floor(placeteam.mapcontainer.scrollTop / pixelSize);
 
         url.searchParams.set('x', pixelsToLeft);
         url.searchParams.set('y', pixelsToTop);
@@ -333,11 +334,11 @@ window.addEventListener("load", (event) => {
 
     // Update local storage position values
     placeteam.setPositionLocalStorage = () => {
-        currentCanvasWidth = placeteam.getCanvasWidthPercentageInt();
+        const currentCanvasWidth = placeteam.getCanvasWidthPercentageInt();
 
-        pixelSize = placeteam.getPixelSize();
-        pixelsToLeft = Math.floor(placeteam.mapcontainer.scrollLeft / pixelSize);
-        pixelsToTop = Math.floor(placeteam.mapcontainer.scrollTop / pixelSize);
+        const pixelSize = placeteam.getPixelSize();
+        const pixelsToLeft = Math.floor(placeteam.mapcontainer.scrollLeft / pixelSize);
+        const pixelsToTop = Math.floor(placeteam.mapcontainer.scrollTop / pixelSize);
         
         localStorage.setItem("x", pixelsToLeft);
         localStorage.setItem("y", pixelsToTop);
