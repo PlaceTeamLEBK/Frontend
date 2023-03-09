@@ -114,27 +114,27 @@ window.addEventListener("load", (event) => {
     });
     //add event for zoombutton +
     document.getElementById("btn_zoom_plus").addEventListener('click', function(event){
-        minZoom = placeteam.minZoomPercentageMobile;
+        let minZoom = placeteam.minZoomPercentageMobile;
         if (placeteam.desktopMediaQuery.matches) {
             minZoom = placeteam.minZoomPercentageDesktop;
         } else if (placeteam.tabletMediaQuery.matches) {
             minZoom = placeteam.minZoomPercentageTablet;
         }
-        newCanvasWidth = placeteam.getCanvasWidthPercentageInt() * placeteam.zoomSpeed;
-        normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
+        let newCanvasWidth = placeteam.getCanvasWidthPercentageInt() * placeteam.zoomSpeed;
+        let normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
         normalizedCanvasWidth = Math.min(placeteam.maxZoom, normalizedCanvasWidth);
         placeteam.setZoom(normalizedCanvasWidth);
     });
     //add event for zoombutton -
     document.getElementById("btn_zoom_minus").addEventListener('click', function(event){
-        minZoom = placeteam.minZoomPercentageMobile;
+        let minZoom = placeteam.minZoomPercentageMobile;
         if (placeteam.desktopMediaQuery.matches) {
             minZoom = placeteam.minZoomPercentageDesktop;
         } else if (placeteam.tabletMediaQuery.matches) {
             minZoom = placeteam.minZoomPercentageTablet;
         }
-        newCanvasWidth = placeteam.getCanvasWidthPercentageInt() / placeteam.zoomSpeed;
-        normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
+        let newCanvasWidth = placeteam.getCanvasWidthPercentageInt() / placeteam.zoomSpeed;
+        let normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
         normalizedCanvasWidth = Math.min(placeteam.maxZoom, normalizedCanvasWidth);
         placeteam.setZoom(normalizedCanvasWidth);
     });
