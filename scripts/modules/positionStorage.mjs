@@ -10,18 +10,19 @@ export class PositionStorage {
     }
 
     SetPositionStorageUpdateTimer() {
-        this.placeteam.getParameterTimer = setInterval(function(){PositionStorageUpdate(this)}, this.placeteam.GetParameterUpdateInterval);
+        let _self = this;
+        this.placeteam.getParameterTimer = setInterval(function(){_self.PositionStorageUpdate(_self)}, this.placeteam.GetParameterUpdateInterval);
     }
 
     // Update GET position parameters if not clicking and local storage position values
     PositionStorageUpdate(_self) {
         if (!_self.mouseState.mouseIsDown && !_self.mouseState.rightclickIsDown) {
-            _self.SetGetParameters();
+            _self.SetGetParameters(_self);
         }
-        _self.SetPositionLocalStorage();
+        _self.SetPositionLocalStorage(_self);
     }
     
-    SetGetParameters() {
+    SetGetParameters(_self) {
         const url = new URL(window.location.href);
         const currentCanvasWidth = _self.placeteam.getCanvasWidthPercentageInt();
 
@@ -36,7 +37,7 @@ export class PositionStorage {
         window.history.replaceState(null,"", url);
     }
 
-    SetPositionLocalStorage() {
+    SetPositionLocalStorage(_self) {
         const currentCanvasWidth = _self.placeteam.getCanvasWidthPercentageInt();
 
         const pixelSize = _self.placeteam.getPixelSize();
