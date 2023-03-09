@@ -1,6 +1,7 @@
 import { Navigation } from "./modules/navigation.mjs";
 import { MouseState } from "./modules/mouseState.mjs";
 import { PositionStorage } from "./modules/positionStorage.mjs";
+import { CanvasManipulator } from "./modules/canvasManipulation.mjs";
 
 window.addEventListener("load", (event) => {
     const placeteam = {};
@@ -65,7 +66,7 @@ window.addEventListener("load", (event) => {
         // data.cooldown;
         data.pixels.forEach((line,y) => {
             line.forEach((pixel,x)  =>{
-                placeteam.setPixel(x,y,pixel.color)
+                canvasManipulator.setPixel(x,y,pixel.color)
             });
         });        
     };
@@ -151,13 +152,8 @@ window.addEventListener("load", (event) => {
     //process update from websocket
     placeteam.update = (updatedata) => {
         updatedata.data.pixels.forEach((pixel) => {
-                placeteam.setPixel(pixel.position.x,pixel.position.y,pixel.color)
+                canvasManipulator.setPixel(pixel.position.x,pixel.position.y,pixel.color)
         });
-    };
-    //change pixel locally
-    placeteam.setPixel = (x,y,color) => {    
-        placeteam.ctx.fillStyle = color;
-        placeteam.ctx.fillRect(x, y, 1, 1);
     };
     // changes color of id  to Hex value
     placeteam.changeColor = (color, id) => {
@@ -194,7 +190,7 @@ window.addEventListener("load", (event) => {
         // const y = Math.floor(Math.max(Math.min(((event.clientY - rect.top)  / canvas.clientWidth) * canvas.height, canvas.height - 1), 0));
         let mouseCoordinates = placeteam.getCoordinateslAtMouse(event);
         // placeteam.setPixel(x, y, placeteam.colorinput.value);
-        placeteam.setPixel(mouseCoordinates.x, mouseCoordinates.y, placeteam.colors[placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid]);
+        canvasManipulator.setPixel(mouseCoordinates.x, mouseCoordinates.y, placeteam.colors[placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid]);
     }
 
     placeteam.getCanvasWidthPercentageInt = () => {
@@ -330,4 +326,6 @@ window.addEventListener("load", (event) => {
     const positionStorage = new PositionStorage(placeteam, mouseState, navigation);
     positionStorage.LoadPositionStorage();
     positionStorage.SetPositionStorageUpdateTimer();
+
+    const canvasManipulator = new CanvasManipulator(placeteam, mouseState, navigation);
 });
