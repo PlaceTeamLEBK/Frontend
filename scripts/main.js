@@ -279,7 +279,7 @@ window.addEventListener("load", (event) => {
         event.preventDefault();
     });
 
-    const navigation = new Navigation(placeteam);
+    const navigation = new Navigation(placeteam, mouseState);
     navigation.SetEvents();
 
     // Use GET parameters, or if there aren't any, load local storage
