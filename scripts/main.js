@@ -235,6 +235,7 @@ window.addEventListener("load", (event) => {
         mouseIsDown = false;
         rightclickIsDown = false;
         placeteam.changeCanvasCursor();
+        placeteam.positionStorageUpdate();
     });
 
     // Zoom on scrolling
@@ -349,7 +350,7 @@ window.addEventListener("load", (event) => {
         }
         placeteam.setPositionLocalStorage();
     }
-    placeteam.getParameterTimer = setInterval(placeteam.positionStorageUpdate, getParameterUpdateInterval);
+    //placeteam.getParameterTimer = setInterval(placeteam.positionStorageUpdate, getParameterUpdateInterval);
 
     placeteam.rgbToHex = (r, g, b) => {
         if (r > 255 || g > 255 || b > 255)
