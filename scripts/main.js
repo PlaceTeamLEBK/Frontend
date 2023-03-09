@@ -239,27 +239,6 @@ window.addEventListener("load", (event) => {
         placeteam.changeCanvasCursor();
     });
 
-    // Zoom on scrolling
-    placeteam.canvas.addEventListener('wheel', function(event) {
-        let minZoom = minZoomPercentageMobile;
-        if (desktopMediaQuery.matches) {
-            minZoom = minZoomPercentageDesktop;
-        } else if (tabletMediaQuery.matches) {
-            minZoom = minZoomPercentageTablet;
-        }
-
-        let newCanvasWidth;
-        if (Math.sign(event.deltaY) < 0) {
-            newCanvasWidth = placeteam.getCanvasWidthPercentageInt() * zoomSpeed;
-        } else {
-            newCanvasWidth = placeteam.getCanvasWidthPercentageInt() / zoomSpeed;
-        }
-        let normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
-        normalizedCanvasWidth = Math.min(maxZoom, normalizedCanvasWidth);
-
-        placeteam.setZoom(normalizedCanvasWidth);
-    });
-
     placeteam.setZoom = (newCanvasWidth) => {
         if (parseInt(newCanvasWidth)) {
             placeteam.rangezoom.value = newCanvasWidth;
