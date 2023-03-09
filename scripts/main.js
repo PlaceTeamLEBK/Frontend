@@ -1,5 +1,5 @@
 import { Navigation } from "./modules/navigation.mjs";
-import { MouseMovement } from "./modules/mouseMovement.mjs";
+import { MouseState } from "./modules/mouseState.mjs";
 
 window.addEventListener("load", (event) => {
     const placeteam = {};
@@ -7,7 +7,7 @@ window.addEventListener("load", (event) => {
     const zoomSpeed = 1.02;
     const maximumClickDownTimeToPlacePixel = 125;
 
-    const mouseMovement = new MouseMovement();
+    const mouseState = new MouseState();
 
     const minZoomPercentageMobile = 270;
     const minZoomPercentageTablet = 150;
@@ -220,22 +220,22 @@ window.addEventListener("load", (event) => {
     placeteam.canvas.addEventListener('mousedown', function(event) {
 
         if(event.which == 1){//left click
-            mouseMovement.lastMouseDown = Date.now();   
-            mouseMovement.mouseIsDown = true;
+            mouseState.lastMouseDown = Date.now();   
+            mouseState.mouseIsDown = true;
             placeteam.changeCanvasCursor('grab');
         }
         else if (event.which == 3){//right click   
-            mouseMovement.rightclickIsDown = true;
+            mouseState.rightclickIsDown = true;
            placeteam.changeCanvasCursor('crosshair');
         }
     });
 
     placeteam.canvas.addEventListener('mouseup', function(event) {
-        if (Date.now() - mouseMovement.lastMouseDown < maximumClickDownTimeToPlacePixel) {
+        if (Date.now() - mouseState.lastMouseDown < maximumClickDownTimeToPlacePixel) {
             placePixelOnCanvas(placeteam.canvas, event);
         }
-        mouseMovement.mouseIsDown = false;
-        mouseMovement.rightclickIsDown = false;
+        mouseState.mouseIsDown = false;
+        mouseState.rightclickIsDown = false;
         placeteam.changeCanvasCursor();
     });
 
@@ -335,7 +335,7 @@ window.addEventListener("load", (event) => {
 
     // Update GET position parameters if not clicking and local storage position values
     placeteam.positionStorageUpdate = () => {
-        if (!mouseMovement.mouseIsDown && !mouseMovement.rightclickIsDown) {
+        if (!mouseState.mouseIsDown && !mouseState.rightclickIsDown) {
             placeteam.setGetParameters();
         }
         placeteam.setPositionLocalStorage();
