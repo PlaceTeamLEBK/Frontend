@@ -4,7 +4,7 @@ export class Navigation {
 
     constructor(placeteam, mouseState) {
         this.placeteam = placeteam;
-        this.mousestate = mouseState;
+        this.mouseState = mouseState;
     }
 
     SetEvents() {
