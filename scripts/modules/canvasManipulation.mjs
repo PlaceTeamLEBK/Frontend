@@ -15,6 +15,6 @@ export class CanvasManipulator {
     // Place pixel on clicked part of canvas
     PlacePixelOnCanvas(event) {
         let mouseCoordinates = this.placeteam.getCoordinateslAtMouse(event);
-        SetPixel(mouseCoordinates.x, mouseCoordinates.y, this.placeteam.colors[this.placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid]);
+        this.SetPixel(mouseCoordinates.x, mouseCoordinates.y, this.placeteam.colors[this.placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid]);
     }
 }
