@@ -1,3 +1,5 @@
+import { Navigation } from "./modules/navigation.mjs";
+
 window.addEventListener("load", (event) => {
     placeteam = {};
 
@@ -435,4 +437,6 @@ window.addEventListener("load", (event) => {
         });
     }
     placeteam.init();
+
+    Navigation.Test();
 });
