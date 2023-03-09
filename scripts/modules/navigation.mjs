@@ -50,5 +50,9 @@ export class Navigation {
     
             placeteam.setZoom(normalizedCanvasWidth);
         });
+
+        this.placeteam.mapcontainer.addEventListener('wheel', function(event) {
+            event.preventDefault();
+        });
     }
 }

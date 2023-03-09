@@ -254,10 +254,6 @@ window.addEventListener("load", (event) => {
         }
     }
 
-    placeteam.mapcontainer.addEventListener('wheel', function(event) {
-        event.preventDefault();
-    });
-
     const navigation = new Navigation(placeteam, mouseState);
     navigation.SetEvents();
 
