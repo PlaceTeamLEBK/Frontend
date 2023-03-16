@@ -1,7 +1,10 @@
-import { Navigation } from "./modules/navigation.mjs";
-import { MouseState } from "./modules/mouseState.mjs";
-import { PositionStorage } from "./modules/positionStorage.mjs";
-import { CanvasManipulator } from "./modules/canvasManipulation.mjs";
+import { Navigation } from "./modules/Navigation.mjs";
+import { MouseState } from "./modules/MouseState.mjs";
+import { PositionStorage } from "./modules/PositionStorage.mjs";
+import { CanvasManipulator } from "./modules/CanvasManipulator.mjs";
+import { ColorChanger } from "./modules/ColorChanger.mjs";
+import { ZoomSlider } from "./modules/ZoomSlider.mjs";
+import { ColorStorage } from "./modules/ColorStorage.mjs";
 
 window.addEventListener("load", (event) => {
     const placeteam = {};
@@ -72,98 +75,14 @@ window.addEventListener("load", (event) => {
             });
         });        
     };
-    //load colors
-    placeteam.loadcolors = () => {
-        let localcolors = localStorage.getItem("colors");
-        if(localcolors != null)
-            placeteam.colors=JSON.parse(localcolors);
-        //load from sessionstorage eventually;
-        placeteam.colors.forEach((color,index)=>{
-            placeteam.colorcontainer.querySelector('input[data-colorid="'+index+'"]').value=color;
-            placeteam.colorcontainer.querySelector('div[data-colorid="'+index+'"]').style.backgroundColor=color;
-        });
-    };
-    placeteam.loadcolors();
-    //add events for colorinput change
-    placeteam.colorcontainer.querySelectorAll('.edit input').forEach((element, index) => {
-        element.addEventListener('change', function(event){
-            placeteam.changeColor(element.value,element.dataset.colorid);
 
-            // let selectelement = placeteam.colorcontainer.querySelector('.select>div[data-colorid="'+element.dataset.colorid+'"]');
-            // selectelement.style.backgroundColor = element.value;
-            // placeteam.colors[element.dataset.colorid] = element.value;
-            // localStorage.setItem("colors",JSON.stringify(placeteam.colors));
-        });
-    });
-    //add events for colorselect
-    placeteam.colorcontainer.querySelectorAll('.select>div').forEach((newselectelement) => {
-        newselectelement.addEventListener('click',function(event){
-            placeteam.colorcontainer.querySelectorAll('.select>div').forEach((element)=>{
-                element.classList.remove('selected')
-            })
-            newselectelement.classList.add('selected');
-        });
-    });
-    //add event for toggle editmode
-    placeteam.editcolorbutton.addEventListener('click', function(event){
-        placeteam.colorcontainer.querySelector('div.edit').classList.toggle('hidden');
-        placeteam.colorcontainer.querySelector('div.select').classList.toggle('hidden');
-    });
-    //change Max of zoom range
-        placeteam.rangezoom.setAttribute("max",400);
-    //add event for zoomrange
-    placeteam.rangezoom.addEventListener('input', function(event){
-        console.log(event);
-        navigation.SetZoom(placeteam.rangezoom.value);
-    });
-    //add event for zoombutton +
-    document.getElementById("btn_zoom_plus").addEventListener('click', function(event){
-        let minZoom = placeteam.minZoomPercentageMobile;
-        if (placeteam.desktopMediaQuery.matches) {
-            minZoom = placeteam.minZoomPercentageDesktop;
-        } else if (placeteam.tabletMediaQuery.matches) {
-            minZoom = placeteam.minZoomPercentageTablet;
-        }
-        let newCanvasWidth = placeteam.getCanvasWidthPercentageInt() * placeteam.zoomSpeed;
-        let normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
-        normalizedCanvasWidth = Math.min(placeteam.maxZoom, normalizedCanvasWidth);
-        navigation.SetZoom(normalizedCanvasWidth);
-    });
-    //add event for zoombutton -
-    document.getElementById("btn_zoom_minus").addEventListener('click', function(event){
-        let minZoom = placeteam.minZoomPercentageMobile;
-        if (placeteam.desktopMediaQuery.matches) {
-            minZoom = placeteam.minZoomPercentageDesktop;
-        } else if (placeteam.tabletMediaQuery.matches) {
-            minZoom = placeteam.minZoomPercentageTablet;
-        }
-        let newCanvasWidth = placeteam.getCanvasWidthPercentageInt() / placeteam.zoomSpeed;
-        let normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
-        normalizedCanvasWidth = Math.min(placeteam.maxZoom, normalizedCanvasWidth);
-        navigation.SetZoom(normalizedCanvasWidth);
-    });
-    //add event for fullscreenbutton
-    document.getElementById("btn_fullscreen").addEventListener('click', function(event){
-        if(!placeteam.fullscreen){
-            document.documentElement.requestFullscreen();
-        }
-        else{
-            document.exitFullscreen();
-        }
-    });
     //process update from websocket
     placeteam.update = (updatedata) => {
         updatedata.data.pixels.forEach((pixel) => {
             canvasManipulator.SetPixel(pixel.position.x,pixel.position.y,pixel.color)
         });
     };
-    // changes color of id  to Hex value
-    placeteam.changeColor = (color, id) => {
-            let selectelement = placeteam.colorcontainer.querySelector('.select>div[data-colorid="'+id+'"]');
-            selectelement.style.backgroundColor = color;
-            placeteam.colors[id] = color;
-            localStorage.setItem("colors",JSON.stringify(placeteam.colors));
-    };
+
     //change pixel on server
     placeteam.set = (x,y,color) => {
         if(placeteam.cooldown<1){
@@ -180,19 +99,6 @@ window.addEventListener("load", (event) => {
                 }
             });
         }
-    }
-
-    placeteam.getCanvasWidthPercentageInt = () => {
-        return parseInt(placeteam.canvas.style.width.match(/(\d+)/));
-    }
-
-    placeteam.getPixelSize = () => {
-        return placeteam.canvas.clientWidth / placeteam.canvas.width;
-    }
-
-    placeteam.offsetScrollToPixel = (x, y) => {
-        const pixelSize = placeteam.getPixelSize();
-        placeteam.mapcontainer.scrollTo(Math.ceil(pixelSize * x), Math.ceil(pixelSize * y));
     }
 
     placeteam.getCoordinateslAtMouse = (event)=> {
@@ -308,11 +214,21 @@ window.addEventListener("load", (event) => {
         });
     }
     placeteam.init();
-    
-    const navigation = new Navigation(placeteam, mouseState);
+
+    const colorStorage = new ColorStorage(placeteam);
+
+    const colorChanger = new ColorChanger(placeteam, colorStorage);
+    colorChanger.SetEvents();
+
+    const navigation = new Navigation(placeteam, mouseState, canvasManipulator, colorChanger);
     navigation.SetEvents();
 
-    const positionStorage = new PositionStorage(placeteam, mouseState, navigation);
+    const zoomSlider = new ZoomSlider(placeteam, navigation, canvasManipulator);
+    zoomSlider.SetEvents();
+
+    const positionStorage = new PositionStorage(placeteam, mouseState, navigation, canvasManipulator);
+
+    colorStorage.LoadColors();
     positionStorage.LoadPositionStorage();
     positionStorage.SetPositionStorageUpdateTimer();
 });

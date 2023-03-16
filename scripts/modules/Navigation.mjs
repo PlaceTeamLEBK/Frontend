@@ -1,10 +1,14 @@
 export class Navigation {
     placeteam = null;
     mouseState = null;
+    canvasManipulator = null;
+    colorChanger = null;
 
-    constructor(placeteam, mouseState) {
+    constructor(placeteam, mouseState, canvasManipulator, colorChanger) {
         this.placeteam = placeteam;
         this.mouseState = mouseState;
+        this.canvasManipulator = canvasManipulator;
+        this.colorChanger = colorChanger;
     }
 
     SetEvents() {
@@ -24,7 +28,7 @@ export class Navigation {
             if(_self.mouseState.rightclickIsDown){
                 const mouseCoordinates = _self.placeteam.getCoordinateslAtMouse(event);
                 const rgbArray = _self.placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
-                _self.placeteam.changeColor("#"+_self.placeteam.rgbToHex(rgbArray[0],rgbArray[1],rgbArray[2]),_self.placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
+                _self.colorChanger.ChangeColor("#"+_self.placeteam.rgbToHex(rgbArray[0],rgbArray[1],rgbArray[2]), _self.placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
             }
         });
     }
@@ -41,9 +45,9 @@ export class Navigation {
     
             let newCanvasWidth;
             if (Math.sign(event.deltaY) < 0) {
-                newCanvasWidth = _self.placeteam.getCanvasWidthPercentageInt() * _self.placeteam.zoomSpeed;
+                newCanvasWidth = _self.canvasManipulator.GetCanvasWidthPercentageInt() * _self.placeteam.zoomSpeed;
             } else {
-                newCanvasWidth = _self.placeteam.getCanvasWidthPercentageInt() / _self.placeteam.zoomSpeed;
+                newCanvasWidth = _self.canvasManipulator.GetCanvasWidthPercentageInt() / _self.placeteam.zoomSpeed;
             }
             let normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
             normalizedCanvasWidth = Math.min(_self.placeteam.maxZoom, normalizedCanvasWidth);
@@ -70,5 +74,10 @@ export class Navigation {
             const heightPositionFraction =  (_self.placeteam.mapcontainer.scrollTop + window.innerHeight / 2) / _self.placeteam.canvas.clientHeight;
             _self.placeteam.mapcontainer.scrollBy(halfWidthDifference * widthPositionFraction, halfWidthDifference * heightPositionFraction);    
         }
+    }
+
+    OffsetScrollToPixel = (x, y) => {
+        const pixelSize = this.canvasManipulator.GetPixelSize();
+        this.placeteam.mapcontainer.scrollTo(Math.ceil(pixelSize * x), Math.ceil(pixelSize * y));
     }
 }

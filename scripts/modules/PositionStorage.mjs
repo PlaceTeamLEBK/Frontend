@@ -2,11 +2,13 @@ export class PositionStorage {
     placeteam = null;
     mouseState = null;
     navigation = null;
+    canvasManipulator = null;
 
-    constructor(placeteam, mouseState, navigation) {
+    constructor(placeteam, mouseState, navigation, canvasManipulator) {
         this.placeteam = placeteam;
         this.mouseState = mouseState;
         this.navigation = navigation;
+        this.canvasManipulator = canvasManipulator;
     }
 
     SetPositionStorageUpdateTimer() {
@@ -24,9 +26,9 @@ export class PositionStorage {
     
     SetGetParameters(_self) {
         const url = new URL(window.location.href);
-        const currentCanvasWidth = _self.placeteam.getCanvasWidthPercentageInt();
+        const currentCanvasWidth = this.canvasManipulator.GetCanvasWidthPercentageInt();
 
-        const pixelSize = _self.placeteam.getPixelSize();
+        const pixelSize = _self.canvasManipulator.GetPixelSize();
         const pixelsToLeft = Math.floor(_self.placeteam.mapcontainer.scrollLeft / pixelSize);
         const pixelsToTop = Math.floor(_self.placeteam.mapcontainer.scrollTop / pixelSize);
 
@@ -38,9 +40,9 @@ export class PositionStorage {
     }
 
     SetPositionLocalStorage(_self) {
-        const currentCanvasWidth = _self.placeteam.getCanvasWidthPercentageInt();
+        const currentCanvasWidth = this.canvasManipulator.GetCanvasWidthPercentageInt();
 
-        const pixelSize = _self.placeteam.getPixelSize();
+        const pixelSize = _self.canvasManipulator.GetPixelSize();
         const pixelsToLeft = Math.floor(_self.placeteam.mapcontainer.scrollLeft / pixelSize);
         const pixelsToTop = Math.floor(_self.placeteam.mapcontainer.scrollTop / pixelSize);
         
@@ -59,14 +61,14 @@ export class PositionStorage {
 
         if (urlZoom || urlX || urlY) {
             this.navigation.SetZoom(urlZoom);
-            this.placeteam.offsetScrollToPixel(urlX, urlY);
+            this.navigation.OffsetScrollToPixel(urlX, urlY);
         } else {
             const localZoom = localStorage.getItem("zoom");
             const localX = localStorage.getItem("x");
             const localY = localStorage.getItem("y");
 
             this.navigation.SetZoom(localZoom);
-            this.placeteam.offsetScrollToPixel(localX, localY);
+            this.navigation.OffsetScrollToPixel(localX, localY);
         }
     }
 }
