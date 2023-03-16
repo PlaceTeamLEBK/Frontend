@@ -124,7 +124,7 @@ window.addEventListener("load", (event) => {
         } else if (placeteam.tabletMediaQuery.matches) {
             minZoom = placeteam.minZoomPercentageTablet;
         }
-        let newCanvasWidth = placeteam.getCanvasWidthPercentageInt() * placeteam.zoomSpeed;
+        let newCanvasWidth = canvasManipulator.GetCanvasWidthPercentageInt() * placeteam.zoomSpeed;
         let normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
         normalizedCanvasWidth = Math.min(placeteam.maxZoom, normalizedCanvasWidth);
         navigation.SetZoom(normalizedCanvasWidth);
@@ -137,7 +137,7 @@ window.addEventListener("load", (event) => {
         } else if (placeteam.tabletMediaQuery.matches) {
             minZoom = placeteam.minZoomPercentageTablet;
         }
-        let newCanvasWidth = placeteam.getCanvasWidthPercentageInt() / placeteam.zoomSpeed;
+        let newCanvasWidth = canvasManipulator.GetCanvasWidthPercentageInt() / placeteam.zoomSpeed;
         let normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
         normalizedCanvasWidth = Math.min(placeteam.maxZoom, normalizedCanvasWidth);
         navigation.SetZoom(normalizedCanvasWidth);
@@ -180,10 +180,6 @@ window.addEventListener("load", (event) => {
                 }
             });
         }
-    }
-
-    placeteam.getCanvasWidthPercentageInt = () => {
-        return parseInt(placeteam.canvas.style.width.match(/(\d+)/));
     }
 
     placeteam.getPixelSize = () => {
@@ -304,10 +300,10 @@ window.addEventListener("load", (event) => {
     }
     placeteam.init();
     
-    const navigation = new Navigation(placeteam, mouseState);
+    const navigation = new Navigation(placeteam, mouseState, canvasManipulator);
     navigation.SetEvents();
 
-    const positionStorage = new PositionStorage(placeteam, mouseState, navigation);
+    const positionStorage = new PositionStorage(placeteam, mouseState, navigation, canvasManipulator);
     positionStorage.LoadPositionStorage();
     positionStorage.SetPositionStorageUpdateTimer();
 });

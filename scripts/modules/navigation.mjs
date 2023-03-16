@@ -1,10 +1,12 @@
 export class Navigation {
     placeteam = null;
     mouseState = null;
+    canvasManipulator = null;
 
-    constructor(placeteam, mouseState) {
+    constructor(placeteam, mouseState, canvasManipulator) {
         this.placeteam = placeteam;
         this.mouseState = mouseState;
+        this.canvasManipulator = canvasManipulator;
     }
 
     SetEvents() {
@@ -41,9 +43,9 @@ export class Navigation {
     
             let newCanvasWidth;
             if (Math.sign(event.deltaY) < 0) {
-                newCanvasWidth = _self.placeteam.getCanvasWidthPercentageInt() * _self.placeteam.zoomSpeed;
+                newCanvasWidth = _self.canvasManipulator.GetCanvasWidthPercentageInt() * _self.placeteam.zoomSpeed;
             } else {
-                newCanvasWidth = _self.placeteam.getCanvasWidthPercentageInt() / _self.placeteam.zoomSpeed;
+                newCanvasWidth = _self.canvasManipulator.GetCanvasWidthPercentageInt() / _self.placeteam.zoomSpeed;
             }
             let normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
             normalizedCanvasWidth = Math.min(_self.placeteam.maxZoom, normalizedCanvasWidth);

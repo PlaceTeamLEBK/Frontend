@@ -17,4 +17,8 @@ export class CanvasManipulator {
         let mouseCoordinates = this.placeteam.getCoordinateslAtMouse(event);
         this.SetPixel(mouseCoordinates.x, mouseCoordinates.y, this.placeteam.colors[this.placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid]);
     }
+
+    GetCanvasWidthPercentageInt = () => {
+        return parseInt(this.placeteam.canvas.style.width.match(/(\d+)/));
+    }
 }

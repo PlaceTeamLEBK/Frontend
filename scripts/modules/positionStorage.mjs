@@ -2,11 +2,13 @@ export class PositionStorage {
     placeteam = null;
     mouseState = null;
     navigation = null;
+    canvasManipulator = null;
 
-    constructor(placeteam, mouseState, navigation) {
+    constructor(placeteam, mouseState, navigation, canvasManipulator) {
         this.placeteam = placeteam;
         this.mouseState = mouseState;
         this.navigation = navigation;
+        this.canvasManipulator = canvasManipulator;
     }
 
     SetPositionStorageUpdateTimer() {
@@ -24,7 +26,7 @@ export class PositionStorage {
     
     SetGetParameters(_self) {
         const url = new URL(window.location.href);
-        const currentCanvasWidth = _self.placeteam.getCanvasWidthPercentageInt();
+        const currentCanvasWidth = this.canvasManipulator.GetCanvasWidthPercentageInt();
 
         const pixelSize = _self.placeteam.getPixelSize();
         const pixelsToLeft = Math.floor(_self.placeteam.mapcontainer.scrollLeft / pixelSize);
@@ -38,7 +40,7 @@ export class PositionStorage {
     }
 
     SetPositionLocalStorage(_self) {
-        const currentCanvasWidth = _self.placeteam.getCanvasWidthPercentageInt();
+        const currentCanvasWidth = this.canvasManipulator.GetCanvasWidthPercentageInt();
 
         const pixelSize = _self.placeteam.getPixelSize();
         const pixelsToLeft = Math.floor(_self.placeteam.mapcontainer.scrollLeft / pixelSize);
