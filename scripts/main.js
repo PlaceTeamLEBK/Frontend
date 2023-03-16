@@ -182,10 +182,6 @@ window.addEventListener("load", (event) => {
         }
     }
 
-    placeteam.getPixelSize = () => {
-        return placeteam.canvas.clientWidth / placeteam.canvas.width;
-    }
-
     placeteam.getCoordinateslAtMouse = (event)=> {
         const rect = placeteam.canvas.getBoundingClientRect()
         const x = Math.floor(Math.max(Math.min(((event.clientX - rect.left) /  placeteam.canvas.clientWidth) *  placeteam.canvas.width,  placeteam.canvas.width - 1), 0));

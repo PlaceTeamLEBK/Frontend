@@ -18,7 +18,11 @@ export class CanvasManipulator {
         this.SetPixel(mouseCoordinates.x, mouseCoordinates.y, this.placeteam.colors[this.placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid]);
     }
 
-    GetCanvasWidthPercentageInt = () => {
+    GetCanvasWidthPercentageInt() {
         return parseInt(this.placeteam.canvas.style.width.match(/(\d+)/));
+    }
+    
+    GetPixelSize() {
+        return this.placeteam.canvas.clientWidth / placeteam.canvas.width;
     }
 }

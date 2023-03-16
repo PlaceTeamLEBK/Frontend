@@ -75,7 +75,7 @@ export class Navigation {
     }
 
     OffsetScrollToPixel = (x, y) => {
-        const pixelSize = this.placeteam.getPixelSize();
+        const pixelSize = this.canvasManipulator.GetPixelSize();
         this.placeteam.mapcontainer.scrollTo(Math.ceil(pixelSize * x), Math.ceil(pixelSize * y));
     }
 }

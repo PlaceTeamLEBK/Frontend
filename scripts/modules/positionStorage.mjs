@@ -28,7 +28,7 @@ export class PositionStorage {
         const url = new URL(window.location.href);
         const currentCanvasWidth = this.canvasManipulator.GetCanvasWidthPercentageInt();
 
-        const pixelSize = _self.placeteam.getPixelSize();
+        const pixelSize = _self.canvasManipulator.GetPixelSize();
         const pixelsToLeft = Math.floor(_self.placeteam.mapcontainer.scrollLeft / pixelSize);
         const pixelsToTop = Math.floor(_self.placeteam.mapcontainer.scrollTop / pixelSize);
 
@@ -42,7 +42,7 @@ export class PositionStorage {
     SetPositionLocalStorage(_self) {
         const currentCanvasWidth = this.canvasManipulator.GetCanvasWidthPercentageInt();
 
-        const pixelSize = _self.placeteam.getPixelSize();
+        const pixelSize = _self.canvasManipulator.GetPixelSize();
         const pixelsToLeft = Math.floor(_self.placeteam.mapcontainer.scrollLeft / pixelSize);
         const pixelsToTop = Math.floor(_self.placeteam.mapcontainer.scrollTop / pixelSize);
         
