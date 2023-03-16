@@ -3,6 +3,7 @@ import { MouseState } from "./modules/MouseState.mjs";
 import { PositionStorage } from "./modules/PositionStorage.mjs";
 import { CanvasManipulator } from "./modules/CanvasManipulator.mjs";
 import { ColorChanger } from "./modules/ColorChanger.mjs";
+import { ZoomSlider } from "./modules/ZoomSlider.mjs";
 
 window.addEventListener("load", (event) => {
     const placeteam = {};
@@ -86,48 +87,6 @@ window.addEventListener("load", (event) => {
     };
     placeteam.loadcolors();
 
-    //change Max of zoom range
-    placeteam.rangezoom.setAttribute("max",400);
-    //add event for zoomrange
-    placeteam.rangezoom.addEventListener('input', function(event){
-        console.log(event);
-        navigation.SetZoom(placeteam.rangezoom.value);
-    });
-    //add event for zoombutton +
-    document.getElementById("btn_zoom_plus").addEventListener('click', function(event){
-        let minZoom = placeteam.minZoomPercentageMobile;
-        if (placeteam.desktopMediaQuery.matches) {
-            minZoom = placeteam.minZoomPercentageDesktop;
-        } else if (placeteam.tabletMediaQuery.matches) {
-            minZoom = placeteam.minZoomPercentageTablet;
-        }
-        let newCanvasWidth = canvasManipulator.GetCanvasWidthPercentageInt() * placeteam.zoomSpeed;
-        let normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
-        normalizedCanvasWidth = Math.min(placeteam.maxZoom, normalizedCanvasWidth);
-        navigation.SetZoom(normalizedCanvasWidth);
-    });
-    //add event for zoombutton -
-    document.getElementById("btn_zoom_minus").addEventListener('click', function(event){
-        let minZoom = placeteam.minZoomPercentageMobile;
-        if (placeteam.desktopMediaQuery.matches) {
-            minZoom = placeteam.minZoomPercentageDesktop;
-        } else if (placeteam.tabletMediaQuery.matches) {
-            minZoom = placeteam.minZoomPercentageTablet;
-        }
-        let newCanvasWidth = canvasManipulator.GetCanvasWidthPercentageInt() / placeteam.zoomSpeed;
-        let normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
-        normalizedCanvasWidth = Math.min(placeteam.maxZoom, normalizedCanvasWidth);
-        navigation.SetZoom(normalizedCanvasWidth);
-    });
-    //add event for fullscreenbutton
-    document.getElementById("btn_fullscreen").addEventListener('click', function(event){
-        if(!placeteam.fullscreen){
-            document.documentElement.requestFullscreen();
-        }
-        else{
-            document.exitFullscreen();
-        }
-    });
     //process update from websocket
     placeteam.update = (updatedata) => {
         updatedata.data.pixels.forEach((pixel) => {
@@ -278,6 +237,9 @@ window.addEventListener("load", (event) => {
 
     const colorChanger = new ColorChanger(placeteam);
     colorChanger.SetEvents();
+
+    const zoomSlider = new ZoomSlider(placeteam);
+    zoomSlider.SetEvents();
 
     const positionStorage = new PositionStorage(placeteam, mouseState, navigation, canvasManipulator);
     positionStorage.LoadPositionStorage();
