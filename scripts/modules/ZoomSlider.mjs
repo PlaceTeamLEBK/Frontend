@@ -18,8 +18,8 @@ export class ZoomSlider {
 
     SetEvents() {
         this.SetZoomInEvent();
-        this.SetZoomInEvent();
         this.SetZoomOutEvent();
+        this.SetSliderEvent();
         this.SetFullscreenEvent();
     }
 
