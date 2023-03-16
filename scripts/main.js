@@ -1,8 +1,8 @@
-import { Navigation } from "./modules/navigation.mjs";
-import { MouseState } from "./modules/mouseState.mjs";
-import { PositionStorage } from "./modules/positionStorage.mjs";
-import { CanvasManipulator } from "./modules/canvasManipulator.mjs";
-import { ColorChanger } from "./modules/colorChanger.mjs";
+import { Navigation } from "./modules/Navigation.mjs";
+import { MouseState } from "./modules/MouseState.mjs";
+import { PositionStorage } from "./modules/PositionStorage.mjs";
+import { CanvasManipulator } from "./modules/CanvasManipulator.mjs";
+import { ColorChanger } from "./modules/ColorChanger.mjs";
 
 window.addEventListener("load", (event) => {
     const placeteam = {};
