@@ -85,7 +85,7 @@ window.addEventListener("load", (event) => {
         });
     };
     placeteam.loadcolors();
-    
+
     //change Max of zoom range
     placeteam.rangezoom.setAttribute("max",400);
     //add event for zoomrange
@@ -276,10 +276,10 @@ window.addEventListener("load", (event) => {
     const navigation = new Navigation(placeteam, mouseState, canvasManipulator);
     navigation.SetEvents();
 
+    const colorChanger = new ColorChanger(placeteam);
+    colorChanger.SetEvents();
+
     const positionStorage = new PositionStorage(placeteam, mouseState, navigation, canvasManipulator);
     positionStorage.LoadPositionStorage();
     positionStorage.SetPositionStorageUpdateTimer();
-
-    const colorChanger = new ColorChanger(placeteam);
-    colorChanger.SetEvents();
 });
