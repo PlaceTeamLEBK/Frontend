@@ -46,6 +46,6 @@ export class ColorChanger {
         let selectelement = this.placeteam.colorcontainer.querySelector('.select>div[data-colorid="'+id+'"]');
         selectelement.style.backgroundColor = color;
         this.placeteam.colors[id] = color;
-        this.colorStorage.SaveColor();
+        this.colorStorage.SaveColors();
     }
 }
