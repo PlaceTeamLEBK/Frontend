@@ -238,7 +238,7 @@ window.addEventListener("load", (event) => {
     const colorChanger = new ColorChanger(placeteam);
     colorChanger.SetEvents();
 
-    const zoomSlider = new ZoomSlider(placeteam);
+    const zoomSlider = new ZoomSlider(placeteam, navigation, canvasManipulator);
     zoomSlider.SetEvents();
 
     const positionStorage = new PositionStorage(placeteam, mouseState, navigation, canvasManipulator);
