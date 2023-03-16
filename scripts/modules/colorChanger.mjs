@@ -6,8 +6,8 @@ export class ColorChanger {
     }
 
     SetEvents() {
-        this.SetPanEvent();
-        this.SetMousewheelEvent();
+        this.SetInputChangeEvents();
+        this.SetClickEvents();
         this.SetEditModeButtonClickEvent();
     }
 
