@@ -49,7 +49,7 @@ export class ZoomSlider {
             case this.zoomOptions.In:
                 newCanvasWidth = this.canvasManipulator.GetCanvasWidthPercentageInt() * this.placeteam.zoomSpeed;
             case this.zoomOptions.Out:
-                newCanvasWidth = _self.canvasManipulator.GetCanvasWidthPercentageInt() / this.placeteam.zoomSpeed;
+                newCanvasWidth = this.canvasManipulator.GetCanvasWidthPercentageInt() / this.placeteam.zoomSpeed;
         }
         let normalizedCanvasWidth = Math.max(minZoom, newCanvasWidth);
         normalizedCanvasWidth = Math.min(this.placeteam.maxZoom, normalizedCanvasWidth);
