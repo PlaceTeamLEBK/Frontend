@@ -6,16 +6,14 @@ export class ColorStorage {
     }
 
     LoadColors() {
-        this.placeteam.loadcolors = () => {
-            let localcolors = localStorage.getItem("colors");
-            if(localcolors != null)
-            this.placeteam.colors=JSON.parse(localcolors);
-            //load from sessionstorage eventually;
-            this.placeteam.colors.forEach((color, index)=>{
-                this.placeteam.colorcontainer.querySelector('input[data-colorid="'+index+'"]').value=color;
-                this.placeteam.colorcontainer.querySelector('div[data-colorid="'+index+'"]').style.backgroundColor=color;
-            });
-        };
+        let localcolors = localStorage.getItem("colors");
+        if(localcolors != null)
+        this.placeteam.colors=JSON.parse(localcolors);
+        //load from sessionstorage eventually;
+        this.placeteam.colors.forEach((color, index)=>{
+            this.placeteam.colorcontainer.querySelector('input[data-colorid="'+index+'"]').value=color;
+            this.placeteam.colorcontainer.querySelector('div[data-colorid="'+index+'"]').style.backgroundColor=color;
+        });
     }
 
     SaveColors() {
