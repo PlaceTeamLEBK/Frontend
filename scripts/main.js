@@ -4,6 +4,7 @@ import { PositionStorage } from "./modules/PositionStorage.mjs";
 import { CanvasManipulator } from "./modules/CanvasManipulator.mjs";
 import { ColorChanger } from "./modules/ColorChanger.mjs";
 import { ZoomSlider } from "./modules/ZoomSlider.mjs";
+import { ColorStorage } from "./modules/ColorStorage.mjs";
 
 window.addEventListener("load", (event) => {
     const placeteam = {};
@@ -74,18 +75,6 @@ window.addEventListener("load", (event) => {
             });
         });        
     };
-    //load colors
-    placeteam.loadcolors = () => {
-        let localcolors = localStorage.getItem("colors");
-        if(localcolors != null)
-            placeteam.colors=JSON.parse(localcolors);
-        //load from sessionstorage eventually;
-        placeteam.colors.forEach((color,index)=>{
-            placeteam.colorcontainer.querySelector('input[data-colorid="'+index+'"]').value=color;
-            placeteam.colorcontainer.querySelector('div[data-colorid="'+index+'"]').style.backgroundColor=color;
-        });
-    };
-    placeteam.loadcolors();
 
     //process update from websocket
     placeteam.update = (updatedata) => {
@@ -93,13 +82,7 @@ window.addEventListener("load", (event) => {
             canvasManipulator.SetPixel(pixel.position.x,pixel.position.y,pixel.color)
         });
     };
-    // changes color of id  to Hex value
-    placeteam.changeColor = (color, id) => {
-            let selectelement = placeteam.colorcontainer.querySelector('.select>div[data-colorid="'+id+'"]');
-            selectelement.style.backgroundColor = color;
-            placeteam.colors[id] = color;
-            localStorage.setItem("colors",JSON.stringify(placeteam.colors));
-    };
+
     //change pixel on server
     placeteam.set = (x,y,color) => {
         if(placeteam.cooldown<1){
@@ -231,17 +214,21 @@ window.addEventListener("load", (event) => {
         });
     }
     placeteam.init();
-    
-    const navigation = new Navigation(placeteam, mouseState, canvasManipulator);
-    navigation.SetEvents();
 
-    const colorChanger = new ColorChanger(placeteam);
+    const colorStorage = new ColorStorage(placeteam);
+
+    const colorChanger = new ColorChanger(placeteam, colorStorage);
     colorChanger.SetEvents();
+
+    const navigation = new Navigation(placeteam, mouseState, canvasManipulator, colorChanger);
+    navigation.SetEvents();
 
     const zoomSlider = new ZoomSlider(placeteam, navigation, canvasManipulator);
     zoomSlider.SetEvents();
 
     const positionStorage = new PositionStorage(placeteam, mouseState, navigation, canvasManipulator);
+
+    colorStorage.LoadColors();
     positionStorage.LoadPositionStorage();
     positionStorage.SetPositionStorageUpdateTimer();
 });

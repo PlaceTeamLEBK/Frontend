@@ -2,11 +2,13 @@ export class Navigation {
     placeteam = null;
     mouseState = null;
     canvasManipulator = null;
+    colorChanger = null;
 
-    constructor(placeteam, mouseState, canvasManipulator) {
+    constructor(placeteam, mouseState, canvasManipulator, colorChanger) {
         this.placeteam = placeteam;
         this.mouseState = mouseState;
         this.canvasManipulator = canvasManipulator;
+        this.colorChanger = colorChanger;
     }
 
     SetEvents() {
@@ -26,7 +28,7 @@ export class Navigation {
             if(_self.mouseState.rightclickIsDown){
                 const mouseCoordinates = _self.placeteam.getCoordinateslAtMouse(event);
                 const rgbArray = _self.placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
-                _self.placeteam.changeColor("#"+_self.placeteam.rgbToHex(rgbArray[0],rgbArray[1],rgbArray[2]),_self.placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
+                _self.colorChanger.ChangeColor("#"+_self.placeteam.rgbToHex(rgbArray[0],rgbArray[1],rgbArray[2]), _self.placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
             }
         });
     }
