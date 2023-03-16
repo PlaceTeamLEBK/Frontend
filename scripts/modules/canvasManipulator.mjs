@@ -23,6 +23,6 @@ export class CanvasManipulator {
     }
     
     GetPixelSize() {
-        return this.placeteam.canvas.clientWidth / placeteam.canvas.width;
+        return this.placeteam.canvas.clientWidth / this.placeteam.canvas.width;
     }
 }
