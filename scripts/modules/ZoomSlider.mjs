@@ -53,7 +53,7 @@ export class ZoomSlider {
     SetSliderEvent() {
         let _self = this;
         this.placeteam.rangezoom.addEventListener('input', function(event){
-            console.log(event);
+            //console.log(event);
             _self.navigation.SetZoom(_self.placeteam.rangezoom.value);
         });
     }
