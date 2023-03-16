@@ -1,7 +1,7 @@
 import { Navigation } from "./modules/navigation.mjs";
 import { MouseState } from "./modules/mouseState.mjs";
 import { PositionStorage } from "./modules/positionStorage.mjs";
-import { CanvasManipulator } from "./modules/canvasManipulation.mjs";
+import { CanvasManipulator } from "./modules/canvasManipulator.mjs";
 
 window.addEventListener("load", (event) => {
     const placeteam = {};
