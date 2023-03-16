@@ -2,6 +2,7 @@ import { Navigation } from "./modules/navigation.mjs";
 import { MouseState } from "./modules/mouseState.mjs";
 import { PositionStorage } from "./modules/positionStorage.mjs";
 import { CanvasManipulator } from "./modules/canvasManipulator.mjs";
+import { ColorChanger } from "./modules/colorChanger.mjs";
 
 window.addEventListener("load", (event) => {
     const placeteam = {};
@@ -84,33 +85,9 @@ window.addEventListener("load", (event) => {
         });
     };
     placeteam.loadcolors();
-    //add events for colorinput change
-    placeteam.colorcontainer.querySelectorAll('.edit input').forEach((element, index) => {
-        element.addEventListener('change', function(event){
-            placeteam.changeColor(element.value,element.dataset.colorid);
-
-            // let selectelement = placeteam.colorcontainer.querySelector('.select>div[data-colorid="'+element.dataset.colorid+'"]');
-            // selectelement.style.backgroundColor = element.value;
-            // placeteam.colors[element.dataset.colorid] = element.value;
-            // localStorage.setItem("colors",JSON.stringify(placeteam.colors));
-        });
-    });
-    //add events for colorselect
-    placeteam.colorcontainer.querySelectorAll('.select>div').forEach((newselectelement) => {
-        newselectelement.addEventListener('click',function(event){
-            placeteam.colorcontainer.querySelectorAll('.select>div').forEach((element)=>{
-                element.classList.remove('selected')
-            })
-            newselectelement.classList.add('selected');
-        });
-    });
-    //add event for toggle editmode
-    placeteam.editcolorbutton.addEventListener('click', function(event){
-        placeteam.colorcontainer.querySelector('div.edit').classList.toggle('hidden');
-        placeteam.colorcontainer.querySelector('div.select').classList.toggle('hidden');
-    });
+    
     //change Max of zoom range
-        placeteam.rangezoom.setAttribute("max",400);
+    placeteam.rangezoom.setAttribute("max",400);
     //add event for zoomrange
     placeteam.rangezoom.addEventListener('input', function(event){
         console.log(event);
@@ -302,4 +279,7 @@ window.addEventListener("load", (event) => {
     const positionStorage = new PositionStorage(placeteam, mouseState, navigation, canvasManipulator);
     positionStorage.LoadPositionStorage();
     positionStorage.SetPositionStorageUpdateTimer();
+
+    const colorChanger = new ColorChanger(placeteam);
+    colorChanger.SetEvents();
 });
