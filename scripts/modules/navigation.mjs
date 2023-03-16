@@ -71,4 +71,9 @@ export class Navigation {
             _self.placeteam.mapcontainer.scrollBy(halfWidthDifference * widthPositionFraction, halfWidthDifference * heightPositionFraction);    
         }
     }
+
+    OffsetScrollToPixel = (x, y) => {
+        const pixelSize = this.placeteam.getPixelSize();
+        this.placeteam.mapcontainer.scrollTo(Math.ceil(pixelSize * x), Math.ceil(pixelSize * y));
+    }
 }

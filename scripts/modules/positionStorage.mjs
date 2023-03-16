@@ -59,14 +59,14 @@ export class PositionStorage {
 
         if (urlZoom || urlX || urlY) {
             this.navigation.SetZoom(urlZoom);
-            this.placeteam.offsetScrollToPixel(urlX, urlY);
+            this.navigation.OffsetScrollToPixel(urlX, urlY);
         } else {
             const localZoom = localStorage.getItem("zoom");
             const localX = localStorage.getItem("x");
             const localY = localStorage.getItem("y");
 
             this.navigation.SetZoom(localZoom);
-            this.placeteam.offsetScrollToPixel(localX, localY);
+            this.navigation.OffsetScrollToPixel(localX, localY);
         }
     }
 }

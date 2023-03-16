@@ -190,11 +190,6 @@ window.addEventListener("load", (event) => {
         return placeteam.canvas.clientWidth / placeteam.canvas.width;
     }
 
-    placeteam.offsetScrollToPixel = (x, y) => {
-        const pixelSize = placeteam.getPixelSize();
-        placeteam.mapcontainer.scrollTo(Math.ceil(pixelSize * x), Math.ceil(pixelSize * y));
-    }
-
     placeteam.getCoordinateslAtMouse = (event)=> {
         const rect = placeteam.canvas.getBoundingClientRect()
         const x = Math.floor(Math.max(Math.min(((event.clientX - rect.left) /  placeteam.canvas.clientWidth) *  placeteam.canvas.width,  placeteam.canvas.width - 1), 0));
