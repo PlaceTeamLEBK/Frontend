@@ -16,7 +16,6 @@ export class PlaceteamWebSocket {
         if(urlParams.get('testing')){//testing
             let test = {
                 "command": "update",
-                "timeStamp": 1675328548,
                 "data": {"pixels":[]}
             };
             for(let x = 0; x < 200; x++) {
@@ -58,18 +57,21 @@ export class PlaceteamWebSocket {
     // Change pixel on server
     Set(x,y,color) {
         if(this.placeteam.cooldown < 1){
-            this.webSocket.send({
-                "command": "set",
-                "key": "5251d829377e9590737d859d04bf3e0e17091e5cd62626c92e7af82d9efc602f",
-                "timeStamp": Date.now(),
-                "data": {
-                    "color": color,
-                    "position": {
-                        "x": x,
-                        "y": y
+            const key = this.GetKeyFromCookie();
+
+            this.webSocket.send(
+                JSON.stringify({
+                    "command": "set",
+                    "key": key,
+                    "data": {
+                        "color": color,
+                        "position": {
+                            "x": x,
+                            "y": y
+                        }
                     }
-                }
-            });
+                })
+            );
         }
     }
 
@@ -83,12 +85,15 @@ export class PlaceteamWebSocket {
     
         // Open websocket and receive Data
         this.webSocket.onopen = function(e) {
+            const key = _self.GetKeyFromCookie();
+
             // Register at websocket
-            _self.webSocket.send({
-                "command": "init",
-                "key": "5251d829377e9590737d859d04bf3e0e17091e5cd62626c92e7af82d9efc602f",//replace w cookie
-                "timeStamp": Date.now()
-            });
+            _self.webSocket.send(
+                JSON.stringify({
+                    "command": "init",
+                    "key": key
+                })
+            );
 
             console.log("[open] Connection established");
             console.log("Sending to server");
@@ -124,5 +129,11 @@ export class PlaceteamWebSocket {
         this.webSocket.onerror = function(error) {
             console.log(`[error]`,error);
         };
+    }
+
+    GetKeyFromCookie() {
+        const decodedCookie = decodeURIComponent(document.cookie);
+        // Assuming there is only one value stored in the cookie, this will return the value after the key
+        return decodedCookie.split("=")[1];
     }
 }
