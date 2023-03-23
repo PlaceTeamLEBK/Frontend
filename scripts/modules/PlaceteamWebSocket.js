@@ -104,6 +104,7 @@ export class PlaceteamWebSocket {
         this.webSocket.onmessage = function(event) {
             if(event.data.command == 'paint'){
                 _self.BuildFromArray(event.data);
+                _self.placeteam.setTimer(event.data.cooldown);
             }
             else if(event.data.command == 'update'){
                 _self.Update(event.data);
