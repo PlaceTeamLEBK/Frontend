@@ -136,3 +136,11 @@ input[type="range"][orient="vertical"] {
 #statuscontainer .cooldown{
     line-height: 1rem;
 }
+@media only screen and (max-width: 768px) {
+    #colorcontainer{
+        bottom:0px;
+        margin:0px;
+        border-radius:0px;
+        width:100%;
+    }
+}
