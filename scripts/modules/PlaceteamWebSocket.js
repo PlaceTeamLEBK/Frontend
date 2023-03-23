@@ -75,9 +75,9 @@ export class PlaceteamWebSocket {
 
     LoadWebSocket() {
         if (location.protocol == "https:") {
-            this.webSocket = new WebSocket('wss://'+window.location.host+'/websocket, protocols)');
+            this.webSocket = new WebSocket('wss://'+window.location.host+'/websocket');
         } else {
-            this.webSocket = new WebSocket('ws://'+window.location.host+'/websocket, protocols)');
+            this.webSocket = new WebSocket('ws://'+window.location.host+'/websocket');
         }
     
         // Open websocket and receive Data
