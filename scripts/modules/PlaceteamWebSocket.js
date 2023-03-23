@@ -82,6 +82,13 @@ export class PlaceteamWebSocket {
     
         // Open websocket and receive Data
         this.webSocket.onopen = function(e) {
+            // Register at websocket
+            this.webSocket.send({
+                "command": "init",
+                "key": "5251d829377e9590737d859d04bf3e0e17091e5cd62626c92e7af82d9efc602f",//replace w cookie
+                "timeStamp": Date.now()
+            });
+
             console.log("[open] Connection established");
             console.log("Sending to server");
             // socket.send("My name is John");
@@ -117,11 +124,5 @@ export class PlaceteamWebSocket {
         this.webSocket.onerror = function(error) {
             console.log(`[error]`,error);
         };
-        // Register at websocket
-        this.webSocket.send({
-            "command": "init",
-            "key": "5251d829377e9590737d859d04bf3e0e17091e5cd62626c92e7af82d9efc602f",//replace w cookie
-            "timeStamp": Date.now()
-        });
     }
 }
