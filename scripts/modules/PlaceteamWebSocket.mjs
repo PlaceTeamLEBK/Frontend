@@ -1,7 +1,8 @@
 export class PlaceteamWebSocket {
     placeteam = null;
-    webSocket = null;
     canvasManipulator = null;
+
+    webSocket = null;
 
     constructor(placeteam, canvasManipulator) {
         this.placeteam = placeteam;
@@ -45,18 +46,18 @@ export class PlaceteamWebSocket {
                 this.canvasManipulator.SetPixel(x,y,pixel.color)
             });
         });        
-    };
+    }
 
     // Process update from websocket
     Update(updatedata) {
         updatedata.data.pixels.forEach((pixel) => {
             this.canvasManipulator.SetPixel(pixel.position.x,pixel.position.y,pixel.color)
         });
-    };
+    }
 
     // Change pixel on server
     Set(x,y,color) {
-        if(placeteam.cooldown<1){
+        if(this.placeteam.cooldown < 1){
             this.webSocket.send({
                 "command": "set",
                 "key": "5251d829377e9590737d859d04bf3e0e17091e5cd62626c92e7af82d9efc602f",
@@ -73,7 +74,11 @@ export class PlaceteamWebSocket {
     }
 
     LoadWebSocket() {
-        this.webSocket = new WebSocket('ws://'+window.location.host+'/websocket, protocols)');
+        if (location.protocol == "https:") {
+            this.webSocket = new WebSocket('ws://'+window.location.host+'/websocket, protocols)');
+        } else {
+            this.webSocket = new WebSocket('wss://'+window.location.host+'/websocket, protocols)');
+        }
     
         // Open websocket and receive Data
         this.webSocket.onopen = function(e) {
