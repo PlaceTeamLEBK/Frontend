@@ -1,11 +1,11 @@
-import { Navigation } from "./modules/Navigation.mjs";
-import { MouseState } from "./modules/MouseState.mjs";
-import { PositionStorage } from "./modules/PositionStorage.mjs";
-import { CanvasManipulator } from "./modules/CanvasManipulator.mjs";
-import { ColorChanger } from "./modules/ColorChanger.mjs";
-import { ZoomSlider } from "./modules/ZoomSlider.mjs";
-import { ColorStorage } from "./modules/ColorStorage.mjs";
-import { PlaceteamWebSocket } from "./modules/PlaceteamWebSocket.mjs";
+import { Navigation } from "./modules/Navigation.js";
+import { MouseState } from "./modules/MouseState.js";
+import { PositionStorage } from "./modules/PositionStorage.js";
+import { CanvasManipulator } from "./modules/CanvasManipulator.js";
+import { ColorChanger } from "./modules/ColorChanger.js";
+import { ZoomSlider } from "./modules/ZoomSlider.js";
+import { ColorStorage } from "./modules/ColorStorage.js";
+import { PlaceteamWebSocket } from "./modules/PlaceteamWebSocket.js";
 
 window.addEventListener("load", (event) => {
     const placeteam = {};
