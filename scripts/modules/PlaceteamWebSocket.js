@@ -74,6 +74,7 @@ export class PlaceteamWebSocket {
     }
 
     LoadWebSocket() {
+        const _self = this;
         if (location.protocol == "https:") {
             this.webSocket = new WebSocket('wss://'+window.location.host+'/websocket');
         } else {
@@ -83,7 +84,7 @@ export class PlaceteamWebSocket {
         // Open websocket and receive Data
         this.webSocket.onopen = function(e) {
             // Register at websocket
-            this.webSocket.send({
+            _self.webSocket.send({
                 "command": "init",
                 "key": "5251d829377e9590737d859d04bf3e0e17091e5cd62626c92e7af82d9efc602f",//replace w cookie
                 "timeStamp": Date.now()
@@ -93,8 +94,7 @@ export class PlaceteamWebSocket {
             console.log("Sending to server");
             // socket.send("My name is John");
         };
-    
-        const _self = this;
+
         // On update from server
         this.webSocket.onmessage = function(event) {
             if(event.data.command == 'paint'){
