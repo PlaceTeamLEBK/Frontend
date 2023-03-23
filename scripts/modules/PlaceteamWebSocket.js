@@ -58,7 +58,7 @@ export class PlaceteamWebSocket {
     // Change pixel on server
     Set(x,y,color) {
         if(this.placeteam.cooldown < 1){
-            const key = document.cookie;
+            const key = this.GetKeyFromCookie();
 
             this.webSocket.send(
                 JSON.stringify({
@@ -87,7 +87,7 @@ export class PlaceteamWebSocket {
     
         // Open websocket and receive Data
         this.webSocket.onopen = function(e) {
-            const key = document.cookie;
+            const key = _self.GetKeyFromCookie();
 
             // Register at websocket
             _self.webSocket.send(
@@ -132,5 +132,11 @@ export class PlaceteamWebSocket {
         this.webSocket.onerror = function(error) {
             console.log(`[error]`,error);
         };
+    }
+
+    GetKeyFromCookie() {
+        const decodedCookie = decodeURIComponent(document.cookie);
+        // Assuming there is only one value stored in the cookie, this will return the value after the key
+        return decodedCookie.split("=")[1];
     }
 }
