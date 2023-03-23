@@ -5,6 +5,7 @@ import { CanvasManipulator } from "./modules/CanvasManipulator.mjs";
 import { ColorChanger } from "./modules/ColorChanger.mjs";
 import { ZoomSlider } from "./modules/ZoomSlider.mjs";
 import { ColorStorage } from "./modules/ColorStorage.mjs";
+import { PlaceteamWebSocket } from "./modules/PlaceteamWebSocket.mjs";
 
 window.addEventListener("load", (event) => {
     const placeteam = {};
@@ -37,69 +38,6 @@ window.addEventListener("load", (event) => {
     placeteam.rangezoom = document.getElementById("range_zoom");
     
     const canvasManipulator = new CanvasManipulator(placeteam, mouseState);
-
-    //register at Socket
-    placeteam.init = () => {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        if(urlParams.get('testing')){//testing
-            let test = {
-                "command": "update",
-                "timeStamp": 1675328548,
-                "data": {"pixels":[]}
-            };
-            for(let x = 0; x < 200; x++) {
-                for(let y = 0; y < 200; y++) {
-                    test.data.pixels.push({
-                        "color": '#'+Math.floor(Math.random()*16777215).toString(16),
-                        "position": {
-                          "x": x,
-                          "y": y
-                        }
-                    });
-                }
-            }
-            placeteam.update(test);
-        }
-        else{
-            placeteam.loadWebsocket();
-        }
-        placeteam.setTimer(30);
-    }
-    //called from socket once the pixels are recieved
-    placeteam.buildFromArray = (data) => {
-        // data.cooldown;
-        data.pixels.forEach((line,y) => {
-            line.forEach((pixel,x)  =>{
-                canvasManipulator.SetPixel(x,y,pixel.color)
-            });
-        });        
-    };
-
-    //process update from websocket
-    placeteam.update = (updatedata) => {
-        updatedata.data.pixels.forEach((pixel) => {
-            canvasManipulator.SetPixel(pixel.position.x,pixel.position.y,pixel.color)
-        });
-    };
-
-    //change pixel on server
-    placeteam.set = (x,y,color) => {
-        if(placeteam.cooldown<1){
-            placeteam.websocket.send({
-                "command": "set",
-                "key": "5251d829377e9590737d859d04bf3e0e17091e5cd62626c92e7af82d9efc602f",
-                "timeStamp": Date.now(),
-                "data": {
-                    "color": color,
-                    "position": {
-                        "x": x,
-                        "y": y
-                    }
-                }
-            });
-        }
-    }
 
     placeteam.getCoordinateslAtMouse = (event)=> {
         const rect = placeteam.canvas.getBoundingClientRect()
@@ -167,53 +105,9 @@ window.addEventListener("load", (event) => {
             placeteam.status.classList.remove('hidden');
         }
     }
-    placeteam.loadWebsocket = () =>{
-        placeteam.websocket = new WebSocket('ws://'+window.location.host+'/websocket, protocols)');
-    
-        //open websocket and receive Data
-        placeteam.websocket.onopen = function(e) {
-            console.log("[open] Connection established");
-            console.log("Sending to server");
-            // socket.send("My name is John");
-        };
-    
-        //on update from server
-        placeteam.websocket.onmessage = function(event) {
-            if(event.data.command == 'paint'){
-                placeteam.buildFromArray(event.data);
-            }
-            else if(event.data.command == 'update'){
-                placeteam.update(event.data);
-            }
-            else if(event.data.command == 'cooldown'){
-                placeteam.setTimer(event.data.seconds);
-            }
-        };
-    
-        //send update to server
-        // placeteam.websocket.send()
-        //closing connection
-        placeteam.websocket.onclose = function(event) {
-        if (event.wasClean) {
-            console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
-        } else {
-            // e.g. server process killed or network down
-            // event.code is usually 1006 in this case
-            console.log('[close] Connection died');
-        }
-        };
-        //
-        placeteam.websocket.onerror = function(error) {
-            console.log(`[error]`,error);
-        };
-        //register at websocket
-        placeteam.websocket.send({
-            "command": "init",
-            "key": "5251d829377e9590737d859d04bf3e0e17091e5cd62626c92e7af82d9efc602f",//replace w cookie
-            "timeStamp": Date.now()
-        });
-    }
-    placeteam.init();
+
+    const placeteamWebSocket = new PlaceteamWebSocket(placeteam);
+    placeteamWebSocket.Init();
 
     const colorStorage = new ColorStorage(placeteam);
 
