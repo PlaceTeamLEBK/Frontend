@@ -136,8 +136,7 @@ input[type="range"][orient="vertical"] {
 #statuscontainer .cooldown{
     line-height: 1rem;
 }
-/**/
-@media only screen and (max-width: 512) {
+@media only screen and (max-width: 512px) {
     #colorcontainer{
         bottom:0;
         left:0;
@@ -150,7 +149,7 @@ input[type="range"][orient="vertical"] {
     }
 }
 /*Hide 3 colors if not enough space*/
-@media only screen and (max-width: 320) {
+@media only screen and (max-width: 320px) {    
     #colorcontainer>div>:nth-child(9),
     #colorcontainer>div>:nth-child(8),
     #colorcontainer>div>:nth-child(7){
