@@ -16,7 +16,6 @@ export class PlaceteamWebSocket {
         if(urlParams.get('testing')){//testing
             let test = {
                 "command": "update",
-                "timeStamp": 1675328548,
                 "data": {"pixels":[]}
             };
             for(let x = 0; x < 200; x++) {
@@ -64,7 +63,6 @@ export class PlaceteamWebSocket {
                 JSON.stringify({
                     "command": "set",
                     "key": key,
-                    "timeStamp": Date.now(),
                     "data": {
                         "color": color,
                         "position": {
@@ -93,8 +91,7 @@ export class PlaceteamWebSocket {
             _self.webSocket.send(
                 JSON.stringify({
                     "command": "init",
-                    "key": key,
-                    "timeStamp": Date.now()
+                    "key": key
                 })
             );
 
