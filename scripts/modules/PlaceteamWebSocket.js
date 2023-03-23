@@ -58,18 +58,22 @@ export class PlaceteamWebSocket {
     // Change pixel on server
     Set(x,y,color) {
         if(this.placeteam.cooldown < 1){
-            this.webSocket.send({
-                "command": "set",
-                "key": "5251d829377e9590737d859d04bf3e0e17091e5cd62626c92e7af82d9efc602f",
-                "timeStamp": Date.now(),
-                "data": {
-                    "color": color,
-                    "position": {
-                        "x": x,
-                        "y": y
+            const key = document.cookie;
+
+            this.webSocket.send(
+                JSON.stringify({
+                    "command": "set",
+                    "key": key,
+                    "timeStamp": Date.now(),
+                    "data": {
+                        "color": color,
+                        "position": {
+                            "x": x,
+                            "y": y
+                        }
                     }
-                }
-            });
+                })
+            );
         }
     }
 
@@ -83,12 +87,16 @@ export class PlaceteamWebSocket {
     
         // Open websocket and receive Data
         this.webSocket.onopen = function(e) {
+            const key = document.cookie;
+
             // Register at websocket
-            _self.webSocket.send({
-                "command": "init",
-                "key": "5251d829377e9590737d859d04bf3e0e17091e5cd62626c92e7af82d9efc602f",//replace w cookie
-                "timeStamp": Date.now()
-            });
+            _self.webSocket.send(
+                JSON.stringify({
+                    "command": "init",
+                    "key": key,
+                    "timeStamp": Date.now()
+                })
+            );
 
             console.log("[open] Connection established");
             console.log("Sending to server");
