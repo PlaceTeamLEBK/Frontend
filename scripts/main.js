@@ -168,7 +168,12 @@ window.addEventListener("load", (event) => {
         }
     }
     placeteam.loadWebsocket = () =>{
-        placeteam.websocket = new WebSocket('ws://'+window.location.host+'/websocket, protocols)');
+        if (location.protocol == "https:") {
+          placeteam.websocket = new WebSocket('wss://'+window.location.host+'/websocket, protocols)');
+        }
+        else{
+            placeteam.websocket = new WebSocket('ws://'+window.location.host+'/websocket, protocols)');
+        }
     
         //open websocket and receive Data
         placeteam.websocket.onopen = function(e) {
