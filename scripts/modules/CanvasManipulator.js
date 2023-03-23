@@ -8,6 +8,9 @@ export class CanvasManipulator {
     }
 
     SetPixel(x, y, color) {    
+        if (color == null) {
+            color = "#ffffff";
+        }
         this.placeteam.ctx.fillStyle = color;
         this.placeteam.ctx.fillRect(x, y, 1, 1);
     };
