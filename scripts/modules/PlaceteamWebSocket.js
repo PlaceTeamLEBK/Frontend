@@ -102,15 +102,16 @@ export class PlaceteamWebSocket {
 
         // On update from server
         this.webSocket.onmessage = function(event) {
-            if(event.data.command == 'paint'){
-                _self.BuildFromArray(event.data);
-                _self.placeteam.setTimer(event.data.cooldown);
+            const eventData = JSON.parse(event).data;
+            if(eventData.command == 'paint'){
+                _self.BuildFromArray(eventData);
+                _self.placeteam.setTimer(eventData.cooldown);
             }
-            else if(event.data.command == 'update'){
-                _self.Update(event.data);
+            else if(eventData.command == 'update'){
+                _self.Update(eventData);
             }
-            else if(event.data.command == 'cooldown'){
-                _self.placeteam.setTimer(event.data.seconds);
+            else if(eventData.command == 'cooldown'){
+                _self.placeteam.setTimer(eventData.seconds);
             }
         };
     
