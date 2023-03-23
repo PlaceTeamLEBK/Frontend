@@ -102,7 +102,7 @@ export class PlaceteamWebSocket {
 
         // On update from server
         this.webSocket.onmessage = function(event) {
-            const eventData = JSON.parse(event).data;
+            const eventData = JSON.parse(event.data);
             if(eventData.command == 'paint'){
                 _self.BuildFromArray(eventData);
                 _self.placeteam.setTimer(eventData.cooldown);
