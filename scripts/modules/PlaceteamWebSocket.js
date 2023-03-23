@@ -40,7 +40,7 @@ export class PlaceteamWebSocket {
     // Called from socket once the pixels are recieved
     BuildFromArray(data) {
         // data.cooldown;
-        data.data.pixels.forEach((line, y) => {
+        data.pixels.forEach((line, y) => {
             line.forEach((pixel, x)  =>{
                 this.canvasManipulator.SetPixel(x, y, pixel)
             });
@@ -48,8 +48,8 @@ export class PlaceteamWebSocket {
     }
 
     // Process update from websocket
-    Update(updatedata) {
-        updatedata.data.pixels.forEach((pixel) => {
+    Update(data) {
+        data.pixels.forEach((pixel) => {
             this.canvasManipulator.SetPixel(pixel.position.x,pixel.position.y,pixel.color)
         });
     }
@@ -104,11 +104,11 @@ export class PlaceteamWebSocket {
         this.webSocket.onmessage = function(event) {
             const eventData = JSON.parse(event.data);
             if(eventData.command == 'paint'){
-                _self.BuildFromArray(eventData);
+                _self.BuildFromArray(eventData.data);
                 _self.placeteam.setTimer(eventData.data.cooldown);
             }
             else if(eventData.command == 'update'){
-                _self.Update(eventData);
+                _self.Update(eventData.data);
             }
             else if(eventData.command == 'cooldown'){
                 _self.placeteam.setTimer(eventData.data.seconds);
