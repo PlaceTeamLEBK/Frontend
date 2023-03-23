@@ -106,7 +106,7 @@ window.addEventListener("load", (event) => {
         }
     }
 
-    const placeteamWebSocket = new PlaceteamWebSocket(placeteam);
+    const placeteamWebSocket = new PlaceteamWebSocket(placeteam, canvasManipulator);
     placeteamWebSocket.Init();
 
     const colorStorage = new ColorStorage(placeteam);

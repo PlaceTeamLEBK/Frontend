@@ -1,9 +1,11 @@
 export class PlaceteamWebSocket {
     placeteam = null;
     webSocket = null;
+    canvasManipulator = null;
 
-    constructor(placeteam) {
+    constructor(placeteam, canvasManipulator) {
         this.placeteam = placeteam;
+        this.canvasManipulator = canvasManipulator;
     }
 
     // Register at Socket
@@ -27,10 +29,10 @@ export class PlaceteamWebSocket {
                     });
                 }
             }
-            Update(test);
+            this.Update(test);
         }
         else{
-            LoadWebSocket();
+            this.LoadWebSocket();
         }
         this.placeteam.setTimer(30);
     }
@@ -40,7 +42,7 @@ export class PlaceteamWebSocket {
         // data.cooldown;
         data.pixels.forEach((line,y) => {
             line.forEach((pixel,x)  =>{
-                canvasManipulator.SetPixel(x,y,pixel.color)
+                this.canvasManipulator.SetPixel(x,y,pixel.color)
             });
         });        
     };
@@ -48,14 +50,14 @@ export class PlaceteamWebSocket {
     // Process update from websocket
     Update(updatedata) {
         updatedata.data.pixels.forEach((pixel) => {
-            canvasManipulator.SetPixel(pixel.position.x,pixel.position.y,pixel.color)
+            this.canvasManipulator.SetPixel(pixel.position.x,pixel.position.y,pixel.color)
         });
     };
 
     // Change pixel on server
     Set(x,y,color) {
         if(placeteam.cooldown<1){
-            webSocket.send({
+            this.webSocket.send({
                 "command": "set",
                 "key": "5251d829377e9590737d859d04bf3e0e17091e5cd62626c92e7af82d9efc602f",
                 "timeStamp": Date.now(),
@@ -71,46 +73,47 @@ export class PlaceteamWebSocket {
     }
 
     LoadWebSocket() {
-        webSocket = new WebSocket('ws://'+window.location.host+'/websocket, protocols)');
+        this.webSocket = new WebSocket('ws://'+window.location.host+'/websocket, protocols)');
     
         // Open websocket and receive Data
-        webSocket.onopen = function(e) {
+        this.webSocket.onopen = function(e) {
             console.log("[open] Connection established");
             console.log("Sending to server");
             // socket.send("My name is John");
         };
     
+        const _self = this;
         // On update from server
-        webSocket.onmessage = function(event) {
+        this.webSocket.onmessage = function(event) {
             if(event.data.command == 'paint'){
-                BuildFromArray(event.data);
+                _self.BuildFromArray(event.data);
             }
             else if(event.data.command == 'update'){
-                Update(event.data);
+                _self.Update(event.data);
             }
             else if(event.data.command == 'cooldown'){
-                SetTimer(event.data.seconds);
+                _self.placeteam.setTimer(event.data.seconds);
             }
         };
     
         // Send update to server
         // placeteam.websocket.send()
         // Closing connection
-        webSocket.onclose = function(event) {
-        if (event.wasClean) {
-            console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
-        } else {
-            // e.g. server process killed or network down
-            // Event.code is usually 1006 in this case
-            console.log('[close] Connection died');
-        }
+        this.webSocket.onclose = function(event) {
+            if (event.wasClean) {
+                console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+            } else {
+                // e.g. server process killed or network down
+                // Event.code is usually 1006 in this case
+                console.log('[close] Connection died');
+            }
         };
         //
-        webSocket.onerror = function(error) {
+        this.webSocket.onerror = function(error) {
             console.log(`[error]`,error);
         };
         // Register at websocket
-        webSocket.send({
+        this.webSocket.send({
             "command": "init",
             "key": "5251d829377e9590737d859d04bf3e0e17091e5cd62626c92e7af82d9efc602f",//replace w cookie
             "timeStamp": Date.now()
