@@ -37,7 +37,6 @@ export class PlaceteamWebSocket {
         else{
             this.LoadWebSocket();
         }
-        this.placeteam.setTimer(30);
     }
 
     // Called from socket once the pixels are recieved
