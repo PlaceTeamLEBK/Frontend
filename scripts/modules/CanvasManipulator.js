@@ -24,7 +24,6 @@ export class CanvasManipulator {
         let y=mouseCoordinates.y;
         let color=this.placeteam.colors[this.placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid];
         if(this.placeteam.cooldown < 1){
-            this.placeteam.setTimer(60);
             this.placeteamWebSocket.Set(x,y,color);
             this.SetPixel(x, y, color);
         }        
