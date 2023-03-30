@@ -18,7 +18,7 @@ export class PlaceteamWebSocket {
         const urlParams = new URLSearchParams(queryString);
         if(urlParams.get('testing')){//testing
             let test = {
-                "command": "update",
+                "command": "paint",
                 "data": {"pixels":[]}
             };
             for(let x = 0; x < 200; x++) {
@@ -32,7 +32,7 @@ export class PlaceteamWebSocket {
                     });
                 }
             }
-            this.Update(test);
+            this.BuildFromArray(test.data);
         }
         else{
             this.LoadWebSocket();
