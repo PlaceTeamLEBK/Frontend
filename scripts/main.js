@@ -11,7 +11,7 @@ window.addEventListener("load", (event) => {
     const placeteam = {};
 
     placeteam.zoomSpeed = 1.02;
-    const maximumClickDownTimeToPlacePixel = 125;
+    placeteam.maximumClickDownTimeToPlacePixel = 125;
 
     placeteam.minZoomPercentageMobile = 270;
     placeteam.minZoomPercentageTablet = 150;
