@@ -13,7 +13,7 @@ export class ZoomSlider {
         this.navigation = navigation;
         this.canvasManipulator = canvasManipulator;
 
-        placeteam.rangezoom.setAttribute("max",400);
+        placeteam.rangezoom.setAttribute("max", this.placeteam.maxZoom);
     }
 
     SetEvents() {
