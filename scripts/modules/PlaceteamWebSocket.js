@@ -8,9 +8,11 @@ export class PlaceteamWebSocket {
         this.placeteam = placeteam;
         
     }
-    setCanvasManipulator(canvasManipulator){
+
+    SetCanvasManipulator(canvasManipulator){
         this.canvasManipulator = canvasManipulator;
     }
+
     // Register at Socket
     Init() {
         const queryString = window.location.search;
