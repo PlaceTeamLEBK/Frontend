@@ -53,10 +53,7 @@ export class PlaceteamWebSocket {
 
     // Process update from websocket
     Update(data) {
-        console.log("Update data object: " + JSON.stringify(data));
-        data.pixels.forEach((pixel) => {
-            this.canvasManipulator.SetPixel(pixel.position.x,pixel.position.y,pixel.color)
-        });
+        this.canvasManipulator.SetPixel(data.position.x, data.position.y, data.color);
     }
 
     // Change pixel on server
