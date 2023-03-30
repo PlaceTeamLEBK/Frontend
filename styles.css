@@ -77,6 +77,14 @@ main {
 #range_zoom{
     width: 28px;
 }
+#infocontainer{
+    margin-left:2rem;
+    margin-top:2rem;
+    top:0;
+    left:0;
+    /* display: flex; */
+    /* flex-direction: column; */
+}
 input[type="color"]{
     width:28px;
     height:28px;
