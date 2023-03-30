@@ -99,7 +99,8 @@ window.addEventListener("load", (event) => {
                 clearInterval(placeteam.timerinterval);
                 placeteam.status.classList.add('hidden');
             }
-        }   
+        }
+        placeteam.cooldown = seconds;
         if(seconds>0){
             placeteam.status.classList.remove('hidden');
         }
