@@ -37,7 +37,6 @@ window.addEventListener("load", (event) => {
     placeteam.fullscreen = false;
     placeteam.rangezoom = document.getElementById("range_zoom");
     
-    const canvasManipulator = new CanvasManipulator(placeteam, mouseState);
 
     placeteam.getCoordinateslAtMouse = (event)=> {
         const rect = placeteam.canvas.getBoundingClientRect()
@@ -106,8 +105,12 @@ window.addEventListener("load", (event) => {
         }
     }
 
-    const placeteamWebSocket = new PlaceteamWebSocket(placeteam, canvasManipulator);
+    const placeteamWebSocket = new PlaceteamWebSocket(placeteam);
     placeteamWebSocket.Init();
+
+    const canvasManipulator = new CanvasManipulator(placeteam, mouseState, placeteamWebSocket);
+    placeteamWebSocket.setCanvasManipulator(this.canvasManipulator);
+
 
     const colorStorage = new ColorStorage(placeteam);
 

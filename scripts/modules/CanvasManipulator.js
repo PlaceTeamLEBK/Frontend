@@ -1,10 +1,12 @@
 export class CanvasManipulator {
     placeteam = null;
     mouseState = null;
+    placeteamwebsocket =null;
 
-    constructor(placeteam, mouseState) {
+    constructor(placeteam, mouseState, placeteamwebsocket) {
         this.placeteam = placeteam;
         this.mouseState = mouseState;
+        this.placeteamwebsocket = placeteamwebsocket;
     }
 
     SetPixel(x, y, color) {    
@@ -18,7 +20,13 @@ export class CanvasManipulator {
     // Place pixel on clicked part of canvas
     PlacePixelOnCanvas(event) {
         let mouseCoordinates = this.placeteam.getCoordinateslAtMouse(event);
-        this.SetPixel(mouseCoordinates.x, mouseCoordinates.y, this.placeteam.colors[this.placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid]);
+        let x=mouseCoordinates.x;
+        let y=mouseCoordinates.y;
+        let color=this.placeteam.colors[this.placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid];
+        if(this.placeteam.cooldown < 1){
+            this.placeteamwebsocket.Set(x,y,color);
+            this.SetPixel(x, y, color);
+        }        
     }
 
     GetCanvasWidthPercentageInt() {
