@@ -77,6 +77,12 @@ main {
 #range_zoom{
     width: 28px;
 }
+#infocontainer{
+    margin-left:2rem;
+    margin-top:2rem;
+    top:0;
+    left:0;
+}
 input[type="color"]{
     width:28px;
     height:28px;
@@ -155,4 +161,7 @@ input[type="range"][orient="vertical"] {
     #colorcontainer>div>:nth-child(7){
         display:none;
     }
+}
+a:link, a:visited{
+    color:white
 }
