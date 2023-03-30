@@ -55,7 +55,7 @@ export class MouseState {
 
     DisableContextMenuEvent() {
         //disable context menu for right click;
-        placeteam.canvas.addEventListener('contextmenu', (ev)=>{
+        this.placeteam.canvas.addEventListener('contextmenu', (ev)=>{
             ev.preventDefault(); // this will prevent browser default behavior 
         });
     }
