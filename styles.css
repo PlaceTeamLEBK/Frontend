@@ -163,5 +163,12 @@ input[type="range"][orient="vertical"] {
     }
 }
 a:link, a:visited{
-    color:white
+    color:black;
+    text-decoration: none;
 }
+html,body{
+    touch-action:none;
+}
+/* canvas{
+    touch-action:pan-x pan-y;
+} */
