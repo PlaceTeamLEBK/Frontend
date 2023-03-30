@@ -107,10 +107,10 @@ window.addEventListener("load", (event) => {
     }
 
     const placeteamWebSocket = new PlaceteamWebSocket(placeteam);
-    placeteamWebSocket.Init();
 
     const canvasManipulator = new CanvasManipulator(placeteam, mouseState, placeteamWebSocket);
     placeteamWebSocket.SetCanvasManipulator(canvasManipulator);
+    placeteamWebSocket.Init();
 
 
     const colorStorage = new ColorStorage(placeteam);

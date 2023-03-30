@@ -6,7 +6,6 @@ export class PlaceteamWebSocket {
 
     constructor(placeteam) {
         this.placeteam = placeteam;
-        
     }
 
     SetCanvasManipulator(canvasManipulator){
@@ -128,6 +127,7 @@ export class PlaceteamWebSocket {
                 // Event.code is usually 1006 in this case
                 console.log('[close] Connection died');
             }
+            _self.Init();
         };
         //
         this.webSocket.onerror = function(error) {
