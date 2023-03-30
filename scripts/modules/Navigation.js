@@ -28,7 +28,7 @@ export class Navigation {
             if(_self.mouseState.rightclickIsDown){
                 const mouseCoordinates = _self.placeteam.getCoordinateslAtMouse(event);
                 const rgbArray = _self.placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
-                _self.colorChanger.ChangeColor("#"+_self.placeteam.rgbToHex(rgbArray[0],rgbArray[1],rgbArray[2]), _self.placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
+                _self.colorChanger.ChangeColor("#"+_self.RgbToHex(rgbArray[0],rgbArray[1],rgbArray[2]), _self.placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
             }
         });
     }
@@ -79,5 +79,11 @@ export class Navigation {
     OffsetScrollToPixel = (x, y) => {
         const pixelSize = this.canvasManipulator.GetPixelSize();
         this.placeteam.mapcontainer.scrollTo(Math.ceil(pixelSize * x), Math.ceil(pixelSize * y));
+    }
+    
+    RgbToHex(r, g, b) {
+        if (r > 255 || g > 255 || b > 255)
+            throw "Invalid color component";
+        return ((r << 16) | (g << 8) | b).toString(16);
     }
 }
