@@ -32,7 +32,7 @@ export class PlaceteamWebSocket {
                     });
                 }
             }
-            this.BuildFromArray(test);
+            this.BuildFromArray(test.data);
         }
         else{
             this.LoadWebSocket();
