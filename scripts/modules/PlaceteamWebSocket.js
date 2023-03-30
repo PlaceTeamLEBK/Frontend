@@ -121,12 +121,20 @@ export class PlaceteamWebSocket {
         this.webSocket.onclose = function(event) {
             if (event.wasClean) {
                 console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+                _self.Init();
             } else {
                 // e.g. server process killed or network down
                 // Event.code is usually 1006 in this case
                 console.log('[close] Connection died');
+
+                // Attempt reconnection after a few seconds
+                setTimeout(
+                    function() {
+                    _self.Init();
+                    },
+                    5000
+                );
             }
-            _self.Init();
         };
         //
         this.webSocket.onerror = function(error) {
