@@ -18,7 +18,7 @@ window.addEventListener("load", (event) => {
     placeteam.minZoomPercentageMobile = 270;
     placeteam.minZoomPercentageTablet = 150;
     placeteam.minZoomPercentageDesktop = 100;
-    placeteam.maxZoom = 400;
+    placeteam.maxZoom = 600;
     placeteam.getParameterUpdateInterval = 1000;
 
     placeteam.tabletMediaQuery = window.matchMedia("(min-width: 756px)");
