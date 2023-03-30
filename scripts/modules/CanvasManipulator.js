@@ -1,12 +1,12 @@
 export class CanvasManipulator {
     placeteam = null;
     mouseState = null;
-    placeteamwebsocket =null;
+    placeteamWebSocket =null;
 
-    constructor(placeteam, mouseState, placeteamwebsocket) {
+    constructor(placeteam, mouseState, placeteamWebSocket) {
         this.placeteam = placeteam;
         this.mouseState = mouseState;
-        this.placeteamwebsocket = placeteamwebsocket;
+        this.placeteamWebSocket = placeteamWebSocket;
     }
 
     SetPixel(x, y, color) {    
@@ -24,7 +24,7 @@ export class CanvasManipulator {
         let y=mouseCoordinates.y;
         let color=this.placeteam.colors[this.placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid];
         if(this.placeteam.cooldown < 1){
-            this.placeteamwebsocket.Set(x,y,color);
+            this.placeteamWebSocket.Set(x,y,color);
             this.SetPixel(x, y, color);
         }        
     }
