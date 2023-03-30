@@ -13,8 +13,6 @@ window.addEventListener("load", (event) => {
     placeteam.zoomSpeed = 1.02;
     const maximumClickDownTimeToPlacePixel = 125;
 
-    const mouseState = new MouseState();
-
     placeteam.minZoomPercentageMobile = 270;
     placeteam.minZoomPercentageTablet = 150;
     placeteam.minZoomPercentageDesktop = 100;
@@ -45,37 +43,6 @@ window.addEventListener("load", (event) => {
         return {x:x,y:y};
     };
 
-    placeteam.canvas.addEventListener('mousedown', function(event) {
-
-        if(event.which == 1){//left click
-            mouseState.lastMouseDown = Date.now();   
-            mouseState.mouseIsDown = true;
-            placeteam.changeCanvasCursor('grab');
-        }
-        else if (event.which == 3){//right click   
-            mouseState.rightclickIsDown = true;
-           placeteam.changeCanvasCursor('crosshair');
-        }
-    });
-
-    placeteam.canvas.addEventListener('mouseup', function(event) {
-        if (Date.now() - mouseState.lastMouseDown < maximumClickDownTimeToPlacePixel) {
-            canvasManipulator.PlacePixelOnCanvas(event);
-        }
-        mouseState.mouseIsDown = false;
-        mouseState.rightclickIsDown = false;
-        placeteam.changeCanvasCursor();
-    });
-
-    //disable context menu for right click;
-    placeteam.canvas.addEventListener('contextmenu', (ev)=>{
-        ev.preventDefault(); // this will prevent browser default behavior 
-      });
-    //change cursor for canvas events, no argument resets cursor 
-    placeteam.changeCanvasCursor = (cursortype=null) => {
-        placeteam.canvas.style.cursor = cursortype;
-    };
-
     placeteam.setTimer = (cooldown) => {  
         var seconds = cooldown;
         clearInterval(placeteam.timerinterval);
@@ -95,12 +62,17 @@ window.addEventListener("load", (event) => {
         }
     }
 
+    const mouseState = new MouseState(placeteam);
+
     const placeteamWebSocket = new PlaceteamWebSocket(placeteam);
 
     const canvasManipulator = new CanvasManipulator(placeteam, mouseState, placeteamWebSocket);
+
+    mouseState.SetCanvasManipulator(canvasManipulator);
+    mouseState.SetEvents();
+
     placeteamWebSocket.SetCanvasManipulator(canvasManipulator);
     placeteamWebSocket.Init();
-
 
     const colorStorage = new ColorStorage(placeteam);
 
