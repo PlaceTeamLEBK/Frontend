@@ -135,7 +135,6 @@ export class PlaceteamWebSocket {
                     5000
                 );
             }
-
         };
         //
         this.webSocket.onerror = function(error) {
