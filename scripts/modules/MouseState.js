@@ -30,7 +30,7 @@ export class MouseState {
                 _self.ChangeCanvasCursor('grab');
             }
             else if (event.which == 3){//right click   
-                _self.mouseState.rightclickIsDown = true;
+                _self.rightclickIsDown = true;
                 _self.ChangeCanvasCursor('crosshair');
             }
         });
