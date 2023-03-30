@@ -44,8 +44,8 @@ export class PlaceteamWebSocket {
     // Called from socket once the pixels are recieved
     BuildFromArray(data) {
         // data.cooldown;
-        data.pixels.forEach((line, y) => {
-            line.forEach((pixel, x)  =>{
+        data.pixels.forEach((line, x) => {
+            line.forEach((pixel, y)  =>{
                 this.canvasManipulator.SetPixel(x, y, pixel)
             });
         });        
