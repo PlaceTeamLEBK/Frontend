@@ -75,13 +75,7 @@ window.addEventListener("load", (event) => {
     placeteam.changeCanvasCursor = (cursortype=null) => {
         placeteam.canvas.style.cursor = cursortype;
     };
-    document.addEventListener("fullscreenchange", () => {
-        if (document.fullscreenElement===null) {
-         placeteam.fullscreen=false;
-        } else {
-         placeteam.fullscreen=true;
-        }
-    });
+
     placeteam.setTimer = (cooldown) => {  
         var seconds = cooldown;
         clearInterval(placeteam.timerinterval);

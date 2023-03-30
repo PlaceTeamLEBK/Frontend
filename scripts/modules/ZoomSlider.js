@@ -60,7 +60,7 @@ export class ZoomSlider {
 
     SetSliderEvent() {
         let _self = this;
-        this.placeteam.rangezoom.addEventListener('input', function(event){
+        this.placeteam.rangezoom.addEventListener('input', function(event) {
             //console.log(event);
             _self.navigation.SetZoom(_self.placeteam.rangezoom.value);
         });
@@ -68,12 +68,20 @@ export class ZoomSlider {
 
     SetFullscreenEvent() {
         let _self = this;
-        document.getElementById("btn_fullscreen").addEventListener('click', function(event){
+        document.getElementById("btn_fullscreen").addEventListener('click', function(event) {
             if(!_self.placeteam.fullscreen){
                 document.documentElement.requestFullscreen();
             }
             else{
                 document.exitFullscreen();
+            }
+        });
+
+        document.addEventListener("fullscreenchange", function() {
+            if (document.fullscreenElement === null) {
+                placeteam.fullscreen = false;
+            } else {
+                placeteam.fullscreen = true;
             }
         });
     }
