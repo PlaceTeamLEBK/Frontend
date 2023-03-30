@@ -28,7 +28,7 @@ export class Navigation {
             if(_self.mouseState.rightclickIsDown){
                 const mouseCoordinates = _self.placeteam.getCoordinateslAtMouse(event);
                 const rgbArray = _self.placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
-                _self.colorChanger.ChangeColor("#"+_self.RgbToHex(rgbArray[0],rgbArray[1],rgbArray[2]), _self.placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
+                _self.colorChanger.ChangeColor(_self.RgbToHex(rgbArray[0],rgbArray[1],rgbArray[2]), _self.placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
             }
         });
     }
