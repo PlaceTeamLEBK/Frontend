@@ -21,10 +21,13 @@ function App() {
   const [mostUsedColors, setMostUsedColors] = React.useState<MostUsedColor[]>([]);
   const [mostActiveUsers, setMostActiveUsers] = React.useState<MostActiveUser[]>([]);
 
-  React.useEffect(() => {
+  function reloadStats():void {
     fetchMostUsedColor().then((colors) => setMostUsedColors(colors));
     fetchMostActiveUser().then((users) => setMostActiveUsers(users));
-  }, []);
+  }
+
+  reloadStats();
+
 
   return (
     <>
@@ -34,6 +37,11 @@ function App() {
       <div className='container'>
         <Chart title='Meist genutzte Farben' colors={mostUsedColors} />
         <PersonTable title='Nutzer' data={mostActiveUsers} />
+      </div>
+      <div className='container'>
+        <div className='unten'>
+        <button onClick={() => reloadStats()}>Neu Laden</button>
+        </div>
       </div>
     </>
   );
