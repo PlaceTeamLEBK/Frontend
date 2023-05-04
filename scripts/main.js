@@ -6,6 +6,7 @@ import { ColorChanger } from "./modules/ColorChanger.js";
 import { ZoomSlider } from "./modules/ZoomSlider.js";
 import { ColorStorage } from "./modules/ColorStorage.js";
 import { PlaceteamWebSocket } from "./modules/PlaceteamWebSocket.js";
+import { Intro } from "./modules/Intro.js";
 
 window.addEventListener("load", (event) => {
     const placeteam = {};
@@ -85,6 +86,9 @@ window.addEventListener("load", (event) => {
     zoomSlider.SetEvents();
 
     const positionStorage = new PositionStorage(placeteam, mouseState, navigation, canvasManipulator);
+
+    const Intro = new Intro(placeteam);
+    zoomSlider.startIntro();
 
     colorStorage.LoadColors();
     positionStorage.LoadPositionStorage();
