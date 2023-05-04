@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import  { Component } from 'react';
 import {MostActiveUser} from './Interfaces'
 
 interface PersonTableProps {
@@ -34,9 +34,7 @@ class PersonTable extends Component<PersonTableProps, PersonTableState> {
             {data.map((item, index) => (
               <tr key={index}>
                 <td>{index + 1}.</td>
-        
-                
-                <td>{item.count}</td>
+                <td>{item.activityScore}</td>
               </tr>
             ))}
           </tbody>
