@@ -61,8 +61,12 @@ window.addEventListener("load", (event) => {
             placeteam.status.classList.remove('hidden');
         }
     }
+    const colorStorage = new ColorStorage(placeteam);
 
-    const mouseState = new MouseState(placeteam);
+    const colorChanger = new ColorChanger(placeteam, colorStorage);
+    colorChanger.SetEvents();
+
+    const mouseState = new MouseState(placeteam,colorChanger);
 
     const placeteamWebSocket = new PlaceteamWebSocket(placeteam);
 
@@ -73,11 +77,6 @@ window.addEventListener("load", (event) => {
 
     placeteamWebSocket.SetCanvasManipulator(canvasManipulator);
     placeteamWebSocket.Init();
-
-    const colorStorage = new ColorStorage(placeteam);
-
-    const colorChanger = new ColorChanger(placeteam, colorStorage);
-    colorChanger.SetEvents();
 
     const navigation = new Navigation(placeteam, mouseState, canvasManipulator, colorChanger);
     navigation.SetEvents();

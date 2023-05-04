@@ -1,13 +1,15 @@
 export class MouseState {
     placeteam = null;
     canvasManipulator = null;
+    colorChanger = null;
 
     mouseIsDown = false;
     rightclickIsDown = false;
     lastMouseDown = 0;
 
-    constructor(placeteam) {
+    constructor(placeteam,colorChanger) {
         this.placeteam = placeteam;
+        this.colorChanger = colorChanger;
     }
 
     SetCanvasManipulator(canvasManipulator) {
@@ -33,9 +35,12 @@ export class MouseState {
                 _self.mouseIsDown = true;
                 _self.ChangeCanvasCursor('grab');
             }
-            else if (event.which == 3){//right click   
+            else if (event.which == 3){//right click                   
                 _self.rightclickIsDown = true;
-                _self.ChangeCanvasCursor('crosshair');
+                _self.ChangeCanvasCursor('crosshair');                
+                const mouseCoordinates = _self.placeteam.getCoordinateslAtMouse(event);
+                const rgbArray = _self.placeteam.ctx.getImageData(mouseCoordinates.x, mouseCoordinates.y, 1, 1).data; 
+                _self.colorChanger.ChangeColor(_self.RgbToHex(rgbArray[0],rgbArray[1],rgbArray[2]), _self.placeteam.colorcontainer.querySelector('.select .selected').dataset.colorid);
             }
         });
     }
@@ -54,6 +59,13 @@ export class MouseState {
     //change cursor for canvas events, no argument resets cursor 
     ChangeCanvasCursor(cursortype = null) {
         this.placeteam.canvas.style.cursor = cursortype;
+    }
+
+    RgbToHex(r, g, b) {
+        return '#' + [r, g, b].map(x => {
+            const hex = x.toString(16)
+            return hex.length === 1 ? '0' + hex : hex
+        }).join('');
     }
 
     DisableContextMenuEvent() {
