@@ -26,8 +26,7 @@ function App() {
     fetchMostActiveUser().then((users) => setMostActiveUsers(users));
   }
 
-  reloadStats();
-
+  
 
   return (
     <>
