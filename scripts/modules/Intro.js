@@ -5,7 +5,7 @@ export class Intro {
         this.placeteam = placeteam;
     }
     startIntro() {
-        if(localStorage.getItem("intro_played")=="false"){
+        if(localStorage.getItem("intro_played")!="true"){
             localStorage.setItem("intro_played", "true");
             document.querySelector('#statuscontainer').classList.toggle("hidden");
             introJs().setOptions({

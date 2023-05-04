@@ -87,8 +87,8 @@ window.addEventListener("load", (event) => {
 
     const positionStorage = new PositionStorage(placeteam, mouseState, navigation, canvasManipulator);
 
-    const Intro = new Intro(placeteam);
-    zoomSlider.startIntro();
+    const intro = new Intro(placeteam);
+    intro.startIntro();
 
     colorStorage.LoadColors();
     positionStorage.LoadPositionStorage();
