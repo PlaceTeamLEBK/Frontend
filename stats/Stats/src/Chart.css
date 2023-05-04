@@ -1,0 +1,143 @@
+#root {
+  background-color: #ff6347;
+  animation-name: changeColor;
+  animation-duration: 150s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  width: 100%;
+  height: 100vh;
+}
+
+@keyframes changeColor {
+  0% {
+    background-color: #ff6347;
+  }
+  6.67% {
+    background-color: #ff8c00;
+  }
+  13.33% {
+    background-color: #ffd700;
+  }
+  20% {
+    background-color: #32cd32;
+  }
+  26.67% {
+    background-color: #00bfff;
+  }
+  33.33% {
+    background-color: #800080;
+  }
+  40% {
+    background-color: #ff00ff;
+  }
+  46.67% {
+    background-color: #00ffff;
+  }
+  53.33% {
+    background-color: #7cfc00;
+  }
+  60% {
+    background-color: #00ff00;
+  }
+  66.67% {
+    background-color: #008080;
+  }
+  73.33% {
+    background-color: #ff1493;
+  }
+  80% {
+    background-color: #9400d3;
+  }
+  86.67% {
+    background-color: #8b0000;
+  }
+  93.33% {
+    background-color: #00fa9a;
+  }
+  100% {
+    background-color: #4682b4;
+  }
+}
+
+
+
+
+
+.container{
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+h1{
+  text-shadow: 2px 2px white;
+}
+
+.ueberschrift{
+ text-shadow: 3px 2px orange;
+}
+
+
+/* Stil für die Tabelle */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1rem;
+    border: 2px solid;
+    box-shadow: 6px 7px 11px 1px rgba(0,0,0,0.7);
+  }
+  
+  thead {
+    background-color: #ccc;
+
+  }
+  
+  th {
+    text-align: left;
+    padding: 0.5rem;
+    border-bottom: 2px solid;
+    border-right: 2px solid;
+  }
+  
+  td {
+    padding: 0.5rem;
+    border-right: 2px solid;
+  }
+
+  
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  tr:nth-child(odd){
+    background-color: white;
+  }
+
+  tr {
+    transition: background-color 0.5s;
+  }
+
+  tr:hover{
+    background-color: rgb(223, 222, 212);
+  }
+
+  td:first-child {
+    width: 1.5rem;
+    height: 3rem;
+  }
+
+table.color-table   td:nth-child(2) {
+  width: 3rem;
+  height: 3rem;
+  border: 2px solid #000;
+  transition: scale 0.5s box-shadow 0.5s;
+  box-shadow: 0px  ;
+}
+
+table.color-table   td:nth-child(2):hover {
+  scale: 1.5;
+}
+
+
+
