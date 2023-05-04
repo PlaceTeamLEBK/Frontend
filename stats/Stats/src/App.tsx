@@ -26,6 +26,9 @@ function App() {
     fetchMostActiveUser().then((users) => setMostActiveUsers(users));
   }
 
+  React.useEffect(() => {
+    reloadStats();
+  }, []);
   
 
   return (
@@ -39,7 +42,7 @@ function App() {
       </div>
       <div className='container'>
         <div className='unten'>
-        <button onClick={() => reloadStats()}>Neu Laden</button>
+        <button onClick={reloadStats}>Neu Laden</button>
         </div>
       </div>
     </>
