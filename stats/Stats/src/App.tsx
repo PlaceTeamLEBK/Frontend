@@ -32,7 +32,7 @@ function App() {
         <h1 className='ueberschrift'>Statistik</h1>
       </div>
       <div className='container'>
-        <Chart title='Most used Colors' colors={mostUsedColors} />
+        <Chart title='Meist genutzte Farben' colors={mostUsedColors} />
         <PersonTable title='Nutzer' data={mostActiveUsers} />
       </div>
     </>
