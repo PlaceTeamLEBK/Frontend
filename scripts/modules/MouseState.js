@@ -18,8 +18,12 @@ export class MouseState {
         this.SetMouseDownEvent()
         this.SetMouseUpEvent();
         this.DisableContextMenuEvent();
+        this.handleWindowLeave();
     }
 
+    handleWindowLeave(){
+        document.documentElement.addEventListener('mouseleave', () => _self.mouseIsDown = false);
+    }
     SetMouseDownEvent() {
         const _self = this;
         this.placeteam.canvas.addEventListener('mousedown', function(event) {
@@ -35,7 +39,6 @@ export class MouseState {
             }
         });
     }
-
     SetMouseUpEvent() {
         const _self = this;
         this.placeteam.canvas.addEventListener('mouseup', function(event) {
