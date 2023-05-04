@@ -24,7 +24,10 @@ export class MouseState {
     }
 
     handleWindowLeave(){
-        document.documentElement.addEventListener('mouseleave', () => _self.mouseIsDown = false);
+        document.documentElement.addEventListener('mouseleave', function(event){ 
+            const _self = this;
+            _self.mouseIsDown = false;
+        });
     }
     SetMouseDownEvent() {
         const _self = this;
