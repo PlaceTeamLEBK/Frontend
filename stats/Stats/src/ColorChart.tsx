@@ -22,9 +22,9 @@ class ColorTable extends Component<ColorTableProps, ColorTableState> {
           <thead>
             <tr>
               <th>Platz</th>
-              <th>Color</th>
+              <th>Farbe</th>
               <th>Hex-Code</th>
-              <th>Count</th>
+              <th>Anzahl</th>
             </tr>
           </thead>
           <tbody>

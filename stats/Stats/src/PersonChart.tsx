@@ -27,7 +27,7 @@ class PersonTable extends Component<PersonTableProps, PersonTableState> {
           <thead>
             <tr>
               <th>Platz</th>
-              <th>Count</th>
+              <th>Anzahl</th>
             </tr>
           </thead>
           <tbody>
