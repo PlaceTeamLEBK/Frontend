@@ -7,6 +7,7 @@ export class Intro {
     startIntro() {
         if(localStorage.getItem("intro_played")=="false"){
             localStorage.setItem("intro_played", "true");
+            document.querySelector('#statuscontainer').classList.toggle("hidden");
             introJs().setOptions({
                 steps: [{
                   title: 'Willkommen auf placeteam.art',
@@ -19,7 +20,7 @@ export class Intro {
                 },
                 {
                   title: 'Farbpalette',
-                  element: document.querySelector('.colorcontainer .select'),
+                  element: document.querySelector('#colorcontainer'),
                   intro: 'Dies ist die Palette mit verschiedenen Farbtönen, aus der ausgewählt werden kann, um damit zu malen.'
                 },
                 {
