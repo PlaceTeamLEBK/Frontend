@@ -34,7 +34,7 @@ class PersonTable extends Component<PersonTableProps, PersonTableState> {
             {data.map((item, index) => (
               <tr key={index}>
                 <td>{index + 1}.</td>
-                <td>{item.activityScore}</td>
+                <td>{item.count}</td>
               </tr>
             ))}
           </tbody>

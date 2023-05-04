@@ -4,6 +4,5 @@ export interface MostUsedColor {
   }
   
 export interface MostActiveUser {
-    username: string;
-    activityScore: number;
+    count: number;
   }
